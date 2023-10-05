@@ -10,9 +10,21 @@
 ## III. Daily StandUp
   Our regular StandUp schedule: **Tue/Thu 2pm EST, Friday 2pm EST**. 
 
-  Should there be any changes to the above schedule such as time change or 
-        additional standups, scrum master is to be informed no less than 24 hours
-        in-advance, otherwise the regular meeting schedule will be honored.
+  Should there be any changes to the above schedule such as time change or additional standups, scrum master is to be informed no less than 24 hours in-advance, otherwise the regular meeting schedule will be honored.
+
+   During daily standup meetings, every member needs to answer three questions:
+   - What have you done since last time?
+   - What are you doing now?
+   - Is there anything blocking your progress?
+     
+Scrum master records every member's progress and problems (answers to the above three questions) and post them on the daily standup channel on Discord.
         
+## IV. Rule of Contributing
+
+## V. Git Workflow
+
+## VI. Set Up Environment
+
+## VII. Build & Test the Project
 
 
