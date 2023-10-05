@@ -14,7 +14,7 @@ TBD--Instruction for how to set up and run this app.
 - Charlotte Ma: @
 
  #### Contribute to this project
- please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to track everyone's contribution.
+ please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
 
 
 
