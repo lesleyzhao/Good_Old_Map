@@ -11,7 +11,7 @@ TBD--Instruction for how to set up and run this app.
 - Tracy Zhang (Scrum Master): @
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
 - Richard Lee: @
-- Charlotte Ma: @
+- Charlotte Ma: rm5592 @[Charlotte Ma](https://github.com/Charlo-M)
 
  #### Contribute to this project
  please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
