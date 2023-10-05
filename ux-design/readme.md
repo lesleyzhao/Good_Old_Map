@@ -1,3 +1,7 @@
+# App Map
+
+![image](https://github.com/Charlo-M/4-final-project-teambaker/assets/75926255/398d9857-b803-48d1-af43-3ed57e144a13)
+
 # Wireframes
 
 ## mainMap
