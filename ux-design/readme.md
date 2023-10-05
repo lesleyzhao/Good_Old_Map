@@ -22,6 +22,7 @@ In thie page, user can read specific information about an artwork or a music. Us
 
 ## account
 This page is the portal for users to view and edit personal information. User can click to access all the art and music the liked. User can also further to the page to edit profile
+
 ![account](./wireframes/account.png)
 
 User can slide left or right on the pictures their favorite piece to view the previous or the next one.
