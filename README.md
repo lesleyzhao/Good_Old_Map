@@ -19,7 +19,9 @@ TBD--Instruction for how to set up and run this app.
 
 
 ## III. What and why?
-This is an engaging and educational map application, inspired by the scattered information about art history online. There is no a unified website to summarize all historical periods in art history, which posed challenge for art education. This application will allow users to explore random artwork and music in different historical time periods and regions across Europe. The user can select a year in the history, and the map will display corresponding geometric features at that time. When the user click on some location, the application will collect information online and display a random image of artwork and a soundtrack specific to the year and location. In this way, the user can gain a more comprehensive understanding of artworks and compositions relative to countries, time periods, and historical details.
+This is an engaging and educational map application, inspired by the scattered information about art history online. There is no a unified website to summarize all historical periods in art history, which posed challenge for art education. This application will allow users to explore random artwork and music in different historical time periods and regions across Europe. 
+
+The user can select a year in the history, and the map will display corresponding geometric features at that time. When the user click on some location, the application will collect information online and display a random image of artwork and a soundtrack specific to the year and location. In this way, the user can gain a more comprehensive understanding of artworks and compositions relative to countries, time periods, and historical details.
 
 #### Product Vision Statement: 
 GoodOldMap will be an one-stop educational map application enabling students and art lovers to learn different art movements via interactive map and exploration on random artwork across different time periods.
