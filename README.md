@@ -7,11 +7,11 @@ TBD--Instruction for how to set up and run this app.
 
 
 ## II.  Contributing Members
-- Nina Xiao (Product Owner): @
-- Tracy Zhang (Scrum Master): yz5835 (https://github.com/Ceiceiceii)
+- Nina Xiao (Product Owner): [@nina1o1](https://github.com/nina1o1)
+- Tracy Zhang (Scrum Master): [@yz5835](https://github.com/Ceiceiceii)
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
-- Richard Lee: cl5515 (https://github.com/lunnnnnn)
-- Charlotte Ma: rm5592 @[Charlotte Ma](https://github.com/Charlo-M)
+- Richard Lee: cl5515 [@Richard](https://github.com/lunnnnnn)
+- Charlotte Ma: rm5592 [@Charlotte Ma](https://github.com/Charlo-M)
 
  #### Contribute to this project
  please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
