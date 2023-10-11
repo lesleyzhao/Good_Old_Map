@@ -50,7 +50,8 @@ Please delete options that are not relevant.
 
 ### Testing
 
-      Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also         list any relevant details for your test configuration
+Please describe the tests that you ran to verify your changes.
+Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
 
 To resolve any merge conflicts, we recommend you to use rebase to resolve conflicts or simply use web merge conflicts editor.
 
