@@ -82,3 +82,4 @@ After entering a wrong combination of username and password, a notification will
 New user can register for a new account.
 
 ![register](./wireframes/register.png)
+

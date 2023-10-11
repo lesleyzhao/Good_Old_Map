@@ -8,9 +8,9 @@ TBD--Instruction for how to set up and run this app.
 
 ## II.  Contributing Members
 - Nina Xiao (Product Owner): @
-- Tracy Zhang (Scrum Master): @
+- Tracy Zhang (Scrum Master): yz5835 (https://github.com/Ceiceiceii)
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
-- Richard Lee: @
+- Richard Lee: cl5515 (https://github.com/lunnnnnn)
 - Charlotte Ma: rm5592 @[Charlotte Ma](https://github.com/Charlo-M)
 
  #### Contribute to this project
