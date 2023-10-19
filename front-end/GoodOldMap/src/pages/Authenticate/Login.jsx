@@ -1,11 +1,15 @@
 import './Login.css'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import AuthForm from './AuthForm'
 const Login = () => {
+  const [message, setMessage] = useState("")
   const inputFields = ["username", "password"]
+  // click to login
   const handleClick = (evt) => {
     evt.preventDefault()
-    alert("send data")
+    alert("login")
+    setMessage("error message if login failed")
   }
   return(
     <>
@@ -14,7 +18,7 @@ const Login = () => {
         header="Login" 
         inputFields={inputFields}
         handleClick={handleClick}
-        message="username or password is not correct"/>
+        message={message}/>
       <Link to="/register">Register</Link>
       </div>
     </>
