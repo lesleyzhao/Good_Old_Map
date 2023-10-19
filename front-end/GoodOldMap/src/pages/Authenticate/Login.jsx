@@ -1,10 +1,13 @@
 import './Login.css'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import AuthForm from './AuthForm'
+import AuthHeader from '../../components/form/authHeader'
+import { FormInputs } from '../../components/form/formInput'
+import FormBtn from '../../components/form/formBtn'
+
 const Login = () => {
   const [message, setMessage] = useState("")
-  const inputFields = ["username", "password"]
+  const fields = ["username", "password"]
   // click to login
   const handleClick = (evt) => {
     evt.preventDefault()
@@ -14,11 +17,11 @@ const Login = () => {
   return(
     <>
     <div>
-      <AuthForm 
-        header="Login" 
-        inputFields={inputFields}
-        handleClick={handleClick}
-        message={message}/>
+      <AuthHeader header="Login" message={message}/>
+      <form>
+        <FormInputs fields={fields}/>
+        <FormBtn handleClick={handleClick}/>
+      </form>
       <Link to="/register">Register</Link>
       </div>
     </>

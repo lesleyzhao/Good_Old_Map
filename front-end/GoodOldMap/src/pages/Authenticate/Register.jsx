@@ -1,10 +1,13 @@
 import './Register.css'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import AuthForm from './AuthForm'
+import AuthHeader from '../../components/form/authHeader'
+import { FormInputs } from '../../components/form/formInput'
+import FormBtn from '../../components/form/formBtn'
+
 const Register = () => {
   const [message, setMessage] = useState("")
-  const inputFields = ["username", "email", "password"]
+  const fields = ["username", "email", "password"]
   // click to register
   const handleClick = (evt) => {
     evt.preventDefault()
@@ -14,11 +17,11 @@ const Register = () => {
   return(
     <>
     <div>
-      <AuthForm 
-        header="Register"
-        inputFields={inputFields}
-        handleClick={handleClick}
-        message={message}/>
+      <AuthHeader header="Register" message={message}/>
+      <form>
+        <FormInputs fields={fields}/>
+        <FormBtn handleClick={handleClick}/>
+      </form>
       <Link to="/login">Login</Link>
       </div>
     </>
