@@ -1,4 +1,4 @@
-function FormBtn(props) {
+const FormBtn = (props) => {
   //props attribute: value
   return (
     <div>

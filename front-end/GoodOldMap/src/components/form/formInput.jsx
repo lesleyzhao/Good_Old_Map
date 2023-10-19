@@ -1,4 +1,4 @@
-function FormInput(props) {
+const FormInput = (props) => {
   //props attributes: id, placeholder
   return (
     <div>

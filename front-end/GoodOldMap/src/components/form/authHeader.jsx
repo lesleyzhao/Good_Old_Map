@@ -1,4 +1,4 @@
-function AuthHeader(props) {
+const AuthHeader = (props) => {
   // attributes: header
   // optional: message
   return(
