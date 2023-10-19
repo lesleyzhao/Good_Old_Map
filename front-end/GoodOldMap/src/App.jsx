@@ -4,6 +4,7 @@ import Account from './pages/Account/Account';
 import AccountEdit from './pages/AccountEdit/AccountEdit';
 import MainMap from './pages/MainMap/MainMap';
 import Login from './pages/Login/Login';
+import Error from './pages/Error/Error';
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="edit" element={<AccountEdit />} />
           </Route>
           <Route path="login" element={<Login />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </>

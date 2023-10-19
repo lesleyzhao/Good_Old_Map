@@ -1,3 +1,4 @@
+import './MainMap.css'
 const MainMap = () => {
   return(
     <>
