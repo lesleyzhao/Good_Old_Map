@@ -1,8 +1,8 @@
 const FormBtn = (props) => {
-  //props attribute: value
+  //attribute: value, handleClick
   return (
     <div>
-      <input type="submit" value={props?.value ?? "Submit"} />
+      <input type="submit" value={props?.value ?? "Submit"} onClick={props?.handleClick}/>
     </div>
   )
 }
