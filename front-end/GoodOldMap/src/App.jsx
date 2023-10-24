@@ -5,6 +5,7 @@ import MainMap from './pages/MainMap/MainMap';
 import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
+import AuthLayout from './pages/Authenticate/AuthLayout';
 
 const App = () => {
 
@@ -13,12 +14,14 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainMap />} />
-          <Route path="/account" >
+          <Route path="/account">
             <Route path="" element={<Account />}/>
             <Route path="edit" element={<AccountEdit />} />
           </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
           <Route path="/*" element={<Error />} />
         </Routes>
       </BrowserRouter>

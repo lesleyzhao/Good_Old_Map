@@ -14,7 +14,6 @@ const Register = () => {
   }
   return(
     <>
-    <div className='w-[60%] m-auto'>
       <AuthHeader header="Register" message={message}/>
       <form>
         <FormInputs fields={fields}/>
@@ -24,7 +23,6 @@ const Register = () => {
       </form>
       <div className='mt-2'>
         <PageLink to="/login" value="Login"/>
-      </div>
       </div>
     </>
   )

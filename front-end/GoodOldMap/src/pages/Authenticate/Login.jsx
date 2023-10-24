@@ -20,7 +20,6 @@ const Login = () => {
   }
   return(
     <>
-    <div className='w-[60%] m-auto'>
       <AuthHeader header="Login" message={message}/>
       <form>
         <FormInputs fields={fields}/>
@@ -32,7 +31,6 @@ const Login = () => {
       <div className='mt-2'>
         <PageLink to="/register" value="Register"/>
         <PageLink to="/login" value="Forget Password"/>
-      </div>
       </div>
     </>
   )
