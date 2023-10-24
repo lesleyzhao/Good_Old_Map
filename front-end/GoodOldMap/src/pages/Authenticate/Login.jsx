@@ -1,7 +1,7 @@
-import './Login.css'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { redirect } from 'react-router-dom'
 import AuthHeader from '../../components/form/authHeader'
+import PageLink from '../../components/page/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
 
@@ -11,18 +11,28 @@ const Login = () => {
   // click to login
   const handleClick = (evt) => {
     evt.preventDefault()
-    alert("login")
     setMessage("error message if login failed")
+  }
+  // TODO: redirect function not working
+  const handleGuest = (evt) => {
+    evt.preventDefault()
+    redirect("/")
   }
   return(
     <>
-    <div>
+    <div className='w-[60%] m-auto'>
       <AuthHeader header="Login" message={message}/>
       <form>
         <FormInputs fields={fields}/>
-        <FormBtn handleClick={handleClick}/>
+        <div className='mt-2'>
+          <FormBtn handleClick={handleClick}/>
+          <FormBtn value="Guest Visit" handleClick={handleGuest}/>
+        </div>
       </form>
-      <Link to="/register">Register</Link>
+      <div className='mt-2'>
+        <PageLink to="/register" value="Register"/>
+        <PageLink to="/login" value="Forget Password"/>
+      </div>
       </div>
     </>
   )
