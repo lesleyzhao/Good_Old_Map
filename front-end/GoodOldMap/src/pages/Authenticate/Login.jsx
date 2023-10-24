@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { redirect } from 'react-router-dom'
 import AuthHeader from '../../components/form/authHeader'
-import PageLink from '../../components/page/pageLink'
+import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
 

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css'
 import Account from './pages/Account/Account';
 import AccountEdit from './pages/AccountEdit/AccountEdit';
 import MainMap from './pages/MainMap/MainMap';

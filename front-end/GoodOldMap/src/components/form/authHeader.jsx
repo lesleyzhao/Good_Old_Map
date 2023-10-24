@@ -1,4 +1,3 @@
-import "./authHeader.css"
 const AuthHeader = (props) => {
   // attributes: header
   // optional: message
