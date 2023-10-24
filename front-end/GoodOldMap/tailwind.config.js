@@ -7,7 +7,14 @@ export default {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "beige1":"#F8F0E5",
+        "beige2":"#EADBC8",
+        "beige3":"#DAC0A3",
+        "navyBlue":"#0F2C59",
+      },
+    },
   },
   plugins: [],
 }
