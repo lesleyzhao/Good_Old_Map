@@ -1,8 +1,11 @@
+import "./formInput.css"
+import tailwindConfig from "../../../tailwind.config"
 const FormInput = (props) => {
   // attributes: id, placeholder
   return (
     <div>
-      <input type="text" id={props?.id} placeholder={props?.placeholder}/>
+      <input className="w-full"
+      type="text" id={props?.id} placeholder={props?.placeholder}/>
     </div>
   )
 }
