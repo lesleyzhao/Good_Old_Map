@@ -6,6 +6,7 @@
   * {
     font-size: 1rem;
     color: theme("colors.navyBlue");
+    font-family: 'Lora', serif;
   }
   h1 {
     font-size: 2rem;
