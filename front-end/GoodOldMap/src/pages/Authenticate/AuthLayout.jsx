@@ -9,7 +9,7 @@ const AuthLayout = () => {
       <NavBar>
         <Logo />
       </NavBar>
-      <div className='w-[60%] m-auto'>
+      <div className='w-[60%] m-auto z-10'>
         <Outlet />
       </div>
     </div>
