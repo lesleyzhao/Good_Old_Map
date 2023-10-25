@@ -1,18 +1,15 @@
 import { redirect } from "react-router-dom"
 const Logo = () => {
   const handleClick = (evt) => {
+    evt.stopPropagation();
     // TODO: redirect not working
     redirect("/")
   }
   return (
     <>
-    {/* TODO: width too large for desktop */}
-      {/* Reference: <a href="https://www.flaticon.com/free-icons/map" title="map icons">Map icons created by Freepik - Flaticon</a> */}
-      <div className="absolute m-[10%] hover:cursor-pointer"
-        onClick={handleClick}>
-        <img className="w-12"
-          src="/maplogo.png" alt="maplogo"/>
-      </div>
+    {/* TODO: margin-top too large for desktop */}
+    {/* Reference: <a href="https://www.flaticon.com/free-icons/map" title="map icons">Map icons created by Freepik - Flaticon</a> */}
+    <img className="w-11 hover:cursor-pointer" src="/maplogo.png" alt="maplogo" onClick={handleClick}/>
     </>
   )
 }

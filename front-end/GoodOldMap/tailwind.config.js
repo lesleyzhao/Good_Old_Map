@@ -14,7 +14,7 @@ export default {
         "beige3": "#DAC0A3",
         "navyBlue": "#0F2C59",
       },
-      percentage: {
+      spacing: {
         "80%": "80%",
         "90%": "90%",
         "10%": "10%",
