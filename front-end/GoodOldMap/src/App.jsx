@@ -18,6 +18,7 @@ const App = () => {
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/*" element={<Error />} />
           </Route>
           {/* TODO: add params: /info/:pieceInfo */}
           <Route path="/info" element={<InfoDetail/>}/>
@@ -25,7 +26,6 @@ const App = () => {
             <Route path="" element={<Account />}/>
             <Route path="edit" element={<AccountEdit />} />
           </Route>
-          <Route path="/*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </>
