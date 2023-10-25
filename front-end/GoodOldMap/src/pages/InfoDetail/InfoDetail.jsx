@@ -13,12 +13,11 @@ const InfoDetail = () => {
 
   return (
     <>
-    {/* TODO: add back button, forward button, image */}
       <div className="min-h-screen flex flex-col">
-          <NavBar>
-            <img className="w-11 h-11" src="/back.png" alt="back"/>
-            <RightBtn handleRightClick={handleRightClick}/>
-          </NavBar>
+        <NavBar>
+          <img className="w-11 h-11" src="/back.png" alt="back"/>
+          <RightBtn handleRightClick={handleRightClick}/>
+        </NavBar>
         <div className="w-[80%] mb-[10%] mx-auto">
           <div className="mt-4">
             <h1>{props.header}</h1>

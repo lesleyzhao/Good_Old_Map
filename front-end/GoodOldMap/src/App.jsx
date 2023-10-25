@@ -7,6 +7,7 @@ import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
 import InfoDetail from './pages/InfoDetail/InfoDetail';
 import AuthLayout from './pages/Authenticate/AuthLayout';
+import AccountLayout from './pages/Account/AccountLayout';
 
 const App = () => {
 
@@ -22,7 +23,7 @@ const App = () => {
           </Route>
           {/* TODO: add params: /info/:pieceInfo */}
           <Route path="/info" element={<InfoDetail/>}/>
-          <Route path="/account">
+          <Route path="/account" element={<AccountLayout />}>
             <Route path="" element={<Account />}/>
             <Route path="edit" element={<AccountEdit />} />
           </Route>
