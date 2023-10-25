@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const NavBar = ({children}) => {
-  // nave bar has fiexed size of 15% + 2.75rem
-  // TODO: add calc(15%+2.75rem) to config file
+  // nave bar has fiexed size of 3vh + 3rem
+  // TODO: add calc(3vh+3rem) to config file
   const [navHidden, setNavHidden] = useState("")
   let lastScrollY = window.scrollY;
   window.addEventListener("scroll", () => {
@@ -12,7 +12,7 @@ const NavBar = ({children}) => {
   })
   return (
     <>
-    <nav className={`bg-white fixed py-[10%] pb-[5%] px-[10%] w-full duration-700 ${navHidden}`}>
+    <nav className={`bg-white fixed pt-[2vh] pb-[1vh] px-[10%] w-full duration-700 ${navHidden}`}>
       <div className="flex flex-row justify-between">
         {children}
       </div>
