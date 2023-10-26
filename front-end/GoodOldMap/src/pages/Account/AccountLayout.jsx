@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../../components/common/navBar"
+import LeftBtn from "../../components/common/leftBtn"
 const AccountLayout = () => {
   return (
     <>
     <div className="min-h-screen flex flex-col">
       <NavBar relative="1">
-        <img className="w-11 h-11" src="/back.png" alt="back"/>
+        <LeftBtn />
       </NavBar>
       <div className='w-[80%] mb-[10%] mx-auto'>
         <Outlet />

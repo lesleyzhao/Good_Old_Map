@@ -1,5 +1,6 @@
 import NavBar from "../../components/common/navBar";
 import RightBtn from "../../components/common/rightBtn";
+import LeftBtn from "../../components/common/leftBtn";
 const InfoDetail = () => {
   // parameters: pic, header, subtitle(string array), parag
   let props = {};
@@ -16,7 +17,7 @@ const InfoDetail = () => {
     <>
       <div className="min-h-screen flex flex-col">
         <NavBar>
-          <img className="w-11 h-11" src="/back.png" alt="back"/>
+          <LeftBtn />
           <RightBtn handleRightClick={handleRightClick}/>
         </NavBar>
         <div className="max-h-[80vh] max-w-full m-auto flex">
