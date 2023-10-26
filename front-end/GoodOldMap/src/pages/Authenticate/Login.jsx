@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { redirect } from 'react-router-dom'
 import AuthHeader from '../../components/form/authHeader'
 import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
@@ -13,18 +12,14 @@ const Login = () => {
     evt.preventDefault();
     setMessage("error message if login failed");
   }
-
-
+  
   // if user click guest visit redirect to main map
   const handleGuest = (evt) => {
     evt.preventDefault()
     // pop up alert: confirm guest visit
     const continueGuest  = window.confirm('Guest visit will not save your data, continue?');
-    if (continueGuest) {
-      window.location.href = "/";
-    }
+    if (continueGuest) window.location.href = "/";
   }
-
 
   return(
     <>

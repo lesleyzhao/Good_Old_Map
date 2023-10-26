@@ -1,9 +1,6 @@
-import { redirect } from "react-router-dom"
 const Logo = () => {
   const handleClick = (evt) => {
     evt.stopPropagation();
-    
-    // redirect back to the main page
     window.location.href = "/";
   }
   return (

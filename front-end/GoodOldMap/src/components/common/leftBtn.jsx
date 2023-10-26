@@ -1,8 +1,6 @@
 const LeftBtn = () => {
   const handleClick = (evt) => {
     evt.stopPropagation();
-    
-    // go to the last page user visited
     window.history.back();
   }
   return (
