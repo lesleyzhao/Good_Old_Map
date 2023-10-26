@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom"
 const Logo = () => {
-  const navigte = useNavigate();
   const handleClick = (evt) => {
-    evt.stopPropagation()
-    navigte("/")
+    evt.stopPropagation();
+    window.location.href = "/";
   }
   return (
     <>

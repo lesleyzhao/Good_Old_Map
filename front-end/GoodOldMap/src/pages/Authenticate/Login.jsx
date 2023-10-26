@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import AuthHeader from '../../components/form/authHeader'
 import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
@@ -8,16 +7,20 @@ import FormBtn from '../../components/form/formBtn'
 const Login = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "password"]
-  const navigate = useNavigate();
   // click to login
   const handleClick = (evt) => {
-    evt.preventDefault()
-    setMessage("error message if login failed")
+    evt.preventDefault();
+    setMessage("error message if login failed");
   }
+  
+  // if user click guest visit redirect to main map
   const handleGuest = (evt) => {
     evt.preventDefault()
-    navigate("/")
+    // pop up alert: confirm guest visit
+    const continueGuest  = window.confirm('Guest visit will not save your data, continue?');
+    if (continueGuest) window.location.href = "/";
   }
+
   return(
     <>
       <AuthHeader header="Login" message={message}/>
