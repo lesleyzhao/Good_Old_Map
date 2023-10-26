@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 const Logo = () => {
   const handleClick = (evt) => {
-    evt.stopPropagation();
-    window.location.href = "/";
+    const navigte = useNavigate();
+    const handleClick = (evt) => {
+      evt.stopPropagation()
+      navigte("/")
+    }
   }
   return (
     <>

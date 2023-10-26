@@ -1,7 +1,13 @@
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 const LeftBtn = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  // naviagte to previous page via state={from: pathName} property passed to the Link
   const handleClick = (evt) => {
     evt.stopPropagation();
-    window.history.back();
+    navigate(location?.state?.from);
   }
   return (
     <>

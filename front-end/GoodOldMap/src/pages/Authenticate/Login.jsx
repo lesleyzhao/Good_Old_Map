@@ -3,10 +3,12 @@ import AuthHeader from '../../components/form/authHeader'
 import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "password"]
+  const navigate = useNavigate();
   // click to login
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -18,7 +20,10 @@ const Login = () => {
     evt.preventDefault()
     // pop up alert: confirm guest visit
     const continueGuest  = window.confirm('Guest visit will not save your data, continue?');
-    if (continueGuest) window.location.href = "/";
+    if (continueGuest) {
+      navigate("/");  // Adjust this path as necessary
+    }
+      
   }
 
   return(
