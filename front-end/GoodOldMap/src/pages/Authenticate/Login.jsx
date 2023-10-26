@@ -10,14 +10,22 @@ const Login = () => {
   const fields = ["username", "password"]
   // click to login
   const handleClick = (evt) => {
-    evt.preventDefault()
-    setMessage("error message if login failed")
+    evt.preventDefault();
+    setMessage("error message if login failed");
   }
-  // TODO: redirect function not working
+
+
+  // if user click guest visit redirect to main map
   const handleGuest = (evt) => {
     evt.preventDefault()
-    redirect("/")
+    // pop up alert: confirm guest visit
+    const continueGuest  = window.confirm('Guest visit will not save your data, continue?');
+    if (continueGuest) {
+      window.location.href = "/";
+    }
   }
+
+
   return(
     <>
       <AuthHeader header="Login" message={message}/>

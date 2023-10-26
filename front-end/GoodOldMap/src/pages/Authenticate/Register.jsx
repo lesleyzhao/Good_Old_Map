@@ -7,6 +7,7 @@ import FormBtn from '../../components/form/formBtn'
 const Register = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "email", "password"]
+  
   // click to register
   const handleClick = (evt) => {
     evt.preventDefault()
