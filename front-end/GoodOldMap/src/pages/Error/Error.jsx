@@ -1,8 +1,9 @@
-import './Error.css'
+import PageLink from "../../components/common/pageLink"
 const Error = () => {
   return(
     <>
-    404 Not Found
+      <h1 className="w-full">404 Not Found</h1>
+      <PageLink to="/" value="Go back to main page"/>
     </>
   )
 }

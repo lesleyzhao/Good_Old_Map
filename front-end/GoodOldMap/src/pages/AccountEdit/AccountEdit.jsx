@@ -1,4 +1,3 @@
-import './AccountEdit.css'
 const AccountEdit = () => {
   return(
     <>

@@ -1,10 +1,14 @@
-import "./formBtn.css"
 const FormBtn = (props) => {
   //attribute: value, handleClick
   return (
-    <div>
-      <input className="border-solid border-2 border-black rounded-lg py-2 w-full"
-      type="submit" value={props?.value ?? "Submit"} onClick={props?.handleClick}/>
+    <div className="w-full py-2">
+      <button className="rounded-lg py-2 w-full
+        border-solid border-2 border-navyBlue bg-navyBlue text-beige1
+        hover:cursor-pointer
+        active:cursor-pointer active:bg-white active:text-navyBlue"
+        onClick={props?.handleClick}>
+          {props?.value ?? "Submit"}
+        </button>
     </div>
   )
 }

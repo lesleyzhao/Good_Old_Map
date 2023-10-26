@@ -1,6 +1,5 @@
-import './Register.css'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import PageLink from '../../components/common/pageLink'
 import AuthHeader from '../../components/form/authHeader'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
@@ -11,18 +10,19 @@ const Register = () => {
   // click to register
   const handleClick = (evt) => {
     evt.preventDefault()
-    alert("register")
     setMessage("error message if register fails")
   }
   return(
     <>
-    <div>
       <AuthHeader header="Register" message={message}/>
       <form>
         <FormInputs fields={fields}/>
-        <FormBtn handleClick={handleClick}/>
+        <div className='mt-2'>
+          <FormBtn handleClick={handleClick}/>
+        </div>
       </form>
-      <Link to="/login">Login</Link>
+      <div className='mt-2'>
+        <PageLink to="/login" value="Login"/>
       </div>
     </>
   )
