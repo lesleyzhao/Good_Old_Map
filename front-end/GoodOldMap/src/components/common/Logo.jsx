@@ -1,9 +1,9 @@
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 const Logo = () => {
+  const navigte = useNavigate();
   const handleClick = (evt) => {
-    evt.stopPropagation();
-    // TODO: redirect not working
-    redirect("/")
+    evt.stopPropagation()
+    navigte("/")
   }
   return (
     <>
