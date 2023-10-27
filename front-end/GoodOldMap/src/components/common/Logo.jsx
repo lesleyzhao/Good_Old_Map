@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom"
 
 const Logo = () => {
+  const navigate = useNavigate();
   const handleClick = (evt) => {
-    const navigte = useNavigate();
-    const handleClick = (evt) => {
-      evt.stopPropagation()
-      navigte("/")
+    evt.stopPropagation()
+    navigate("/")
     }
-  }
   return (
     <>
     {/* Reference: <a href="https://www.flaticon.com/free-icons/map" title="map icons">Map icons created by Freepik - Flaticon</a> */}
