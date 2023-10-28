@@ -9,7 +9,7 @@ const AccountEdit = () => {
 
   const handleAction = (action) => {
     let fields = []; // This will hold the ids/placeholder names of the inputs to the component FormInputs
-    let title = "";
+    let title = "change";
     
     switch (action) {
       case 'changePassword':
