@@ -12,7 +12,7 @@ const FormInput = (props) => {
 }
 
 const FormInputs = (props) => {
-  // attrobute: array of fields
+  // attribute: array of fields
   return (
     props?.fields?.map(field => 
       <FormInput type={field == "password" ? "password" : ""}
@@ -20,5 +20,12 @@ const FormInputs = (props) => {
   )
 }
 
+const FormInputsPopup = (props) =>{
+  return (
+    props?.fields?.map((field, i) => 
+      <FormInput type={field?.type} id={field?.id} placeholder={field?.placeholder} key={i}/>)
+  )
+}
+
 export default FormInput
-export {FormInputs}
+export {FormInputs, FormInputsPopup}
