@@ -2,26 +2,28 @@ import { FormInputsPopup } from "../form/formInput";
 import { FormBtns } from "../form/formBtn";
 
 function PopupContent(props){
-    // props: title, inputs(array of input objects), buttons (array of button objects)
+
     return (
-        <>
-        {/* TODO: center of the whole screen, z-index largest */}
-        <div>
-            <div className="w-[60%] py-8 m-auto border">
-                <div className="px-8">
-                    <h3>{props?.title}</h3>
-                    <form>
+        // dark background
+        <div 
+            className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50" onClick={() => {props.onClose()}}>   
+            {/* white popup container: */}
+            <div className="bg-white rounded-lg shadow-xl"> 
+               
+                <div className="p-8">
+                    {/* content area */}
+                    <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
+                    <form className="space-y-4">
                         <FormInputsPopup inputs={props?.inputs}/>
-                        <div className="flex flex-row gap-2">
+                        <div className="flex flex-row gap-2 justify-end"> {/* Adjust button positioning as needed */}
                             <FormBtns buttons={props?.buttons}/>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        </>
-    )
-
+    );
 }
+
 
 export default PopupContent
