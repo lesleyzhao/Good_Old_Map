@@ -21,6 +21,7 @@ const FormInputs = (props) => {
 }
 
 const FormInputsPopup = (props) =>{
+  // array of input objects (fields): type, id, placeholder
   return (
     props?.fields?.map((field, i) => 
       <FormInput type={field?.type} id={field?.id} placeholder={field?.placeholder} key={i}/>)
