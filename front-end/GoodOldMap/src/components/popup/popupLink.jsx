@@ -3,7 +3,7 @@ function PopupLink(props){
     return (
         <>
             <div className='w-full text-center py-2 underline'>
-                <p onClick={handleClick}>{props.value}</p>
+                <p onClick={props?.handleClick}>{props?.value}</p>
             </div>
         </>
     )
