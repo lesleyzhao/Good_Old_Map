@@ -65,3 +65,5 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
    - We use React as the front-end, so when you want to build the project, open the terminal and type npm -start. Make sure to copy paste the localhost and the corresponding port website to your browser. 
 
 
+# Guide to Contributing
+Delete the contents of this file and replace with the contents of a proper guide to contributing to this project, as described in the [instructions](./instructions.md)
