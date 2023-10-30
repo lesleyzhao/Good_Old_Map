@@ -7,7 +7,7 @@ function PopupContent(props){
     // dark background
     <div 
       className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" 
-      onClick={() => {props.onClose()}}>   
+      onClick={() => {props.handleClick()}}>   
       {/* white popup container: */}
       <div className="bg-white rounded-lg shadow-xl w-[80%]">
         <div className="p-8">
