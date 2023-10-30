@@ -13,4 +13,20 @@ const FormBtn = (props) => {
   )
 }
 
+const FormBtns = (props) =>  {
+  /* props: array of object (buttons)
+    {"value": "str",
+     "handleClick": function
+    }
+  */
+  return (
+    props?.buttons?.map((button, i) => {
+      return(
+        <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
+      )
+    })
+  )
+}
+
 export default FormBtn
+export {FormBtns}

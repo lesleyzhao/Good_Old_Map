@@ -1,3 +1,9 @@
+
+import React from "react"
+import AccountLayout from "./AccountLayout";
+import { Link } from "react-router-dom";
+import PopupLink from '../../components/popup/popupLink';
+
 const Account = () => {
   // parameters: pic, username, email,
   let props = {};
@@ -20,7 +26,9 @@ const Account = () => {
           Edit Account
           </button>
         </Link>
+
         <Link to="favoritelist">
+
           <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
           My Fav
           </button>
@@ -30,5 +38,4 @@ const Account = () => {
     </div>
   )
 }
-
 export default Account

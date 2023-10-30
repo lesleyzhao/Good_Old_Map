@@ -1,20 +1,11 @@
-<<<<<<< Updated upstream
-const AccountEdit = () => {
-  return(
-    <>
-    edit page
-    </>
-  )
-}
 
-export default AccountEdit
-=======
 import React, { useState } from 'react';
 import PopupLink from '../../components/popup/popupLink';
 import PopupContent from '../../components/popup/popupContent';
 
 
 const AccountEdit = () => {
+
   const [currentActionData, setCurrentActionData] = useState(null);
 
   //TO DO for Richard: send data to backend
@@ -129,4 +120,4 @@ const AccountEdit = () => {
 };
 
 export default AccountEdit;
->>>>>>> Stashed changes
+
