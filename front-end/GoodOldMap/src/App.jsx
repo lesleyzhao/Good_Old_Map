@@ -8,6 +8,7 @@ import Error from './pages/Error/Error';
 import InfoDetail from './pages/InfoDetail/InfoDetail';
 import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
+import Favorite from './pages/FavoriteList/Favorite';
 
 const App = () => {
 
@@ -23,9 +24,10 @@ const App = () => {
           </Route>
           {/* TODO: add params: /info/:pieceInfo */}
           <Route path="/info" element={<InfoDetail/>}/>
-          <Route path="/account" element={<AccountLayout />}>
-            <Route path="" element={<Account />}/>
-            <Route path="edit" element={<AccountEdit />} />
+          <Route path="" element={<AccountLayout />}>
+           <Route path="/favorite" element={<Favorite />}/>
+            <Route path="/account" element={<Account />}/>
+            <Route path="/edit" element={<AccountEdit />} />
           </Route>
         </Routes>
       </BrowserRouter>
