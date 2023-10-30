@@ -15,7 +15,10 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainMap />} />
+          
+          <Route element={<MapLayout />}>
+            <Route path="/" element={<MainMap />} />
+          </Route>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -27,6 +30,7 @@ const App = () => {
             <Route path="" element={<Account />}/>
             <Route path="edit" element={<AccountEdit />} />
           </Route>
+          
         </Routes>
       </BrowserRouter>
     </>
