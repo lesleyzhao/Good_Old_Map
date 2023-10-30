@@ -3,7 +3,7 @@ const FormInput = (props) => {
   // optional: type
   return (
     <div className="w-full py-1">
-      <input className="w-full py-2 px-3
+      <input className="w-full py-2 text-center
         border-solid border-2 border-navyBlue rounded-lg
         placeholder:text-center placeholder:text-gray-400"
       type={props?.type ?? "text"} id={props?.id} placeholder={props?.placeholder}/>
