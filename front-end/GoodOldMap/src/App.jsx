@@ -24,11 +24,14 @@ const App = () => {
           </Route>
           {/* TODO: add params: /info/:pieceInfo */}
           <Route path="/info" element={<InfoDetail/>}/>
-          <Route path="" element={<AccountLayout />}>
-           <Route path="/favorite" element={<Favorite />}/>
-            <Route path="/account" element={<Account />}/>
-            <Route path="/edit" element={<AccountEdit />} />
+          
+          <Route element={<AccountLayout />}>
+            <Route path="/account" element={<Account />}>
+              <Route path="favorite" element={<Favorite />}/>
+              <Route path="edit" element={<AccountEdit />} />
+            </Route>
           </Route>
+          
         </Routes>
       </BrowserRouter>
     </>
