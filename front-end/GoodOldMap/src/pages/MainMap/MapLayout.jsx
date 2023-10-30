@@ -6,7 +6,7 @@ const MapLayout = () => {
     <>
     <div className="h-screen flex flex-col">
       <nav className="py-[2vh] px-[5%] w-full bg-white flex flex-row justify-between">
-        {/* TODO: search bar and user img goes here, below is sample search bar*/}
+        {/* TODO: search bar and user img goes here, below is sample search*/}
         <FormInput placeholder="search for city"/> 
         {/* TODO: timeline goes here */}
       </nav>

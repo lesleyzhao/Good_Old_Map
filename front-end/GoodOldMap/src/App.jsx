@@ -11,7 +11,6 @@ import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
-
   return (
     <>
       <BrowserRouter>

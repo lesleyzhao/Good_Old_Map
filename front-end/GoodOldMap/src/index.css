@@ -20,7 +20,9 @@
 }
 
 @layer components {
-
+  .mapContainer {
+    height: 100%;
+  }
 }
 
 @layer utilities {
