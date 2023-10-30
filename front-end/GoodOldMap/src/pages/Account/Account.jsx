@@ -13,19 +13,19 @@ const Account = () => {
   return(
     <div>    
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <Link to="/ChangeProfilePic">
+        <Link to="changeProfilePic">
           <img className="w-32 h-32 rounded-full object-cover cursor-pointer" src={props.pic} alt="profile picture" />
           </Link>
 
         <h1 className="text-2xl font-bold mt-4">{props.username}</h1>
         <p className="text-gray-500">{props.email}</p>
         {/* Add a button that redirects to another place */}
-        <Link to="/edit">
+        <Link to="edit">
           <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
           Edit Account
           </button>
         </Link>
-        <Link to="/Favorite">
+        <Link to="favorite">
           <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
           My Fav
           </button>

@@ -92,6 +92,10 @@ const AccountEdit = () => {
       console.error(error)
     }
   };
+  const handleClose = (evt) => {
+    evt.stopPropagation()
+    if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
+  }
   
   //Return the AccountEdit component
   return (
@@ -106,7 +110,7 @@ const AccountEdit = () => {
             title={currentActionData.title}
             inputs={currentActionData.inputs}
             buttons={currentActionData.buttons}
-            handleClick = {() => {setCurrentActionData(null)}}
+            handleClick = {handleClose}
           />}
 
     </div>

@@ -6,17 +6,20 @@ import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
 import InfoDetail from './pages/InfoDetail/InfoDetail';
+import Favorite from './pages/FavoriteList/Favorite';
 import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
-import Favorite from './pages/FavoriteList/Favorite';
-
+import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainMap />} />
+          
+          <Route element={<MapLayout />}>
+            <Route path="/" element={<MainMap />} />
+          </Route>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -25,11 +28,10 @@ const App = () => {
           {/* TODO: add params: /info/:pieceInfo */}
           <Route path="/info" element={<InfoDetail/>}/>
           
-          <Route element={<AccountLayout />}>
-            <Route path="/account" element={<Account />}>
-              <Route path="favorite" element={<Favorite />}/>
-              <Route path="edit" element={<AccountEdit />} />
-            </Route>
+          <Route path="/account" element={<AccountLayout />}>
+            <Route path="" element={<Account />} />
+            <Route path="favorite" element={<Favorite />}/>
+            <Route path="edit" element={<AccountEdit />} />
           </Route>
           
         </Routes>
