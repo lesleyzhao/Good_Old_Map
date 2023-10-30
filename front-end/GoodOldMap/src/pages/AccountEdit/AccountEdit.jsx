@@ -97,20 +97,21 @@ const AccountEdit = () => {
   return (
     <div>
         {/* TO DO: add image profile, add username, add user email */}
-
         {formKeys.map((key, i)  => 
         <PopupLink value={formData[key]["title"]} handleClick={() => handleAction(key)} key={i}/>)}
         <PopupLink value={"Delete Account"} handleClick ={() => handleAction("deleteAccount")}/>
         {/* TO DO: add logout link below*/}
         {/* <PageLink to={} from={} value={}/> */}
 
-        {isPopupOpen && currentActionData && 
-        <PopupContent 
-          title={currentActionData.title}
-          inputs={currentActionData.inputs}
-          buttons={currentActionData.buttons}
-          onClose = {() => {setPopupOpen(false)}}
-        /> }
+        {isPopupOpen && currentActionData &&
+        <div>
+          <PopupContent 
+            title={currentActionData.title}
+            inputs={currentActionData.inputs}
+            buttons={currentActionData.buttons}
+            onClose = {() => {setPopupOpen(false)}}
+          />
+        </div>}
 
     </div>
   );
