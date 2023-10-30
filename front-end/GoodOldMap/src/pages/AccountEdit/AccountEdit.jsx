@@ -9,9 +9,8 @@ const AccountEdit = () => {
   const [currentActionData, setCurrentActionData] = useState(null);
 
   //TO DO for Richard: send data to backend
-  const discardChangeUsername = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
+  const discardChange = (evt) => {
+    isPopupOpen && setPopupOpen(false);
   }
   const confirmChangeUsername = (evt) => {
     evt.preventDefault()
@@ -33,43 +32,48 @@ const AccountEdit = () => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  const discardDeleteAccount = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-  }
+
 
   //All PopupContent data
   const formData = {
     "changeUsername": {
       title: "Change Username",
       inputs: [{id:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", function: discardChangeUsername},
+      buttons: [{value:"Discard", function: discardChange},
                 {value:"Confirm", function: confirmChangeUsername}],
     },
     "changeEmail": {
       title: "Change Email",
       inputs: [{id:"newEmail", type:"text", placeholder:"new email"},
-              {id:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Confirm", function: confirmChangeEmail}],
+      {id:"password", type:"password", placeholder:"password"}],
+      buttons: [{value:"Discard", function: discardChange},
+      {value:"Confirm", function: confirmChangeEmail}],
     },
     "forgotPassword": {
       title: "Forget Password",
       inputs: [{id:"email", type:"text", placeholder:"email"}],
-      buttons: [{value: "Send Email", function: sentForgetPwEmail}],
+      buttons: [{value:"Discard", function: discardChange},
+        {value: "Send Email", function: sentForgetPwEmail}],
     },
     "changePassword": {
       title: "Change Password",
       inputs: [{id:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"password", type:"password", placeholder:"password"},
                 {id:"confirmPassword", type:"password", placeholder:"confirm password"}],
-      buttons: [{value:"Confirm", function: confirmChangePassword}],
+      buttons: [{value:"Discard", function: discardChange},
+        {value:"Confirm", function: confirmChangePassword}],
+    },
+    "logout": {
+      title: "Log Out",
+      buttons: [{value:"Discard", function: discardChange},
+      {value:"Confirm", function: confirmDeleteAccount}],
     }
   }
   const deleteAccountData ={
     "deleteAccount": {
     title: "You will not be able to recover this account",
-    buttons: [{value:"Discard", function: discardDeleteAccount},
-              {value:"Confirm", function: confirmDeleteAccount}],
+    buttons: [{value:"Discard", function: discardChange},
+    {value:"Confirm", function: confirmDeleteAccount}],
     }
   }
   const formKeys = Object.keys(formData);
@@ -95,7 +99,6 @@ const AccountEdit = () => {
         {formKeys.map((key, i)  => 
         <PopupLink value={formData[key]["title"]} handleClick={() => handleAction(key)} key={i}/>)}
         <PopupLink value={"Delete Account"} handleClick ={() => handleAction("deleteAccount")}/>
-
         {/* TO DO: add logout link below*/}
         {/* <PageLink to={} from={} value={}/> */}
 
