@@ -16,13 +16,13 @@ const FormBtn = (props) => {
 const FormBtns = (props) =>  {
   /* props: array of object (buttons)
     {"value": "str",
-     "function": function
+     "handleClick": function
     }
   */
   return (
     props?.buttons?.map((button, i) => {
       return(
-        <FormBtn handleClick={button?.function} value = {button?.value} key = {i}/>
+        <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
       )
     })
   )

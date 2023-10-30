@@ -10,6 +10,8 @@ const AccountEdit = () => {
 
   //TO DO for Richard: send data to backend
   const discardChange = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
     isPopupOpen && setPopupOpen(false);
   }
   const confirmChangeUsername = (evt) => {
@@ -39,41 +41,41 @@ const AccountEdit = () => {
     "changeUsername": {
       title: "Change Username",
       inputs: [{id:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", function: discardChange},
-                {value:"Confirm", function: confirmChangeUsername}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangeUsername}],
     },
     "changeEmail": {
       title: "Change Email",
       inputs: [{id:"newEmail", type:"text", placeholder:"new email"},
       {id:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", function: discardChange},
-      {value:"Confirm", function: confirmChangeEmail}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+      {value:"Confirm", handleClick: confirmChangeEmail}],
     },
     "forgotPassword": {
       title: "Forget Password",
       inputs: [{id:"email", type:"text", placeholder:"email"}],
-      buttons: [{value:"Discard", function: discardChange},
-        {value: "Send Email", function: sentForgetPwEmail}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+        {value: "Send Email", handleClick: sentForgetPwEmail}],
     },
     "changePassword": {
       title: "Change Password",
       inputs: [{id:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"password", type:"password", placeholder:"password"},
                 {id:"confirmPassword", type:"password", placeholder:"confirm password"}],
-      buttons: [{value:"Discard", function: discardChange},
-        {value:"Confirm", function: confirmChangePassword}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+        {value:"Confirm", handleClick: confirmChangePassword}],
     },
     "logout": {
       title: "Log Out",
-      buttons: [{value:"Discard", function: discardChange},
-      {value:"Confirm", function: confirmDeleteAccount}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+      {value:"Confirm", handleClick: confirmDeleteAccount}],
     }
   }
   const deleteAccountData ={
     "deleteAccount": {
     title: "You will not be able to recover this account",
-    buttons: [{value:"Discard", function: discardChange},
-    {value:"Confirm", function: confirmDeleteAccount}],
+    buttons: [{value:"Discard", handleClick: discardChange},
+    {value:"Confirm", handleClick: confirmDeleteAccount}],
     }
   }
   const formKeys = Object.keys(formData);
