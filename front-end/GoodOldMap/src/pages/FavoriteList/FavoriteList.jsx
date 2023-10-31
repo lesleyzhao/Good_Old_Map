@@ -28,6 +28,10 @@ const FavoriteList = () => {
       })
       .catch(error => {
         console.error("Error fetching data:", error);
+        setArts([
+          {id:"1", url:"https://picsum.photos/200", name:"error item1", year: "1234"},
+          {id:"2", url:"https://picsum.photos/200", name:"error item2", year: "2345"}
+        ])
       });
   }, []);
 
@@ -73,7 +77,7 @@ const FavoriteList = () => {
         </div> 
 
 
-        <div className="mx-auto items-center">
+        <div className="w-[80%] m-auto">
           {
             arts.map(art => <ArtItem
               key={art.id}
