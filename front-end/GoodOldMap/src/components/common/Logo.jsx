@@ -6,6 +6,7 @@ const Logo = () => {
     evt.stopPropagation()
     navigate("/")
     }
+
   return (
     <>
     {/* Reference: <a href="https://www.flaticon.com/free-icons/map" title="map icons">Map icons created by Freepik - Flaticon</a> */}

@@ -1,3 +1,4 @@
+
 import React from "react"
 import AccountLayout from "./AccountLayout";
 import { Link } from "react-router-dom";
@@ -25,7 +26,9 @@ const Account = () => {
           Edit Account
           </button>
         </Link>
-        <Link to="favorite">
+
+        <Link to="/favoritelist">
+
           <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
           My Fav
           </button>
