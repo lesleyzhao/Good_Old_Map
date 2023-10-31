@@ -2,7 +2,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePreventZoom from '../../util/hooks/usePreventZoom';
-import LeftBtn from "../../components/common/leftBtn";
 import ProfilePic from "../../components/account/profilePic";
 
 const MapLayout = () => {
@@ -36,12 +35,12 @@ const MapLayout = () => {
 
   return (
     <>
-    <div className="h-screen flex flex-col">
-      <nav className="py-[2vh] px-[10%] w-full bg-white flex flex-row justify-between">
+    <div className="h-screen flex flex-col ">
+      <nav className="py-[2vh] px-[10%] w-full bg-beige1 flex flex-row justify-between">
         <div className="relative w-full my-1">
           <input className={`w-full py-2 ${searchPage ? "pl-10" : "pl-4"} pr-10 text-left
             border-solid border-2 border-navyBlue rounded-full
-            placeholder:text-left placeholder:text-gray-400`}
+            placeholder:text-left placeholder:text-gray-400 bg-white`}
             onKeyDown={handleSubmit}
             type="text" id="searchLocation" placeholder="Search for a city name"/>
           {searchPage &&
