@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePreventZoom from '../../util/hooks/usePreventZoom';
 import ProfilePic from "../../components/account/profilePic";
-import PopupSearch from "../../components/popup/popupSearch";
+// import PopupSearch from "../../components/popup/popupSearch";
+// import TimelineBar from "../../components/timeline/TimelineBar";
 
 const MapLayout = () => {
   usePreventZoom()
@@ -68,14 +69,14 @@ const MapLayout = () => {
           <div className="h-9 w-9 absolute right-1 top-1" onClick={handleClickProfile}>
             <ProfilePic pic="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg/1200px-Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg"/>
           </div>
-        </div>
-        {/* TODO: timeline goes here */}
+        </div>        
       </nav>
       <div className={"w-full h-full"}>
         <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
       {foundData && <PopupSearch />}
     </div>
+
     </>
   );
 };
