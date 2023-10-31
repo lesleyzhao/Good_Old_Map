@@ -13,7 +13,8 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
     
     return (
         <div className="w-[40%] m-auto fle">
-            <img src={art.url} alt={art.name} onClick= {navigateToDetail}/>
+            {/* <img src={art.url} alt={art.name} onClick= {navigateToDetail}/> */}
+            < img className="object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo"  onClick= {navigateToDetail}/>
             <p>
                 <span onClick={onRemoveFromFavorites} >❤️</span>
                 {art.name}
