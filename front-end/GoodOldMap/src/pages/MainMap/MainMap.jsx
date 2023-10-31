@@ -22,9 +22,6 @@ const MainMap = () => {
       <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
    </div>
 
-   <div className='mb-3'><TimelineBar></TimelineBar></div> 
-
-      
       <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

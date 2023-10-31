@@ -2,13 +2,16 @@ import { useState } from 'react';
 
 const CityList = ({ cities, searchData}) => {
   
-  const filteredCities = cities.filter(city =>
-    city.toLowerCase().startsWith(searchData.toLowerCase())
-  ).slice(0, 4);
+    const filteredCities = cities.filter(city => {
+        if (typeof searchData === 'string') {
+          return city.toLowerCase().startsWith(searchData.toLowerCase());
+        }
+        return false;
+      }).slice(0, 4);
 
   // Handle city click event
   const handleCityClick = (city) => {
-    console.log(city);
+    console.log("cities",city);
   };
 
   return (

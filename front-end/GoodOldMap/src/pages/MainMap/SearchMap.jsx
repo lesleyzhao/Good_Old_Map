@@ -1,34 +1,11 @@
 import { useOutletContext } from "react-router-dom"
 import CityList from "../../components/common/CityList"
-import React, { useState } from 'react';
 
-
-//to be implemented 
-const apiKey = '88033a00'; // Replace with your actual API key
-const url = `https://api.mockaroo.com/api/types?key=${apiKey}`;
-
-fetch(url)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`Request failed with status: ${response.status}`);
-    }
-    return response.json(); // Parse the JSON response
-  })
-  .then((data) => {
-    // Handle the data containing the available types
-    console.log(data);
-  })
-  .catch((error) => {
-    // Handle any errors that occurred during the request
-    console.error(error);
-  });
-
-
-// const [searchData, setSearchData] = useState('');
 const SearchMap = () => {
-  const searchData = useOutletContext()
+  const [searchData, ,] = useOutletContext()
+  const keys = searchData.length > 0 ? searchData[0] : [];
   // research search data
-  console.log(searchData)
+  console.log(keys);
 
   const cities = [
     'New York',
@@ -47,7 +24,7 @@ const SearchMap = () => {
     <>
     <div className="px-[10%]">
       search map page
-      <CityList cities={cities} searchData={searchData}></CityList>
+      <CityList cities={cities} searchData={keys}></CityList>
     </div>
     </>
   )
