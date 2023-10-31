@@ -31,7 +31,11 @@ const MapLayout = () => {
           !searchPage && setSearchPage(true)
         }
       }
-      else setSearchData("")
+      else {
+        navigate('/')
+        searchPage && setSearchPage(false)
+        setSearchData("")
+      }
     }
   }
 
