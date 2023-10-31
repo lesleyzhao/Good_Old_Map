@@ -1,12 +1,8 @@
 import { useOutletContext } from "react-router-dom"
-import CityList from "../../components/common/CityList"
-// import { useState } from 'react';
+import CityList from "../../components/map/CityList"
 
 const SearchMap = () => {
-  const searchData = useOutletContext()
-  const keys = searchData.length > 0 ? searchData[0] : [];
-  // research search data
-  console.log(keys);
+  const [searchData, ,] = useOutletContext()
 
   const cities = [
     'New York',
@@ -24,8 +20,7 @@ const SearchMap = () => {
   return( 
     <>
     <div className="px-[10%]">
-      search map page
-      <CityList cities={cities} searchData={keys}></CityList>
+      <CityList cities={cities} searchData={searchData} />
     </div>
     </>
   )

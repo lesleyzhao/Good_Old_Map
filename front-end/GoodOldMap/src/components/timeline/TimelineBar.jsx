@@ -18,7 +18,7 @@ function TimelineBar() {
   };
 
   return (
-    <div id="audio-player-container" className='z-999 ml-10'>
+    <div id="audio-player-container" className='ml-10'>
       <div className="h-audio_progress w-audio_progress bg-pregress rounded-md" id="audio-progress">
         <Draggable axis="x" onDrag={handleDrag} defaultPosition={{ x: xPos, y: 0 }} bounds="parent">
           <div id="draggable-point" className="float-left mt-[2px] mb-[5px]">

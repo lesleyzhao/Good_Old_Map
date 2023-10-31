@@ -3,7 +3,7 @@ import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
 // import RightBtn from "../../components/common/rightBtn";
 import Logo from '../../components/common/Logo'
-import ArtItem from "../../components/common/ArtItem.jsx"
+import ArtItem from "../../components/art/ArtItem.jsx"
 import axios from "axios"
 import React, { useState, useEffect } from "react"
 
@@ -28,6 +28,10 @@ const FavoriteList = () => {
       })
       .catch(error => {
         console.error("Error fetching data:", error);
+        setArts([
+          {id:"1", url:"https://picsum.photos/200", name:"error item1", year: "1234"},
+          {id:"2", url:"https://picsum.photos/200", name:"error item2", year: "2345"}
+        ])
       });
   }, []);
 
@@ -53,27 +57,27 @@ const FavoriteList = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col">
         <NavBar className="flex">
           <LeftBtn className="flex-grow" />
           <Logo />
         </NavBar>
-        <h1 className = "text-center mt-5">My Favorite Arts ❤️</h1>
-        <div className="mx-auto items-center space-x-4 m-2.5 mb-4">
+      <div className="w-[80%] mx-auto min-h-screen flex flex-col">
+        <h1 className="text-center mt-5">My Favorite Arts ❤️</h1>
+        <div className="text-center space-x-8 my-3">
           <button 
-              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
               onClick={() => sortArts("name")}>
               Sort by Name
           </button>
           <button 
-              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
               onClick={() => sortArts("year")}>
               Sort by Year
           </button>
         </div> 
 
 
-        <div className="mx-auto items-center">
+        <div className='mt-5'>
           {
             arts.map(art => <ArtItem
               key={art.id}
