@@ -13,7 +13,8 @@ const InfoLayout = () => {
     <div className="min-h-screen flex flex-col">
       <NavBar>
         <LeftBtn />
-        <RightBtn handleRightClick={handleRightClick}/>
+        {/* TODO: implement right click */}
+        {/* <RightBtn handleRightClick={handleRightClick}/> */}
       </NavBar>
       <Outlet />
     </div>
