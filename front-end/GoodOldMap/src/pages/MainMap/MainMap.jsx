@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
 import InfoCard from '../../components/common/InfoCard';
+import { useOutletContext } from "react-router-dom"
+
 // import countries from '../../util/data/countries.json'
 
 const MainMap = () => {
@@ -15,10 +17,10 @@ const MainMap = () => {
     
   return(
     <>
-    <div className="flex justify-center items-center">
+    {/* <div className="flex justify-center items-center">
       <InfoCard title="Welcome!" text="Click anywhere on the map to start your European art & music journey! Let's get started!"/>
       <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
-   </div>
+   </div> */}
       
       <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
         <TileLayer
@@ -33,9 +35,13 @@ const MainMap = () => {
 }
 
 function LocationMarker(props) {
+  const [, setFoundData] = useOutletContext()
   useMapEvents({
     click(evt) {
-      props.setPosition([evt.latlng.lat, evt.latlng.lng])
+      const pos = [evt.latlng.lat, evt.latlng.lng]
+      props.setPosition(pos)
+      // TODO: subject to change
+      setFoundData(pos)
     },
   })
   const customIcon = new Icon({
