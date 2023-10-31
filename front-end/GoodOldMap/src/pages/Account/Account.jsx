@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import AccountLayout from "./AccountLayout";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageLink from "../../components/common/pageLink"
-import PopupLink from '../../components/popup/popupLink';
 import axios from "axios"
 import ProfilePic from "../../components/account/profilePic"
 import PopupUserPic from "../../components/popup/popupUserPic";
-import { useLocation } from "react-router-dom";
+import UserBasicInfo from "../../components/account/userBasicInfo";
 
 const Account = (props) => {
   // parameters: pic, username, email,
@@ -17,6 +15,7 @@ const Account = (props) => {
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState([])
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch mock data
     axios.get("https://my.api.mockaroo.com/good_old_map?key=dd3f48f0", {
@@ -32,8 +31,13 @@ const Account = (props) => {
       });
   }, []);
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
+  const togglePopup = (evt) => {
+    evt.stopPropagation()
+    setShowPopup(!showPopup)
+  }
+  const handleClickUserInfo = (evt) => {
+    evt.stopPropagation()
+    navigate("edit", {state:{from: location.pathname}})
   }
 
   const randomPhoto = "https://picsum.photos/500";
@@ -41,26 +45,33 @@ const Account = (props) => {
   return(
     <>
       <div className="flex items-center justify-center flex-col">
-        <div className="max-w-full flex items-center gap-4 p-4
+        <div className="w-full flex items-center gap-4 p-4 
           bg-white rounded-lg shadow-lg">
           <div onClick={togglePopup} className="w-30 h-30">
             <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
           </div>
-          
-          <div className="text-center">
-            <h2>{data.username ?? "John Doe"}</h2>
-            <p className="text-gray-400">{data.email ?? "Asdfasdfasdf@nyu.edu"}</p>
-            <PageLink to="edit" value="Edit Account" from={location.pathname}/>
+          <div onClick={handleClickUserInfo} className="text-center">
+            <UserBasicInfo 
+              username={data.username ?? "John Doe"}
+              email={data.email ?? "Asdfasdfasdf@nyu.edu"}
+            />
           </div>
         </div>
 
-        <h2> My Favorite</h2>
+        <div className="w-full mt-8">
+          <h2>My Favorite</h2>
+        </div>
 
-        <a href="/favoritelist" className="bg-white rounded-lg shadow-lg px-8 flex items-center mt-2">
-          <img className="w-64 h-64 object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
+        <a href="/favoritelist" className="justify-center w-full bg-white rounded-lg shadow-lg p-4 flex items-center mt-2">
+          <img className="w-64 h-64 rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
         </a>
       </div>
-      {showPopup && <PopupUserPic/>}
+
+      {showPopup && 
+      <div onClick={togglePopup}>
+        <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
+      </div>
+      }
     </>
     
   )
