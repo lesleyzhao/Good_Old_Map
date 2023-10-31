@@ -3,7 +3,7 @@ import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
 // import RightBtn from "../../components/common/rightBtn";
 import Logo from '../../components/common/Logo'
-import ArtItem from "../../components/common/ArtItem.jsx"
+import ArtItem from "../../components/art/ArtItem.jsx"
 import axios from "axios"
 import React, { useState, useEffect } from "react"
 

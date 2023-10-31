@@ -21,7 +21,7 @@ const CityList = ({cities, searchData}) => {
               </div>
             </li>
           )) :
-          <li className="border-b border-navyBlue p-2">
+          <li className="border-b border-navyBlue p-2 text-gray-400">
             No Cities Found, Try "New York"
           </li>
           }

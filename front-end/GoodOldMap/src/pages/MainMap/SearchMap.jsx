@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom"
-import CityList from "../../components/common/CityList"
+import CityList from "../../components/map/CityList"
 
 const SearchMap = () => {
   const [searchData, ,] = useOutletContext()

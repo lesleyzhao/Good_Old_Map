@@ -1,4 +1,4 @@
-import ArtItem from "../common/ArtItem"
+import ArtItem from "../art/ArtItem"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
