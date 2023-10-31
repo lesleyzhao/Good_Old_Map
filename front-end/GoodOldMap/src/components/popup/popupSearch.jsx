@@ -34,13 +34,14 @@ const PopupSearch = (props) => {
 
   return(
     <>
-      <div className="fixed z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-white p-[10%]">
+      <div className="absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-white p-[10%]">
         {/* <ArtItem /> */}
         <div className="mx-auto items-center">
           {
-            arts.map(art => <ArtItem
-              key={art.id}
-              art={art}/>)
+            arts.map(art => 
+              <div onClick={navigateToDetail}>
+                <ArtItem key={art.id} art={art}/>
+              </div>)
           }
         </div>
       </div>

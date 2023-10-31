@@ -72,7 +72,7 @@ const MapLayout = () => {
         {/* TODO: timeline goes here */}
       </nav>
       <div className={"w-full h-full"}>
-        <Outlet context={[searchData, setFoundData]}/>
+        <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
       {foundData && <PopupSearch />}
     </div>

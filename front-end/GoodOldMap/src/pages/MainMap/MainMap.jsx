@@ -35,13 +35,14 @@ const MainMap = () => {
 }
 
 function LocationMarker(props) {
-  const [, setFoundData] = useOutletContext()
+  const [, foundData, setFoundData] = useOutletContext()
   useMapEvents({
     click(evt) {
       const pos = [evt.latlng.lat, evt.latlng.lng]
       props.setPosition(pos)
       // TODO: subject to change
       setFoundData(pos)
+      foundData && setFoundData("")
     },
   })
   const customIcon = new Icon({
