@@ -14,6 +14,9 @@ export default {
         "beige3": "#DAC0A3",
         "navyBlue": "#0F2C59",
       },
+      backgroundColor: {
+        "beige1": "#F8F0E5",
+      },
       spacing: {
         "80%": "80%",
         "90%": "90%",

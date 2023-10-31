@@ -1,5 +1,5 @@
 
-import React from "react"
+import React, { useState } from "react";
 import AccountLayout from "./AccountLayout";
 import { Link } from "react-router-dom";
 import PopupLink from '../../components/popup/popupLink';
@@ -9,10 +9,6 @@ import { useState, useEffect } from "react"
 const Account = () => {
   // parameters: pic, username, email,
   let props = {};
-
-  props.pic = "https://cdn.icon-icons.com/icons2/2645/PNG/512/person_icon_159921.png"
-  props.username = "John Doe"
-  props.email = "jd00001@nyu.edu"
 
   const [data, setData] = useState([])
   useEffect(() => {
@@ -56,4 +52,5 @@ const Account = () => {
     </div>
   )
 }
-export default Account
+
+export default Account;
