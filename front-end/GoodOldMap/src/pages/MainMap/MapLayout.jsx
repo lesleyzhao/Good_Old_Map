@@ -6,9 +6,10 @@ import ProfilePic from "../../components/account/profilePic";
 
 const MapLayout = () => {
   usePreventZoom()
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [searchPage, setSearchPage] = useState(false);
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [searchPage, setSearchPage] = useState(false)
+  const [searchData, setSearchData] = useState("")
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
@@ -18,14 +19,23 @@ const MapLayout = () => {
     navigate('/account', {state:{from: location.pathname}})
   }
 
+  // submit search result
   const handleSubmit = (evt) => {
     evt.stopPropagation()
-    if (evt.key === "Enter" && evt.target.value && location.pathname === "/") {
-      navigate('/search')
-      !searchPage && setSearchPage(true)
+    if (evt.key === "Enter") {
+      // send data via react Context to SearchMap
+      if (evt.target.value) {
+        setSearchData(evt.target.value)
+        if (location.pathname === "/") {
+          navigate('/search')
+          !searchPage && setSearchPage(true)
+        }
+      }
+      else setSearchData("")
     }
   }
 
+  // navigate back to home page
   const handleClickBack = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
@@ -49,14 +59,13 @@ const MapLayout = () => {
             </div>
           }
           <div className="h-9 w-9 absolute right-1 top-1" onClick={handleClickProfile}>
-            {/* TODO: update profile page */}
             <ProfilePic pic="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg/1200px-Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg"/>
           </div>
         </div>
         {/* TODO: timeline goes here */}
       </nav>
       <div className='w-full h-full'>
-        <Outlet />
+        <Outlet context={searchData}/>
       </div>
     </div>
     </>
