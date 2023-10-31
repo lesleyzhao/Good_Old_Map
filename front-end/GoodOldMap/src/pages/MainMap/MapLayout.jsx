@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
 import FormInput from "../../components/form/formInput";
+import usePreventZoom from '../../util/hooks/usePreventZoom';
 
 const MapLayout = () => {
+  usePreventZoom()
   return (
     <>
     <div className="h-screen flex flex-col">
