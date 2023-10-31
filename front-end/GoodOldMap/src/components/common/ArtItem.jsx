@@ -22,7 +22,7 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
                 {art.year}
             </p>
           </div>
-         <p className="text-center p-4">Made by Artist: Van Gog, Holland</p>
+         <p className="text-center p-4">Made by Artist: Van Gogh, Holland</p>
         </div>
     );
 
