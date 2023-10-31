@@ -57,27 +57,27 @@ const FavoriteList = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col">
         <NavBar className="flex">
           <LeftBtn className="flex-grow" />
           <Logo />
         </NavBar>
-        <h1 className = "text-center mt-5">My Favorite Arts ❤️</h1>
-        <div className="mx-auto items-center space-x-4 m-2.5 mb-4">
+      <div className="w-[80%] mx-auto min-h-screen flex flex-col">
+        <h1 className="text-center mt-5">My Favorite Arts ❤️</h1>
+        <div className="text-center space-x-8 my-3">
           <button 
-              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
               onClick={() => sortArts("name")}>
               Sort by Name
           </button>
           <button 
-              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
               onClick={() => sortArts("year")}>
               Sort by Year
           </button>
         </div> 
 
 
-        <div className="w-[80%] m-auto">
+        <div className='mt-5'>
           {
             arts.map(art => <ArtItem
               key={art.id}

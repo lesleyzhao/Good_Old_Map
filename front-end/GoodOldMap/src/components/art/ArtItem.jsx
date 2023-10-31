@@ -13,10 +13,9 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
     
     return (
 
-        <div className="relative w-full">
-          <div className="relative m-auto">
-            {/* <img src={art.url} alt={art.name} onClick={navigateToDetail} className="block rounded-3xl" /> */}
-            <img className="w-full rounded-lg" src={`https://picsum.photos/500/300`} alt={art.name} onClick={navigateToDetail} />
+        <div className="w-full">
+          <div className="relative mx-auto">
+            <img className="w-full rounded-lg" src={art.url} alt={art.name} onClick={navigateToDetail} />
             <p className='absolute bottom-[0.15rem] left-[0.15rem] rounded-xl px-1
               text-lg text-center bg-white bg-opacity-60'>
                 <span className='pr-[0.15rem]' onClick={onRemoveFromFavorites}>❤️</span>
@@ -24,7 +23,7 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
                 {art.year}
             </p>
           </div>
-         <p className="text-center p-4">Made by Artist: Van Gogh, Holland</p>
+         <p className="pb-4">Made by Artist: Van Gogh, Holland</p>
         </div>
     );
 
