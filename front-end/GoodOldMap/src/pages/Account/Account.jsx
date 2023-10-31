@@ -5,6 +5,7 @@ import PageLink from "../../components/common/pageLink"
 import PopupLink from '../../components/popup/popupLink';
 import axios from "axios"
 import ProfilePic from "../../components/account/profilePic"
+import PopupUserPic from "../../components/popup/popupUserPic";
 import { useLocation } from "react-router-dom";
 
 const Account = (props) => {
@@ -40,17 +41,11 @@ const Account = (props) => {
   return(
     <>
       <div className="flex items-center justify-center flex-col">
-        <div className="max-w-full flex items-center gap-4 pb-8">
+        <div className="max-w-full flex items-center gap-4 p-4
+          bg-white rounded-lg shadow-lg">
           <div onClick={togglePopup} className="w-30 h-30">
-            <ProfilePic pic="https://picsum.photos/200"/>
+            <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
           </div>
-          {showPopup && (
-              <div className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex items-center justify-center z-10" onClick={togglePopup}>
-                <div className="bg-white rounded-lg shadow-lg p-8 flex items-center">
-                  <img className="w-64 h-64 rounded-full object-cover cursor-pointer" src={props.pic} alt="profile picture" />
-                </div>
-              </div>
-            )}
           
           <div className="text-center">
             <h2>{data.username ?? "John Doe"}</h2>
@@ -65,6 +60,7 @@ const Account = (props) => {
           <img className="w-64 h-64 object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
         </a>
       </div>
+      {showPopup && <PopupUserPic/>}
     </>
     
   )
