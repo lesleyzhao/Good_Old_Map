@@ -57,12 +57,15 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
 
 
 ## Set Up Environment
-   Please run the following commands to initialize the local host: 
-   - git clone https://github.com/agiledev-students-fall2023/4-final-project-teambaker.git
-   - cd 4-final-project-teambaker
-   - cd front-end/GoodOldMap
-   - npm install
-   - npm run dev
+Please run the following commands to initialize the local host: 
+
+```
+git clone https://github.com/agiledev-students-fall2023/4-final-project-teambaker.git
+cd 4-final-project-teambaker
+cd front-end/GoodOldMap
+npm install
+npm run dev
+```
 
 ## Build & Test the Project
    - We use React as the front-end, so when you want to build the project, open the terminal and type npm -start. Make sure to copy paste the localhost and the corresponding port website to your browser. 
