@@ -3,6 +3,7 @@ import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
 import Logo from '../../components/common/Logo'
 import ArtItem from "../../components/common/ArtItem.jsx"
+
 import React, { useState } from 'react';
 
 

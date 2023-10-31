@@ -12,7 +12,7 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
     }
     
     return (
-        <div className="w-[40%] m-auto fle">
+        <div className="w-[30%] m-auto fle">
             <img src={art.url} alt={art.name} onClick= {navigateToDetail}/>
             <p>
                 <span onClick={onRemoveFromFavorites} >❤️</span>

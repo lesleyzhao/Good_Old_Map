@@ -27,7 +27,7 @@ const Account = () => {
           </button>
         </Link>
 
-        <Link to="favoritelist">
+        <Link to="/favoritelist">
 
           <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
           My Fav
