@@ -4,7 +4,6 @@ import { Icon } from 'leaflet';
 
 const MainMap = () => {
   const [position, setPosition] = useState([51.505, -0.09])
-  const [city, setCity] = useState("")
 
   return(
     <>
@@ -31,9 +30,9 @@ function LocationMarker(props) {
   });
   return(
     <Marker icon={customIcon} position={props.position}>
-      <Popup>
+      {/* <Popup>
         A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup>
+      </Popup> */}
     </Marker>
 
   )

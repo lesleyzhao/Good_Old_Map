@@ -1,8 +1,5 @@
 
-import React, { useState } from "react";
-import AccountLayout from "./AccountLayout";
 import { Link } from "react-router-dom";
-import PopupLink from '../../components/popup/popupLink';
 import axios from "axios"
 import { useState, useEffect } from "react"
 
