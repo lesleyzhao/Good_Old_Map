@@ -41,27 +41,27 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="flex items-center justify-center flex-col">
-        <div className="w-full flex items-center gap-4 p-4 
-          bg-white rounded-lg shadow-lg">
-          <div onClick={togglePopup} className="w-30 h-30">
-            <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
-          </div>
-          <div onClick={handleClickUserInfo} className="text-center">
-            <UserBasicInfo 
-              username={data.username ?? "John Doe"}
-              email={data.email ?? "Asdfasdfasdf@nyu.edu"}
-            />
-          </div>
+      <div className="flex items-center justify-center flex-col mt-5">
+        <div className="flex items-center gap-4 p-4
+          bg-white rounded-lg shadow-lg m-auto">
+            <div onClick={togglePopup} className="w-24 h-24">
+              <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
+            </div>
+            <div onClick={handleClickUserInfo} className="text-center hover:cursor-pointer">
+              <UserBasicInfo 
+                username={data.username ?? "John Doe"}
+                email={data.email ?? "Asdfasdfasdf@nyu.edu"}
+              />
+            </div>
         </div>
 
-        <div className="w-full mt-8">
+        <div className="mt-8">
           <h2>My Favorite</h2>
-        </div>
 
-        <a href="/favoritelist" className="justify-center w-full bg-white rounded-lg shadow-lg p-4 flex items-center mt-2">
-          <img className="w-64 h-64 rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
-        </a>
+          <a href="/favoritelist" className="justify-center max-w-full bg-white rounded-lg shadow-lg p-4 flex items-center mt-2">
+            <img className="w-64 h-64 rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
+          </a>
+        </div>
       </div>
 
       {showPopup && 

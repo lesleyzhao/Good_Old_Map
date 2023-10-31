@@ -14,8 +14,8 @@ const NavBar = ({children, relative}) => {
   }
   return (
     <>
-    <div className="h-[calc(3vh+3rem)]">
-      <nav className={`${relative?"relative":"fixed"} pt-[2vh] pb-[1vh] px-[10%] h-[calc(3vh+3rem)] w-full
+    <div className="h-[calc(3vh+2.25rem)]">
+      <nav className={`${relative?"relative":"fixed"} pt-[2vh] pb-[1vh] px-[10%] h-[calc(3vh+2.25rem)] w-full
         bg-beige1 duration-700 ${navHidden}`}>
         <div className="flex flex-row justify-between">
           {children}
