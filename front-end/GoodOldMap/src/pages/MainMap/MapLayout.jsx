@@ -77,7 +77,7 @@ const MapLayout = () => {
       <div className="w-full h-full">
         <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
-      {foundData && <PopupSearch />}
+      {foundData && <PopupSearch setFoundData={setFoundData}/>}
     </div>
 
     </>

@@ -3,7 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 const PopupSearch = (props) => {
-  //
+  // setFoundData
   const [arts, setArts] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
@@ -36,16 +36,22 @@ const PopupSearch = (props) => {
     navigate("/info", {state:{from:location.pathname}});  // Adjust this path as necessary
   }
 
+  const handleClosePopup = (evt) => {
+    evt.stopPropagation()
+    props?.setFoundData(null)
+  }
+
   return(
     <>
-      <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige1 p-[10%]">
-        {/* <ArtItem /> */}
-        <div className="mx-auto items-center">
-          {arts.map(art => 
-            <div onClick={navigateToDetail}>
-              <ArtItem key={art.id} art={art}/>
-            </div>)}
-        </div>
+      <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige1">
+
+        <img className="w-4 m-[4%]" src="/close.png" alt="x" onClick={handleClosePopup}/>
+          <div className="mx-[10%] items-center rounded-lg h-[calc(60vh-8%-1rem)] overflow-scroll">
+            {arts.map(art => 
+              <div onClick={navigateToDetail}>
+                <ArtItem key={art.id} art={art}/>
+              </div>)}
+          </div>
       </div>
     </>
   )

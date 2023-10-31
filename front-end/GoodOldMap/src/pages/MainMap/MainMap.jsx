@@ -42,7 +42,6 @@ function LocationMarker(props) {
       props.setPosition(pos)
       // TODO: subject to change
       setFoundData(pos)
-      foundData && setFoundData("")
     },
   })
   const customIcon = new Icon({
