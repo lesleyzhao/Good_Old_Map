@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 import CityList from "../../components/common/CityList"
-import { useState } from "react";
+// import { useState } from "react";
 
 
 //to be implemented 
@@ -24,7 +24,7 @@ fetch(url)
   });
 
 
-const [searchData, setSearchData] = useState('');
+// const [searchData, setSearchData] = useState('');
 const SearchMap = () => {
   const searchData = useOutletContext()
   // research search data
