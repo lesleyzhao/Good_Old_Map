@@ -57,8 +57,9 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
 
 
 ## Set Up Environment
-   - To set up the environment, please first clone the project and open terminal, enter git clone xxx(cloned link of the master repository).
-   - open a terminal, enter either front-end or back-end folder to use the command npm -i or npm install. This will help you to install all neccessary dependencies for the project.
+   - first clone the project and open terminal, enter git clone xxx(cloned link of the master repository).
+   - cd 4-final-project-teambaker, cd front-end
+   - then run npm -i or npm install. This will help you to install all neccessary dependencies for the project.
    - run npm run dev in the folder containing node.js to initiate the local host.
 
 ## Build & Test the Project
