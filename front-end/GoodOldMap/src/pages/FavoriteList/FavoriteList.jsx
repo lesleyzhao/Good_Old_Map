@@ -49,7 +49,7 @@ const FavoriteList = () => {
           <LeftBtn className="flex-grow" />
           <Logo />
         </NavBar>
-        <h1 className = "text-center">My Favorite Arts & Music ❤️</h1>
+        <h1 className = "text-center mt-5">My Favorite Arts ❤️</h1>
         <div className="mx-auto items-center space-x-4 m-2.5 mb-4">
           <button 
               className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
