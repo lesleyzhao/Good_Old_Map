@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import TimelineBar from './components/common/TimelineBar.jsx'
+import TimelineBar from './components/timeline/TimelineBar.jsx'
 import './embla.css'
-import EmblaCarousel from './components/common/Picker.jsx'
+import EmblaCarousel from './components/timeline/Picker.jsx'
 
 const LOOP = true;
 
