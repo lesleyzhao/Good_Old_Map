@@ -1,18 +1,18 @@
 
 import { Link } from "react-router-dom";
 import axios from "axios"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 
 const Account = () => {
   // parameters: pic, username, email,
-  let props = {};
+
 
   const [data, setData] = useState([])
   useEffect(() => {
     // Fetch mock data
-    axios.get("https://my.api.mockaroo.com/good_old_map?key=5f1476a0", {
+    axios.get("https://my.api.mockaroo.com/good_old_map?key=dd3f48f0", {
         headers: {
-            "X-API-Key": "5f1476a0"
+            "X-API-Key": "dd3f48f0"
         }
     })
     .then(response => {
@@ -29,7 +29,7 @@ const Account = () => {
     <div>
       <div className="min-h-screen flex flex-col items-center justify-center">
         <Link to="changeProfilePic">
-          <img className="w-32 h-32 rounded-full object-cover cursor-pointer" src={data.profilePic} alt="profile picture" />
+          <img className="w-32 h-32 rounded-full object-cover cursor-pointer" src="https://picsum.photos/500" alt="profile picture" />
         </Link>
         <h1 className="text-2xl font-bold mt-4">{data.username}</h1>
         <p className="text-gray-500">{data.email}</p>
