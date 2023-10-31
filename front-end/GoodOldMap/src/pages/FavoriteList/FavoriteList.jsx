@@ -44,11 +44,15 @@ const FavoriteList = () => {
 
   return (
     <>
-        {/* <div className="max-h-[80vh] max-w-full m-auto flex items-center"> */}
-        <div className="min-h-screen flex flex-col mx-auto items-center">
-          <h1>My Favorite</h1>
+      <div className="min-h-screen flex flex-col">
+        <NavBar className="flex">
+          <LeftBtn className="flex-grow" />
+          <Logo />
+        </NavBar>
+        <div className="mx-auto items-center">
+          <h1 >My Favorite</h1>
           <button onClick={() => sortArts("name")}>Sort by Name</button>
-          <button onClick={() => sortArts("year")}>Sort by Year</button> 
+          <button onClick={() => sortArts("year")}>Sort by Year</button>
         </div>
 
         <div className="mx-auto items-center">
@@ -59,6 +63,7 @@ const FavoriteList = () => {
               onRemoveFromFavorites={() => handleRemoveFromFavorites(art.id)} />)
           }
         </div>
+      </div>
     </>
 
 
