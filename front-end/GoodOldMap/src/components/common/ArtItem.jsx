@@ -12,6 +12,7 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
     }
     
     return (
+
         <div className="relative w-[40%] m-auto">
           <div class="relative">
             <img src={art.url} alt={art.name} onClick={navigateToDetail} className="block rounded-3xl" />
