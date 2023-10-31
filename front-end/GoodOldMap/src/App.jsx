@@ -6,13 +6,16 @@ import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
 import InfoDetail from './pages/InfoDetail/InfoDetail';
+<<<<<<< HEAD
+=======
+import FavoriteList from './pages/FavoriteList/FavoriteList';
+>>>>>>> 88721f692f1fb6d69424d797c4006ddea90af0df
 import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
-
   return (
     <>
       <BrowserRouter>
