@@ -4,8 +4,6 @@ import { Icon } from 'leaflet';
 import InfoCard from '../../components/common/InfoCard';
 // import countries from '../../util/data/countries.json'
 
-
-
 const MainMap = () => {
   const [position, setPosition] = useState([51.505, -0.09])
 
