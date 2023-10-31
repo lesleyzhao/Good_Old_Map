@@ -17,6 +17,9 @@ export default {
         "audio_bar":"#E95F74",
 
       },
+      backgroundColor: {
+        "beige1": "#F8F0E5",
+      },
       spacing: {
         "80%": "80%",
         "90%": "90%",

@@ -1,6 +1,3 @@
-import NavBar from "../../components/common/navBar";
-import RightBtn from "../../components/common/rightBtn";
-import LeftBtn from "../../components/common/leftBtn";
 const InfoDetail = () => {
   // parameters: pic, header, subtitle(string array), parag
   let props = {};
@@ -15,24 +12,18 @@ const InfoDetail = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col">
-        <NavBar>
-          <LeftBtn />
-          <RightBtn handleRightClick={handleRightClick}/>
-        </NavBar>
-        <div className="max-h-[80vh] max-w-full m-auto flex">
-          <img className="object-contain" src={props.pic} alt="picture" />
+      <div className="max-h-[80vh] max-w-full m-auto flex">
+        <img className="object-contain" src={props.pic} alt="picture" />
+      </div>
+      <div className="w-[80%] mb-[10%] mx-auto">
+        <div className="mt-2">
+          <h2>{props.header}</h2>
         </div>
-        <div className="w-[80%] mb-[10%] mx-auto">
-          <div className="mt-2">
-            <h2>{props.header}</h2>
-          </div>
-          <div className="mt-2">
-            {props?.subtitle?.map((subtitle, i) => <p key={i}>{subtitle}</p>)}
-          </div>
-          <div className="mt-4">
-            <p>{props.parag}</p>
-          </div>
+        <div className="mt-2">
+          {props?.subtitle?.map((subtitle, i) => <p key={i}>{subtitle}</p>)}
+        </div>
+        <div className="mt-4">
+          <p>{props.parag}</p>
         </div>
       </div>
     </>

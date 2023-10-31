@@ -1,16 +1,18 @@
+
 import React, { useState } from 'react';
 import PopupLink from '../../components/popup/popupLink';
-import PageLink from '../../components/common/pageLink';
 import PopupContent from '../../components/popup/popupContent';
 
 
 const AccountEdit = () => {
-  const [isPopupOpen, setPopupOpen] = useState(false);
+
   const [currentActionData, setCurrentActionData] = useState(null);
 
   //TO DO for Richard: send data to backend
   const discardChange = (evt) => {
-    isPopupOpen && setPopupOpen(false);
+    evt.preventDefault()
+    evt.stopPropagation()
+    currentActionData && setCurrentActionData(null);
   }
   const confirmChangeUsername = (evt) => {
     evt.preventDefault()
@@ -37,81 +39,85 @@ const AccountEdit = () => {
   //All PopupContent data
   const formData = {
     "changeUsername": {
+      link: "Change Username",
       title: "Change Username",
       inputs: [{id:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", function: discardChange},
-                {value:"Confirm", function: confirmChangeUsername}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangeUsername}],
     },
     "changeEmail": {
+      link: "Change Email",
       title: "Change Email",
       inputs: [{id:"newEmail", type:"text", placeholder:"new email"},
-      {id:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", function: discardChange},
-      {value:"Confirm", function: confirmChangeEmail}],
+                {id:"password", type:"password", placeholder:"password"}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangeEmail}],
     },
     "forgotPassword": {
+      link: "Forget Password",
       title: "Forget Password",
       inputs: [{id:"email", type:"text", placeholder:"email"}],
-      buttons: [{value:"Discard", function: discardChange},
-        {value: "Send Email", function: sentForgetPwEmail}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value: "Send Email", handleClick: sentForgetPwEmail}],
     },
     "changePassword": {
+      link: "Change Password",
       title: "Change Password",
       inputs: [{id:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"password", type:"password", placeholder:"password"},
                 {id:"confirmPassword", type:"password", placeholder:"confirm password"}],
-      buttons: [{value:"Discard", function: discardChange},
-        {value:"Confirm", function: confirmChangePassword}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangePassword}],
     },
     "logout": {
+      link: "Log Out",
       title: "Log Out",
-      buttons: [{value:"Discard", function: discardChange},
-      {value:"Confirm", function: confirmDeleteAccount}],
-    }
-  }
-  const deleteAccountData ={
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmDeleteAccount}],
+    },
     "deleteAccount": {
-    title: "You will not be able to recover this account",
-    buttons: [{value:"Discard", function: discardChange},
-    {value:"Confirm", function: confirmDeleteAccount}],
+      link: "Delete Account",
+      title: "You will not be able to recover this account",
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmDeleteAccount}],
     }
   }
   const formKeys = Object.keys(formData);
 
   //Function to decide which PopupContent to display
-  const handleAction = (actionKey) => {
-    const actionData = actionKey === 'deleteAccount' ? deleteAccountData[actionKey] : formData[actionKey];
-
-    if (!actionData) {
-      console.error("No data found for action:", actionKey);
-      return;
+  const handleAction = (key) => {
+    const actionData = formData[key];
+    try {
+      if (!actionData) throw `No data found for action:: ${key}`
+      setCurrentActionData(actionData);
+    } catch (error) {
+      console.error(error)
     }
-
-    setCurrentActionData(actionData);
-    setPopupOpen(true); 
   };
+  const handleClose = (evt) => {
+    evt.stopPropagation()
+    if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
+  }
   
   //Return the AccountEdit component
   return (
     <div>
         {/* TO DO: add image profile, add username, add user email */}
-
-        {formKeys.map((key, i)  => 
-        <PopupLink value={formData[key]["title"]} handleClick={() => handleAction(key)} key={i}/>)}
-        <PopupLink value={"Delete Account"} handleClick ={() => handleAction("deleteAccount")}/>
+        {formKeys.map((key, i) => <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>)}
         {/* TO DO: add logout link below*/}
         {/* <PageLink to={} from={} value={}/> */}
 
-        {isPopupOpen && currentActionData && 
-        <PopupContent 
-          title={currentActionData.title}
-          inputs={currentActionData.inputs}
-          buttons={currentActionData.buttons}
-          onClose = {() => {setPopupOpen(false)}}
-        /> }
+        {currentActionData &&
+          <PopupContent 
+            title={currentActionData.title}
+            inputs={currentActionData.inputs}
+            buttons={currentActionData.buttons}
+            handleClick = {handleClose}
+          />}
 
     </div>
   );
 };
 
 export default AccountEdit;
+
