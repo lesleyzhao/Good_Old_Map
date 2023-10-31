@@ -1,6 +1,3 @@
-import NavBar from "../../components/common/navBar";
-import RightBtn from "../../components/common/rightBtn";
-import LeftBtn from "../../components/common/leftBtn";
 const InfoDetail = () => {
   // parameters: pic, header, subtitle(string array), parag
   let props = {};
