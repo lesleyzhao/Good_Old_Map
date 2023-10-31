@@ -10,13 +10,17 @@ import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 
+import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainMap />} />
+          
+          <Route element={<MapLayout />}>
+            <Route path="/" element={<MainMap />} />
+          </Route>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -29,6 +33,7 @@ const App = () => {
             <Route path="/account" element={<Account />} />
             <Route path="/edit" element={<AccountEdit />} />
           </Route>
+          
         </Routes>
       </BrowserRouter>
     </>
