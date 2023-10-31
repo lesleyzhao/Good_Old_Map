@@ -34,7 +34,7 @@ const App = () => {
             <Route path="/info" element={<InfoDetail/>}/>
           </Route>
           {/* <Route path="/favoritelist" element={<FavoriteList />}/> */}
-          <Route path="favoritelist" element={<FavoriteList />}/>
+          <Route path="/favoritelist" element={<FavoriteList />}/>
           <Route path="/account" element={<AccountLayout />}>
             <Route path="" element={<Account />} />
             <Route path="edit" element={<AccountEdit />} />
