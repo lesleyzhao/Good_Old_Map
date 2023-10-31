@@ -4,6 +4,8 @@ import { Icon } from 'leaflet';
 
 const MainMap = () => {
   const [position, setPosition] = useState([51.505, -0.09])
+  const [city, setCity] = useState("")
+
   return(
     <>
       <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
