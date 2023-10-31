@@ -13,7 +13,7 @@ const AccountEdit = (props) => {
   const discardChange = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
-    currentActionData && setCurrentActionData(null);
+    setCurrentActionData(null);
   }
   const confirmChangeUsername = (evt) => {
     evt.preventDefault()
@@ -72,7 +72,7 @@ const AccountEdit = (props) => {
     },
     "logout": {
       link: "Log Out",
-      title: "Log Out",
+      title: "Log out of this account",
       buttons: [{value:"Discard", handleClick: discardChange},
                 {value:"Confirm", handleClick: confirmDeleteAccount}],
     },
