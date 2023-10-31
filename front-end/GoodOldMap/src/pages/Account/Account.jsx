@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountLayout from "./AccountLayout";
 import { Link } from "react-router-dom";
 import PopupLink from '../../components/popup/popupLink';
+import axios from "axios"
 
 const Account = () => {
   // parameters: pic, username, email,
   let props = {};
   props.pic = "https://picsum.photos/200"
-  props.username = "John Doe"
-  props.email = "jd00001@nyu.edu"
+  // props.username = "John Doe"
+  // sprops.email = "jd00001@nyu.edu"
 
   const [showPopup, setShowPopup] = useState(false);
+
+
+  const [data, setData] = useState([])
+  useEffect(() => {
+    // Fetch mock data
+    axios.get("https://my.api.mockaroo.com/good_old_map?key=dd3f48f0", {
+      headers: {
+        "X-API-Key": "dd3f48f0"
+      }
+    })
+      .then(response => {
+        setData(response.data[0]);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -32,8 +50,8 @@ const Account = () => {
           </div>
         )}
         <div className="ml-8">
-          <h1 className="text-2xl font-bold">{props.username}</h1>
-          <p className="text-gray-500">{props.email}</p>
+          <h1 className="text-2xl font-bold">{data.username}</h1>
+          <p className="text-gray-500">{data.email}</p>
           <Link to="edit">
             <button className="bg-white-500 text-black font-bold py-2 px-4 rounded mt-4">
               Edit Account
