@@ -1,18 +1,28 @@
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import { useState } from 'react'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Icon } from 'leaflet';
+import usePreventZoom from '../../util/hooks/usePreventZoom';
 
 const MainMap = () => {
+  usePreventZoom()
+  const [position, setPosition] = useState([51.505, -0.09]);
+
+  const customIcon = new Icon({
+    iconUrl: "/mapicon.png",
+    iconSize: [38, 38],
+  });
   return(
     <>
-      <MapContainer className='h-full' center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* <Marker position={[51.505, -0.09]}>
+        <Marker position={position} icon={customIcon}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
-        </Marker> */}
+        </Marker>
       </MapContainer>
     </>
   )
