@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import PopupLink from '../../components/popup/popupLink';
 import PopupContent from '../../components/popup/popupContent';
+import ProfilePic from '../../components/account/profilePic';
+import UserBasicInfo from '../../components/account/userBasicInfo';
 
-
-const AccountEdit = () => {
+const AccountEdit = (props) => {
 
   const [currentActionData, setCurrentActionData] = useState(null);
 
@@ -101,21 +102,36 @@ const AccountEdit = () => {
   
   //Return the AccountEdit component
   return (
-    <div>
-        {/* TO DO: add image profile, add username, add user email */}
-        {formKeys.map((key, i) => <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>)}
-        {/* TO DO: add logout link below*/}
-        {/* <PageLink to={} from={} value={}/> */}
+    <>
+      <div className='w-full flex mb-4'>
+        <div className="flex flex-col items-center p-4 m-auto">
+          <div className="w-24 h-24">
+            <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
+          </div>
+          <div className="text-center">
+            <UserBasicInfo 
+              username={props.username ?? "John Doe"}
+              email={props.email ?? "Asdfasdfasdf@nyu.edu"}
+            />
+          </div>
+        </div>
+      </div>
 
-        {currentActionData &&
-          <PopupContent 
-            title={currentActionData.title}
-            inputs={currentActionData.inputs}
-            buttons={currentActionData.buttons}
-            handleClick = {handleClose}
-          />}
+      <div className='flex flex-col'>
+        {formKeys.map((key, i) => 
+          <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
+          )}
+      </div>
+      
+      {currentActionData &&
+        <PopupContent 
+          title={currentActionData.title}
+          inputs={currentActionData.inputs}
+          buttons={currentActionData.buttons}
+          handleClick = {handleClose}
+        />}
 
-    </div>
+    </>
   );
 };
 

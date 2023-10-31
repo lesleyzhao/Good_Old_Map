@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PageLink from "../../components/common/pageLink"
 import axios from "axios"
 import ProfilePic from "../../components/account/profilePic"
 import PopupUserPic from "../../components/popup/popupUserPic";
@@ -39,8 +38,6 @@ const Account = (props) => {
     evt.stopPropagation()
     navigate("edit", {state:{from: location.pathname}})
   }
-
-  const randomPhoto = "https://picsum.photos/500";
 
   return(
     <>
