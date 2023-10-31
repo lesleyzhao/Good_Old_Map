@@ -1,12 +1,20 @@
 import { useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
 import InfoCard from '../../components/common/InfoCard';
+// import countries from '../../util/data/countries.json'
+
 
 
 const MainMap = () => {
   const [position, setPosition] = useState([51.505, -0.09])
 
+  // const countryStyle = {
+  //   color: "black",
+  //   weight: 0.3,
+  //   opacity: 1,
+  // };
+    
   return(
     <>
     <div className="flex justify-center items-center">
@@ -20,6 +28,7 @@ const MainMap = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LocationMarker position={position} setPosition={setPosition}/>
+        {/* <GeoJSON data={countries} style={countryStyle} /> */}
       </MapContainer>
     </>
   )

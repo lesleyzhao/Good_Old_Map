@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePreventZoom from '../../util/hooks/usePreventZoom';
 import ProfilePic from "../../components/account/profilePic";
+import PopupSearch from "../../components/popup/popupSearch";
 
 const MapLayout = () => {
   usePreventZoom()
@@ -49,6 +50,7 @@ const MapLayout = () => {
 
   return (
     <>
+      <PopupSearch />
     <div className="h-screen flex flex-col ">
       <nav className="py-[2vh] px-[10%] w-full bg-beige1 flex flex-row justify-between">
         <div className="relative w-full my-1">
