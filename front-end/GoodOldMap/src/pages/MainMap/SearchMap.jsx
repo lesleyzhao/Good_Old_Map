@@ -3,9 +3,6 @@ import CityList from "../../components/common/CityList"
 
 const SearchMap = () => {
   const [searchData, ,] = useOutletContext()
-  const keys = searchData.length > 0 ? searchData[0] : [];
-  // research search data
-  console.log(keys);
 
   const cities = [
     'New York',
@@ -23,8 +20,7 @@ const SearchMap = () => {
   return( 
     <>
     <div className="px-[10%]">
-      search map page
-      <CityList cities={cities} searchData={keys}></CityList>
+      <CityList cities={cities} searchData={searchData} />
     </div>
     </>
   )
