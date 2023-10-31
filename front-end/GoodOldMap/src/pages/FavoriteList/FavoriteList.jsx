@@ -49,11 +49,21 @@ const FavoriteList = () => {
           <LeftBtn className="flex-grow" />
           <Logo />
         </NavBar>
-        <div className="mx-auto items-center">
-          <h1 >My Favorite</h1>
-          <button onClick={() => sortArts("name")}>Sort by Name</button>
-          <button onClick={() => sortArts("year")}>Sort by Year</button>
-        </div>
+        <h1 className = "text-center">My Favorite Arts & Music ❤️</h1>
+        <div className="mx-auto items-center space-x-4 m-2.5">
+          <button 
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              onClick={() => sortArts("name")}>
+              Sort by Name
+          </button>
+          <button 
+              className="bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+              onClick={() => sortArts("year")}>
+              Sort by Year
+          </button>
+        </div> 
+
+        
 
         <div className="mx-auto items-center">
           {
