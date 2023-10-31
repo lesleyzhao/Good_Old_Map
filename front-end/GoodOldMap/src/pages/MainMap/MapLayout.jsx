@@ -12,6 +12,8 @@ const MapLayout = () => {
   const navigate = useNavigate()
   const [searchPage, setSearchPage] = useState(false)
   const [searchData, setSearchData] = useState("")
+  // subject to changes
+  const [foundData, setFoundData] = useState("")
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
@@ -51,7 +53,6 @@ const MapLayout = () => {
 
   return (
     <>
-      {/* <PopupSearch /> */}
     <div className="h-screen flex flex-col ">
       <nav className="py-[2vh] px-[10%] w-full bg-beige1 flex flex-row justify-between">
         <div className="relative w-full my-1">
@@ -70,11 +71,10 @@ const MapLayout = () => {
           </div>
         </div>        
       </nav>
-      {/* <div><TimelineBar></TimelineBar></div> */}
-      <div className='w-full h-full'>
-        <Outlet context={searchData}/>
+      <div className={"w-full h-full"}>
+        <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
-      
+      {foundData && <PopupSearch />}
     </div>
 
     </>

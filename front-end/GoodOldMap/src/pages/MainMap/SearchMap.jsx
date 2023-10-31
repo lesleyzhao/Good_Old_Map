@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 import CityList from "../../components/common/CityList"
-// import { useState } from "react";
+import React, { useState } from 'react';
 
 
 //to be implemented 

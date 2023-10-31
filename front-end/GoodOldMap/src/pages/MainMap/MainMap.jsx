@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'r
 import { Icon } from 'leaflet';
 import InfoCard from '../../components/common/InfoCard';
 import TimelineBar from '../../components/timeline/TimelineBar';
+import { useOutletContext } from "react-router-dom"
 // import countries from '../../util/data/countries.json'
 
 const MainMap = () => {
@@ -22,7 +23,7 @@ const MainMap = () => {
    </div>
 
    <div className='mb-3'><TimelineBar></TimelineBar></div>
-
+   </div> 
 
       
       <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
@@ -38,9 +39,14 @@ const MainMap = () => {
 }
 
 function LocationMarker(props) {
+  const [, foundData, setFoundData] = useOutletContext()
   useMapEvents({
     click(evt) {
-      props.setPosition([evt.latlng.lat, evt.latlng.lng])
+      const pos = [evt.latlng.lat, evt.latlng.lng]
+      props.setPosition(pos)
+      // TODO: subject to change
+      setFoundData(pos)
+      foundData && setFoundData("")
     },
   })
   const customIcon = new Icon({
