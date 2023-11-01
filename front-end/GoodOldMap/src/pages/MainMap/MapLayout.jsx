@@ -49,6 +49,7 @@ const MapLayout = () => {
     evt.preventDefault()
     navigate('/')
     searchPage && setSearchPage(false)
+    setFoundData("")
   }
 
   return (

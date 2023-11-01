@@ -43,7 +43,7 @@ const PopupSearch = (props) => {
 
   return(
     <>
-      <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige1">
+      <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige2">
 
         <img className="w-4 m-[4%]" src="/close.png" alt="x" onClick={handleClosePopup}/>
           <div className="mx-[10%] items-center rounded-lg h-[calc(60vh-8%-1rem)] overflow-scroll">

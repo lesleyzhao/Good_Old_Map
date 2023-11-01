@@ -24,7 +24,7 @@ const SearchMap = () => {
   return( 
     <>
     <div className="px-[10%]">
-      <CityList cities={cities} searchData={searchData} />
+      <CityList cities={cities} searchData={searchData} setFoundData={setFoundData}/>
     </div>
     </>
   )
