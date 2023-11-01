@@ -54,6 +54,7 @@ const MapLayout = () => {
     setIsTimelineVisible(true);
     navigate('/')
     searchPage && setSearchPage(false)
+    setFoundData("")
   }
 
   return (

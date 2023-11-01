@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import PopupLink from '../../components/popup/popupLink';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
@@ -126,7 +125,11 @@ const AccountEdit = (props) => {
     </div>
     <h3 className='py-1'>Privacy</h3>
     {formKeys.map((key, i) => {
-      return <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
+      return (
+        <div className='w-full p-2  border-b border-navyBlue hover:border-none hover:bg-white hover:cursor-pointer'>
+          <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
+        </div>
+      )
       }
     )}
 

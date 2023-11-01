@@ -1,4 +1,4 @@
-const CityList = ({cities, searchData}) => {
+const CityList = ({cities, searchData, setFoundData}) => {
   const filteredCities = cities.filter(city => {
     if (searchData) {
       return city.toLowerCase().startsWith(searchData.toLowerCase());
@@ -7,7 +7,10 @@ const CityList = ({cities, searchData}) => {
   }).slice(0, 4);
   console.log(filteredCities);
 
-  const handleCityClick = (city) => {
+  const handleCityClick = (evt, city) => {
+    evt.stopPropagation()
+    console.log("clicked")
+    setFoundData(city)
   };
 
   return (
@@ -15,7 +18,7 @@ const CityList = ({cities, searchData}) => {
       <ul>
         {filteredCities.length ?
           filteredCities?.map((city, index) => (
-            <li className="border-b border-navyBlue" key={index} onClick={() => handleCityClick(city)}>
+            <li className="border-b border-navyBlue" key={index} onClick={(evt) => handleCityClick(evt, city)}>
               <div className="p-2 rounded-lg active:bg-white cursor-pointer">
                 {city}
               </div>
