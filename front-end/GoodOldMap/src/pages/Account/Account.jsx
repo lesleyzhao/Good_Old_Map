@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"
 import ProfilePic from "../../components/account/profilePic"
-import PopupUserPic from "../../components/popup/popupUserPic";
 import UserBasicInfo from "../../components/account/userBasicInfo";
 import Card from "../../components/common/card";
 
@@ -11,8 +10,6 @@ const Account = (props) => {
   // props.pic = "https://picsum.photos/200"
   // props.username = "John Doe"
   // sprops.email = "jd00001@nyu.edu"
-
-  const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState([])
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,10 +28,6 @@ const Account = (props) => {
       });
   }, []);
 
-  const togglePopup = (evt) => {
-    evt.stopPropagation()
-    setShowPopup(!showPopup)
-  }
   const handleClickUserInfo = (evt) => {
     evt.stopPropagation()
     navigate("edit", {state:{from: location.pathname}})
@@ -42,11 +35,11 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="max-w-[30rem] mx-auto mt-5
+      <div className="w-full max-w-[30rem] mx-auto mt-5
         flex items-center justify-center flex-col">
         <Card>
           <div className="flex items-center gap-1 w-fit mx-auto">
-            <div onClick={togglePopup} className="w-24 h-24">
+            <div className="w-24 h-24">
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div onClick={handleClickUserInfo} className="text-center hover:cursor-pointer">
@@ -59,19 +52,13 @@ const Account = (props) => {
         </Card>
         <div className="mt-8 w-full">
           <Card>
-            <a href="/favoritelist" className="flex flex-col pb-2">
+            <a href="/favoritelist" className="flex flex-col px-2">
               <h2 className="mx-auto pb-2">My Favorite</h2>
               <img className="mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
             </a>
           </Card>
         </div>
       </div>
-
-      {showPopup && 
-        <div onClick={togglePopup}>
-          <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
-        </div>
-      }
     </>
     
   )
