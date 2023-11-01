@@ -14,6 +14,7 @@ const MapLayout = () => {
   const [searchData, setSearchData] = useState("")
   // subject to changes
   const [foundData, setFoundData] = useState("")
+  const [isTimelineVisible, setIsTimelineVisible] = useState(true);
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
@@ -31,12 +32,15 @@ const MapLayout = () => {
       if (evt.target.value) {
         setSearchData(evt.target.value)
         if (location.pathname === "/") {
+          // Hide the timeline when navigating to /search
+          setIsTimelineVisible(false);
           navigate('/search')
           !searchPage && setSearchPage(true)
         }
       }
       else {
         navigate('/')
+        setIsTimelineVisible(true);
         searchPage && setSearchPage(false)
         setSearchData("")
       }
@@ -47,6 +51,7 @@ const MapLayout = () => {
   const handleClickBack = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
+    setIsTimelineVisible(true);
     navigate('/')
     searchPage && setSearchPage(false)
   }
@@ -62,6 +67,7 @@ const MapLayout = () => {
               placeholder:text-left placeholder:text-gray-400 bg-white`}
               onKeyDown={handleSubmit}
               type="text" id="searchLocation" placeholder="Search for a city name"/>
+
             {searchPage &&
               <div className="absolute left-1 top-1" onClick={handleClickBack}>
                 <img className="w-9 hover:cursor-pointer" src="/leftbtn.png" alt="leftbtn"/>
@@ -70,8 +76,12 @@ const MapLayout = () => {
             <div className="h-9 w-9 absolute right-1 top-1" onClick={handleClickProfile}>
               <ProfilePic pic="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg/1200px-Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg"/>
             </div>
-          </div>
-          <div className='mt-3'><TimelineBar/></div>       
+          </div>     
+          
+          <div className='mt-3'>
+          {isTimelineVisible && <TimelineBar />}
+          </div>     
+
         </nav>
       </div>
       <div className="w-full h-full">

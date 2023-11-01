@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
 import InfoCard from '../../components/map/InfoCard';
-import TimelineBar from '../../components/timeline/TimelineBar';
 import { useOutletContext } from "react-router-dom"
 // import countries from '../../util/data/countries.json'
 
@@ -17,7 +16,8 @@ const MainMap = () => {
     
   return(
     <>
-    <div className="fixed left-5 z-[2000] flex justify-center items-center">
+
+    <div className="fixed left-8 z-[2000] flex-col justify-center items-center">
       <InfoCard title="Welcome!" text="Click anywhere on the map to start your European art & music journey! Let's get started!"/>
       <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
    </div>
