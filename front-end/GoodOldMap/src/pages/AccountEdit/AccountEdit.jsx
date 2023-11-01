@@ -73,14 +73,14 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmDeleteAccount}],
+      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+                {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmDeleteAccount}],
+      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+                {value:"Discard", handleClick: discardChange}],
     }
   }
   const formKeys = Object.keys(formData);

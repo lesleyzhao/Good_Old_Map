@@ -1,6 +1,6 @@
 const Card = ({children}) => {
   return (
-    <div className="bg-white rounded-md shadow-lg w-full py-4 px-2">
+    <div className="bg-white rounded-md shadow-lg w-full p-6">
       {children}
     </div>
   )

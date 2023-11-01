@@ -20,10 +20,10 @@ const ArtItem = ({ art,onRemoveFromFavorites }) => {
           <p className='absolute bottom-[0.15rem] left-[0.15rem] rounded-xl px-1
             text-lg text-center bg-white bg-opacity-60'>
               <span className='pr-[0.15rem]' onClick={onRemoveFromFavorites}>❤️</span>
-              {`${art.name} ${art.year}`}
+              {art.name}
           </p>
         </div>
-        <p className="pt-1">Made by Artist: Van Gogh, Holland</p>
+        <p className="pt-1">{`Van Gogh, Holland, ${art.year}`}</p>
       </Card>
     </div>
   );

@@ -8,7 +8,7 @@ const UserBasicInfo = (props) => {
   return(
     <>
       <h2>{props.username}</h2>
-      <p className="text-gray-400">{props.email}</p>
+      <span className="text-gray-400">{props.email}</span>
       {/* <PageLink to="edit" value="Edit Account" from={location.pathname}/> */}
     </>
   )

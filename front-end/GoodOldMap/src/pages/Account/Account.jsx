@@ -42,10 +42,10 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="max-w-[20rem] mx-auto mt-5
+      <div className="max-w-[30rem] mx-auto mt-5
         flex items-center justify-center flex-col">
         <Card>
-          <div className="flex items-center gap-4 w-fit mx-auto">
+          <div className="flex items-center gap-1 w-fit mx-auto">
             <div onClick={togglePopup} className="w-24 h-24">
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
@@ -61,16 +61,16 @@ const Account = (props) => {
           <Card>
             <a href="/favoritelist" className="flex flex-col pb-2">
               <h2 className="mx-auto pb-2">My Favorite</h2>
-              <img className="w-64 h-64 mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
+              <img className="mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
             </a>
           </Card>
         </div>
       </div>
 
       {showPopup && 
-      <div onClick={togglePopup}>
-        <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
-      </div>
+        <div onClick={togglePopup}>
+          <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
+        </div>
       }
     </>
     

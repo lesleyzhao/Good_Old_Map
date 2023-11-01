@@ -62,7 +62,7 @@ const FavoriteList = () => {
           <h2>My Favorite Arts</h2>
         <Logo />
       </NavBar>
-      <div className="w-[80%] mx-auto min-h-screen flex flex-col">
+      <div className="max-w-[30rem] w-[80%] mx-auto min-h-screen flex flex-col">
         <div className="text-center space-x-8 my-3">
           <button 
               className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
