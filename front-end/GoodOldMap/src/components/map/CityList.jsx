@@ -9,7 +9,8 @@ const CityList = ({cities, searchData, setFoundData}) => {
 
   const handleCityClick = (evt, city) => {
     evt.stopPropagation()
-    setFoundData(city);
+    console.log("clicked")
+    setFoundData(city)
   };
 
   return (

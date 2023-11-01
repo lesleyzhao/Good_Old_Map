@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import PopupLink from '../../components/popup/popupLink';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
