@@ -10,7 +10,9 @@ const AccountLayout = () => {
         <LeftBtn />
         <Logo />
       </NavBar>
-      <Outlet />
+      <div className="w-[80%] max-w-[30rem] mx-auto">
+        <Outlet />
+      </div>
     </div>
 
     </>

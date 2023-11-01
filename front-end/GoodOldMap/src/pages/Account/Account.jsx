@@ -35,7 +35,7 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="w-full max-w-[30rem] mx-auto mt-5
+      <div className="mb-[10%] mx-auto mt-5
         flex items-center justify-center flex-col">
         <Card>
           <div className="flex items-center gap-1 w-fit mx-auto">

@@ -111,26 +111,24 @@ const AccountEdit = (props) => {
   //Return the AccountEdit component
   return (
     <>
-    <div className='w-[80%] max-w-[30rem] mx-auto'>
-      <div className='w-full flex mb-4'>
-        <div className="flex flex-col items-center p-4 m-auto">
-          <div onClick={togglePopup} className="w-24 h-24">
-            <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
-          </div>
-          <div className="text-center">
-            <UserBasicInfo 
-              username={props.username ?? "John Doe"}
-              email={props.email ?? "Asdfasdfasdf@nyu.edu"}
-            />
-          </div>
+    <div className='w-full flex mb-4'>
+      <div className="flex flex-col items-center p-4 m-auto">
+        <div onClick={togglePopup} className="w-24 h-24">
+          <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
+        </div>
+        <div className="text-center">
+          <UserBasicInfo 
+            username={props.username ?? "John Doe"}
+            email={props.email ?? "Asdfasdfasdf@nyu.edu"}
+          />
         </div>
       </div>
-      <h3 className='py-1'>Privacy</h3>
-      {formKeys.map((key, i) => {
-        return <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
-        }
-      )}
     </div>
+    <h3 className='py-1'>Privacy</h3>
+    {formKeys.map((key, i) => {
+      return <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
+      }
+    )}
 
       {currentActionData &&
         <PopupContent 
