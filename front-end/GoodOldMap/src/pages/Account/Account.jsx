@@ -57,9 +57,9 @@ const Account = (props) => {
             </div>
           </div>
         </Card>
-        <div className="mt-8">
+        <div className="mt-8 w-full">
           <Card>
-            <a href="/favoritelist" className="flex flex-col">
+            <a href="/favoritelist" className="flex flex-col pb-2">
               <h2 className="mx-auto pb-2">My Favorite</h2>
               <img className="w-64 h-64 mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
             </a>

@@ -116,12 +116,11 @@ const AccountEdit = (props) => {
           </div>
         </div>
       </div>
-
-      <div className='flex flex-col'>
-        {formKeys.map((key, i) => 
-          <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
-          )}
-      </div>
+      <h3 className='py-1'>Privacy</h3>
+      {formKeys.map((key, i) => {
+        return <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
+        }
+      )}
       
       {currentActionData &&
         <PopupContent 
