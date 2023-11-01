@@ -4,10 +4,12 @@ import PopupLink from '../../components/popup/popupLink';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
+import PopupUserPic from "../../components/popup/popupUserPic";
 
 const AccountEdit = (props) => {
 
   const [currentActionData, setCurrentActionData] = useState(null);
+  // const [showPopup, setShowPopup] = useState(false);
 
   //TO DO for Richard: send data to backend
   const discardChange = (evt) => {
@@ -73,14 +75,14 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmDeleteAccount}],
+      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+                {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmDeleteAccount}],
+      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+                {value:"Discard", handleClick: discardChange}],
     }
   }
   const formKeys = Object.keys(formData);
@@ -100,29 +102,34 @@ const AccountEdit = (props) => {
     if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
   }
   
+  const togglePopup = (evt) => {
+    evt.stopPropagation()
+    if (!currentActionData) setCurrentActionData("userpic")
+    else setCurrentActionData(null)
+  }
+
   //Return the AccountEdit component
   return (
     <>
-      <div className='w-full flex mb-4'>
-        <div className="flex flex-col items-center p-4 m-auto">
-          <div className="w-24 h-24">
-            <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
-          </div>
-          <div className="text-center">
-            <UserBasicInfo 
-              username={props.username ?? "John Doe"}
-              email={props.email ?? "Asdfasdfasdf@nyu.edu"}
-            />
-          </div>
+    <div className='w-full flex mb-4'>
+      <div className="flex flex-col items-center p-4 m-auto">
+        <div onClick={togglePopup} className="w-24 h-24">
+          <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
+        </div>
+        <div className="text-center">
+          <UserBasicInfo 
+            username={props.username ?? "John Doe"}
+            email={props.email ?? "Asdfasdfasdf@nyu.edu"}
+          />
         </div>
       </div>
+    </div>
+    <h3 className='py-1'>Privacy</h3>
+    {formKeys.map((key, i) => {
+      return <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
+      }
+    )}
 
-      <div className='flex flex-col'>
-        {formKeys.map((key, i) => 
-          <PopupLink value={formData[key]["link"]} handleClick={() => handleAction(key)} key={i}/>
-          )}
-      </div>
-      
       {currentActionData &&
         <PopupContent 
           title={currentActionData.title}
@@ -130,7 +137,12 @@ const AccountEdit = (props) => {
           buttons={currentActionData.buttons}
           handleClick = {handleClose}
         />}
-
+      {currentActionData === "userpic" && 
+        <div onClick={togglePopup}
+          className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+          <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
+        </div>
+      }
     </>
   );
 };
