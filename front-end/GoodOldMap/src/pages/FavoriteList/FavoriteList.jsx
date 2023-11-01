@@ -57,12 +57,12 @@ const FavoriteList = () => {
 
   return (
     <>
-        <NavBar className="flex">
+      <NavBar className="flex">
           <LeftBtn className="flex-grow" />
-          <Logo />
-        </NavBar>
+          <h2>My Favorite Arts</h2>
+        <Logo />
+      </NavBar>
       <div className="w-[80%] mx-auto min-h-screen flex flex-col">
-        <h1 className="text-center mt-5">My Favorite Arts ❤️</h1>
         <div className="text-center space-x-8 my-3">
           <button 
               className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"

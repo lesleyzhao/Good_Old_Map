@@ -33,13 +33,12 @@ const App = () => {
           <Route element={<InfoLayout />}>
             <Route path="/info" element={<InfoDetail/>}/>
           </Route>
-          {/* <Route path="/favoritelist" element={<FavoriteList />}/> */}
-          <Route path="/favoritelist" element={<FavoriteList />}/>
           <Route path="/account" element={<AccountLayout />}>
             <Route path="" element={<Account />} />
             <Route path="edit" element={<AccountEdit />} />
-            {/* <Route path="favoritelist" element={<FavoriteList />}/> */}
           </Route>
+
+          <Route path="/favoritelist" element={<FavoriteList />}/>
           
         </Routes>
       </BrowserRouter>

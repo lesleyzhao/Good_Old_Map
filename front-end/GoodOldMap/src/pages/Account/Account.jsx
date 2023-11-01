@@ -4,6 +4,7 @@ import axios from "axios"
 import ProfilePic from "../../components/account/profilePic"
 import PopupUserPic from "../../components/popup/popupUserPic";
 import UserBasicInfo from "../../components/account/userBasicInfo";
+import Card from "../../components/common/card";
 
 const Account = (props) => {
   // parameters: pic, username, email,
@@ -41,9 +42,10 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="flex items-center justify-center flex-col mt-5">
-        <div className="flex items-center gap-4 p-4
-          bg-white rounded-lg shadow-lg m-auto">
+      <div className="max-w-[20rem] mx-auto mt-5
+        flex items-center justify-center flex-col">
+        <Card>
+          <div className="flex items-center gap-4 w-fit mx-auto">
             <div onClick={togglePopup} className="w-24 h-24">
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
@@ -53,14 +55,15 @@ const Account = (props) => {
                 email={data.email ?? "Asdfasdfasdf@nyu.edu"}
               />
             </div>
-        </div>
-
+          </div>
+        </Card>
         <div className="mt-8">
-          <h2>My Favorite</h2>
-
-          <a href="/favoritelist" className="justify-center max-w-full bg-white rounded-lg shadow-lg p-4 flex items-center mt-2">
-            <img className="w-64 h-64 rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
-          </a>
+          <Card>
+            <a href="/favoritelist" className="flex flex-col">
+              <h2 className="mx-auto pb-2">My Favorite</h2>
+              <img className="w-64 h-64 mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
+            </a>
+          </Card>
         </div>
       </div>
 
