@@ -6,4 +6,4 @@ const axiosProvider = axios.create({
   baseURL: serverURL
 });
 
-export default { axiosProvider };
+export default axiosProvider;
