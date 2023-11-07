@@ -54,12 +54,6 @@ const AccountEdit = (props) => {
       
     }
   }
-  const confirmDelAccount = {
-    title: "This account not be gone...",
-    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
-              {value:"Discard", handleClick: discardChange}],
-  }
-
   //All PopupContent data
   const formData = {
     "changeUsername": {
@@ -106,26 +100,22 @@ const AccountEdit = (props) => {
                 {value:"Discard", handleClick: discardChange}],
     }
   }
-  const formKeys = Object.keys(formData);
+  const confirmDelAccount = {
+    title: "This account not be gone...",
+    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+              {value:"Discard", handleClick: discardChange}],
+  }
 
   //Function to decide which PopupContent to display
   const handleAction = (key) => {
-    const actionData = formData[key];
-    console.log(actionData);
-    try {
-      if (!actionData) throw `No data found for action:: ${key}`
-      setCurrentActionData(actionData);
-    } catch (error) {
-      console.error(error)
-    }
+    setCurrentActionData(formData[key]);
   };
+
   const handleClose = (evt) => {
-    evt.stopPropagation()
     if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
   }
   
   const togglePopup = (evt) => {
-    evt.stopPropagation()
     if (!currentActionData) setCurrentActionData("userpic")
     else setCurrentActionData(null)
   }
@@ -147,7 +137,7 @@ const AccountEdit = (props) => {
       </div>
     </div>
     <h3 className='py-1'>Privacy</h3>
-    {formKeys.map((key, i) => {
+    {Object.keys(formData).map((key, i) => {
       return (
         <div className='w-full p-2  border-b border-navyBlue hover:border-none hover:bg-white hover:cursor-pointer'>
           <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
