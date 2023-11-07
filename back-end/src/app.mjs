@@ -24,9 +24,11 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 app.use("/static", express.static(path.join(__dirname, 'public')));
 
 // cors
+// TODO: store in env
+const clientURL = "http://localhost:5173";
 const corsOptions = {
   credentials: true,
-  origin: process.env.CLIENT_URL,
+  origin: clientURL,
   methods: ['GET', 'PUT', 'POST', 'DELETE']
 }
 app.use(cors(corsOptions));
