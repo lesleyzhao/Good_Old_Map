@@ -101,7 +101,7 @@ const AccountEdit = (props) => {
     }
   }
   const confirmDelAccount = {
-    title: "This account not be gone...",
+    title: "This account will be gone...",
     buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
               {value:"Discard", handleClick: discardChange}],
   }
