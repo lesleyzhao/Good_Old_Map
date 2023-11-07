@@ -35,7 +35,7 @@ const Account = (props) => {
 
   return(
     <>
-      <div className="mb-[10%] mx-auto mt-5
+      <div className="mb-[10%] mx-auto mt-4
         flex items-center justify-center flex-col">
         <Card>
           <div className="flex items-center gap-1 w-fit mx-auto">
@@ -50,7 +50,8 @@ const Account = (props) => {
             </div>
           </div>
         </Card>
-        <div className="mt-8 w-full">
+
+        <div className="mt-6 w-full">
           <Card>
             <a href="/favoritelist" className="flex flex-col px-2">
               <h2 className="mx-auto pb-2">My Favorite</h2>

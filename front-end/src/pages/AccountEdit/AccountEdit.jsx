@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
 import PopupUserPic from "../../components/popup/popupUserPic";
+import axiosProvider from '../../util/api/axios';
 
 const AccountEdit = (props) => {
-
+  const navigate = useNavigate();
   const [currentActionData, setCurrentActionData] = useState(null);
   // const [showPopup, setShowPopup] = useState(false);
 
@@ -32,12 +34,26 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  const confirmDeleteAccount = (evt) => {
+  const confirmLogout = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
+  const deleteAccount = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+    setCurrentActionData(confirmDelAccount)
+  }
 
-
+  const confirmDeleteAccount = async (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+    try {
+      await axiosProvider.post("/delaccount")
+      navigate("/")
+    } catch (error) {
+      
+    }
+  }
   //All PopupContent data
   const formData = {
     "changeUsername": {
@@ -74,35 +90,32 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Confirm", handleClick: confirmLogout},
                 {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Okay", handleClick: deleteAccount},
                 {value:"Discard", handleClick: discardChange}],
     }
   }
-  const formKeys = Object.keys(formData);
+  const confirmDelAccount = {
+    title: "This account will be gone...",
+    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+              {value:"Discard", handleClick: discardChange}],
+  }
 
   //Function to decide which PopupContent to display
   const handleAction = (key) => {
-    const actionData = formData[key];
-    try {
-      if (!actionData) throw `No data found for action:: ${key}`
-      setCurrentActionData(actionData);
-    } catch (error) {
-      console.error(error)
-    }
+    setCurrentActionData(formData[key]);
   };
+
   const handleClose = (evt) => {
-    evt.stopPropagation()
     if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
   }
   
   const togglePopup = (evt) => {
-    evt.stopPropagation()
     if (!currentActionData) setCurrentActionData("userpic")
     else setCurrentActionData(null)
   }
@@ -124,7 +137,7 @@ const AccountEdit = (props) => {
       </div>
     </div>
     <h3 className='py-1'>Privacy</h3>
-    {formKeys.map((key, i) => {
+    {Object.keys(formData).map((key, i) => {
       return (
         <div className='w-full p-2  border-b border-navyBlue hover:border-none hover:bg-white hover:cursor-pointer'>
           <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
