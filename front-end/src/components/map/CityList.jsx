@@ -14,7 +14,7 @@ const CityList = ({cities, searchData, setFoundData}) => {
   };
 
   return (
-    <div className='overflow-scroll content-center mt-5'>
+    <div className='overflow-scroll content-center'>
       <ul>
         {filteredCities.length ?
           filteredCities?.map((city, index) => (

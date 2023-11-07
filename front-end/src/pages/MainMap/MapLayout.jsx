@@ -14,7 +14,6 @@ const MapLayout = () => {
   const [searchData, setSearchData] = useState("")
   // subject to changes
   const [foundData, setFoundData] = useState("")
-  const [isTimelineVisible, setIsTimelineVisible] = useState(true);
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
@@ -27,20 +26,17 @@ const MapLayout = () => {
   // submit search result
   const handleSubmit = (evt) => {
     evt.stopPropagation()
-    if (evt.key === "Enter") {
+    if (evt.key) {
       // send data via react Context to SearchMap
       if (evt.target.value) {
         setSearchData(evt.target.value)
         if (location.pathname === "/") {
-          // Hide the timeline when navigating to /search
-          setIsTimelineVisible(false);
           navigate('/search')
           !searchPage && setSearchPage(true)
         }
       }
       else {
         navigate('/')
-        setIsTimelineVisible(true);
         searchPage && setSearchPage(false)
         setSearchData("")
       }
@@ -51,7 +47,6 @@ const MapLayout = () => {
   const handleClickBack = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
-    setIsTimelineVisible(true);
     navigate('/')
     searchPage && setSearchPage(false)
     setFoundData("")
@@ -80,7 +75,7 @@ const MapLayout = () => {
           </div>     
           
           <div className='mt-3'>
-          {isTimelineVisible && <TimelineBar />}
+            <TimelineBar className='mt-3'/>
           </div>     
 
         </nav>
