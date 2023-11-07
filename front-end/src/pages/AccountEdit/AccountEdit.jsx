@@ -34,6 +34,16 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
+  const confirmLogout = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+  }
+  const deleteAccount = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+    setCurrentActionData(confirmDelAccount)
+  }
+
   const confirmDeleteAccount = async (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
@@ -44,7 +54,11 @@ const AccountEdit = (props) => {
       
     }
   }
-
+  const confirmDelAccount = {
+    title: "This account not be gone...",
+    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+              {value:"Discard", handleClick: discardChange}],
+  }
 
   //All PopupContent data
   const formData = {
@@ -82,13 +96,13 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Confirm", handleClick: confirmLogout},
                 {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Okay", handleClick: deleteAccount},
                 {value:"Discard", handleClick: discardChange}],
     }
   }
@@ -97,6 +111,7 @@ const AccountEdit = (props) => {
   //Function to decide which PopupContent to display
   const handleAction = (key) => {
     const actionData = formData[key];
+    console.log(actionData);
     try {
       if (!actionData) throw `No data found for action:: ${key}`
       setCurrentActionData(actionData);
