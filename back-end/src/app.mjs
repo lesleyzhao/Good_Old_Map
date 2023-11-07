@@ -4,6 +4,7 @@ import path from 'path';
 // middlewares
 import multer from "multer";
 import axios from 'axios';
+import cors from 'cors';
 import "dotenv/config";
 import morgan from 'morgan';
 // routes
