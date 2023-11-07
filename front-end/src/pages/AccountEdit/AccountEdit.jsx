@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
 import PopupUserPic from "../../components/popup/popupUserPic";
+import axiosProvider from '../../util/api/axios';
 
 const AccountEdit = (props) => {
-
+  const navigate = useNavigate();
   const [currentActionData, setCurrentActionData] = useState(null);
   // const [showPopup, setShowPopup] = useState(false);
 
@@ -32,9 +34,15 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  const confirmDeleteAccount = (evt) => {
+  const confirmDeleteAccount = async (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
+    try {
+      await axiosProvider.post("/delaccount")
+      navigate("/")
+    } catch (error) {
+      
+    }
   }
 
 
