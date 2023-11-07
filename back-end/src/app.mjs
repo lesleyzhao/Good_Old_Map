@@ -23,6 +23,13 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 app.use("/static", express.static(path.join(__dirname, 'public')));
 
+// cors
+const corsOptions = {
+  credentials: true,
+  origin: process.env.CLIENT_URL,
+  methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
+app.use(cors(corsOptions));
 // middlewares
 
 
