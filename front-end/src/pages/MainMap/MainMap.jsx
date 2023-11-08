@@ -1,26 +1,19 @@
 import { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
-import InfoCard from '../../components/map/InfoCard';
 import { useOutletContext } from "react-router-dom"
+// import InfoCard from '../../components/map/InfoCard';
 // import countries from '../../util/data/countries.json'
 
 const MainMap = () => {
   const [position, setPosition] = useState([51.505, -0.09])
 
-  // const countryStyle = {
-  //   color: "black",
-  //   weight: 0.3,
-  //   opacity: 1,
-  // };
-    
   return(
     <>
-
-    <div className="fixed left-8 z-[2000] flex-col justify-center items-center">
+    {/* <div className="fixed left-8 z-[2000] flex-col justify-center items-center">
       <InfoCard title="Welcome!" text="Click anywhere on the map to start your European art & music journey! Let's get started!"/>
       <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
-   </div>
+   </div> */}
 
       <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
         <TileLayer
@@ -28,7 +21,6 @@ const MainMap = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LocationMarker position={position} setPosition={setPosition}/>
-        {/* <GeoJSON data={countries} style={countryStyle} /> */}
       </MapContainer>
     </>
   )
@@ -50,9 +42,6 @@ function LocationMarker(props) {
   });
   return(
     <Marker icon={customIcon} position={props.position}>
-      {/* <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup> */}
     </Marker>
 
   )
