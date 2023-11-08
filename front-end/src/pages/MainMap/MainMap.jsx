@@ -27,7 +27,7 @@ const MainMap = () => {
 }
 
 function LocationMarker(props) {
-  const [, foundData, setFoundData] = useOutletContext()
+  const [, , setFoundData] = useOutletContext()
   useMapEvents({
     click(evt) {
       const pos = [evt.latlng.lat, evt.latlng.lng]

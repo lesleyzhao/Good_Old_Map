@@ -20,9 +20,9 @@ const MapLayout = () => {
   }, [])
 
 
-// submit search result
-const handleSubmit = (evt) => {
-  evt.stopPropagation()
+  // submit search result
+  const handleSubmit = (evt) => {
+    evt.stopPropagation()
     console.log(evt.target.value)
     // send data via react Context to SearchMap
     if (evt.target.value) {
@@ -60,6 +60,7 @@ const handleSubmit = (evt) => {
     navigate('/search')
     !searchPage && setSearchPage(true)
   }
+  
   return (
     <>
     <div className="h-screen flex flex-col">
