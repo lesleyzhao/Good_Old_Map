@@ -8,7 +8,12 @@ const CityList = ({cities, searchData, setFoundData}) => {
 
   const handleCityClick = (evt, city) => {
     evt.stopPropagation()
-    setFoundData(city)
+    // TODO: find the location of city
+    setFoundData(prev => ({
+      ...prev,
+      location: city,
+      search: true
+    }))
   };
 
   return (

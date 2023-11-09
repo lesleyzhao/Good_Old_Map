@@ -13,7 +13,9 @@ const MapLayout = () => {
   const [searchPage, setSearchPage] = useState(false) // display search page or not
   const [searchData, setSearchData] = useState("") // content that user typed in bar
   // subject to changes
-  const [foundData, setFoundData] = useState("") // data necessary to search for art object (time & location)
+  // data necessary to search for art object (time & location)
+  // {location:[lng, lat] (or city), time: num, search: bool}
+  const [foundData, setFoundData] = useState({location:[], time:0, search:false})
 
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
@@ -51,7 +53,10 @@ const MapLayout = () => {
     evt.preventDefault()
     navigate('/')
     searchPage && setSearchPage(false)
-    setFoundData("")
+    setFoundData(prev => ({
+      ...prev, 
+      search: false
+    }))
   }
   // navigate to search page
   const handleClickSearch = (evt) => {
@@ -93,7 +98,7 @@ const MapLayout = () => {
       <div className="w-full h-full">
         <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
-      {foundData && <PopupSearch setFoundData={setFoundData}/>}
+      {foundData.search && <PopupSearch setFoundData={setFoundData} foundData={foundData}/>}
     </div>
 
     </>

@@ -45,21 +45,25 @@ function LocationMarker(props) {
       console.log(map)
       const pos = [evt.latlng.lat, evt.latlng.lng]
       setPosition(pos)
-      map.flyTo(evt.latlng, 5)
+      map.flyTo(evt.latlng)
       markerRef.current.openPopup()
     }
   })
 
   const handleClick = (evt) => {
     // TODO: center at upper side
-    setFoundData(position)
+    setFoundData(prev => ({
+      ...prev,
+      location: position,
+      search: true
+    }))
   }
   
   return(
     <Marker icon={customIcon} position={position} ref={markerRef}>
       <Popup>
         <div className='pt-1'>
-          location, location
+          {position}
         </div>
         <FormBtn value="Look up" handleClick={handleClick}/>
       </Popup>
