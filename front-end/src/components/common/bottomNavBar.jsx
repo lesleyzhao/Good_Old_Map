@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import Logo from "./Logo"
+import Logo from "./logo"
 const BottomNavBar = ({relative}) => {
   const navigate = useNavigate();
   const location = useLocation();

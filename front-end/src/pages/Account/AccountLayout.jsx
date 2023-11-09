@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import Logo from "../../components/common/Logo"
+import Logo from "../../components/common/logo"
 import BottomNavBar from "../../components/common/bottomNavBar"
 const AccountLayout = () => {
   return (
