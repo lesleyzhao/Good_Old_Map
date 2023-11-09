@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Account from './pages/Account/Account';
-import AccountEdit from './pages/AccountEdit/AccountEdit';
 import MainMap from './pages/MainMap/MainMap';
 import SearchMap from './pages/MainMap/SearchMap';
 import Login from './pages/Authenticate/Login';
@@ -12,7 +11,6 @@ import AccountLayout from './pages/Account/AccountLayout';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 
 import MapLayout from './pages/MainMap/MapLayout';
-import InfoLayout from './pages/InfoDetail/InfoLayout';
 const App = () => {
   return (
     <>
@@ -27,18 +25,17 @@ const App = () => {
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/*" element={<Error />} />
           </Route>
           {/* TODO: add params: /info/:pieceInfo */}
-          <Route element={<InfoLayout />}>
-            <Route path="/info" element={<InfoDetail/>}/>
-          </Route>
+          
+          <Route path="/info" element={<InfoDetail/>}/>
+          <Route path="/favoritelist" element={<FavoriteList />}/>
+
           <Route path="/account" element={<AccountLayout />}>
             <Route path="" element={<Account />} />
-            <Route path="edit" element={<AccountEdit />} />
           </Route>
 
-          <Route path="/favoritelist" element={<FavoriteList />}/>
+          <Route path="/*" element={<Error />} />
           
         </Routes>
       </BrowserRouter>

@@ -1,68 +1,165 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios"
-import ProfilePic from "../../components/account/profilePic"
-import UserBasicInfo from "../../components/account/userBasicInfo";
-import Card from "../../components/common/card";
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import PopupContent from '../../components/popup/popupContent';
+import ProfilePic from '../../components/account/profilePic';
+import UserBasicInfo from '../../components/account/userBasicInfo';
+import PopupUserPic from "../../components/popup/popupUserPic";
+import axiosProvider from '../../util/api/axios';
 
-const Account = (props) => {
-  // parameters: pic, username, email,
-  // props.pic = "https://picsum.photos/200"
-  // props.username = "John Doe"
-  // sprops.email = "jd00001@nyu.edu"
-  const [data, setData] = useState([])
-  const location = useLocation();
+const AccountEdit = (props) => {
   const navigate = useNavigate();
-  useEffect(() => {
-    // Fetch mock data
-    axios.get("https://my.api.mockaroo.com/good_old_map?key=dd3f48f0", {
-      headers: {
-        "X-API-Key": "dd3f48f0"
-      }
-    })
-      .then(response => {
-        setData(response.data[0]);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  const location = useLocation();
+  const [currentActionData, setCurrentActionData] = useState(null);
 
-  const handleClickUserInfo = (evt) => {
+  const discardChange = (evt) => {
+    evt.preventDefault()
     evt.stopPropagation()
-    navigate("edit", {state:{from: location.pathname}})
+    setCurrentActionData(null);
+  }
+  const confirmChangeUsername = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+  }
+  const confirmChangeEmail = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+  }
+  const sentForgetPwEmail = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+  }
+  const confirmChangePassword = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+  }
+  // const confirmLogout = (evt) => {
+  //   evt.preventDefault()
+  //   evt.stopPropagation()
+  // }
+  const confirmLogOutAccount = (evt) => {
+    evt.preventDefault()
+    navigate("/", { state: { from: location.pathname } });
   }
 
-  return(
-    <>
-      <div className="mb-[10%] mx-auto mt-4
-        flex items-center justify-center flex-col">
-        <Card>
-          <div className="flex items-center gap-1 w-fit mx-auto">
-            <div className="w-24 h-24">
-              <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
-            </div>
-            <div onClick={handleClickUserInfo} className="text-center hover:cursor-pointer">
-              <UserBasicInfo 
-                username={data.username ?? "John Doe"}
-                email={data.email ?? "Asdfasdfasdf@nyu.edu"}
-              />
-            </div>
-          </div>
-        </Card>
+  // TODO: double confirm delete account
+  const confirmDeleteAccount = async (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+    try {
+      await axiosProvider.post("/delaccount")
+      navigate("/", { state: { from: location.pathname } });
+    } catch (error) {
+      
+    }
+  }
+  //All PopupContent data
+  const formData = {
+    "changeUsername": {
+      link: "Change Username",
+      title: "Change Username",
+      inputs: [{id:"newUsername", type:"text", placeholder:"new username"}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangeUsername}],
+    },
+    "changeEmail": {
+      link: "Change Email",
+      title: "Change Email",
+      inputs: [{id:"newEmail", type:"text", placeholder:"new email"},
+                {id:"password", type:"password", placeholder:"password"}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangeEmail}],
+    },
+    "forgotPassword": {
+      link: "Forget Password",
+      title: "Forget Password",
+      inputs: [{id:"email", type:"text", placeholder:"email"}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value: "Send Email", handleClick: sentForgetPwEmail}],
+    },
+    "changePassword": {
+      link: "Change Password",
+      title: "Change Password",
+      inputs: [{id:"oldPassword", type:"password", placeholder:"old password"},
+                {id:"password", type:"password", placeholder:"password"},
+                {id:"confirmPassword", type:"password", placeholder:"confirm password"}],
+      buttons: [{value:"Discard", handleClick: discardChange},
+                {value:"Confirm", handleClick: confirmChangePassword}],
+    },
+    "logout": {
+      link: "Log Out",
+      title: "Log out of this account",
+      buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
+                {value:"Discard", handleClick: discardChange}],
+    },
+    "deleteAccount": {
+      link: "Delete Account",
+      title: "You will not be able to recover this account",
+      buttons: [{value:"Okay", handleClick: confirmDeleteAccount},
+                {value:"Discard", handleClick: discardChange}],
+    }
+  }
+  const confirmDelAccount = {
+    title: "This account will be gone...",
+    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+              {value:"Discard", handleClick: discardChange}],
+  }
 
-        <div className="mt-6 w-full">
-          <Card>
-            <a href="/favoritelist" className="flex flex-col px-2">
-              <h2 className="mx-auto pb-2">My Favorite</h2>
-              <img className="mx-auto rounded-lg object-cover cursor-pointer" src="https://picsum.photos/500" alt="random photo" />
-            </a>
-          </Card>
+  //Function to decide which PopupContent to display
+  const handleAction = (key) => {
+    setCurrentActionData(formData[key]);
+  };
+
+  const handleClose = (evt) => {
+    if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
+  }
+  
+  const togglePopup = (evt) => {
+    if (!currentActionData) setCurrentActionData("userpic")
+    else setCurrentActionData(null)
+  }
+
+  //Return the AccountEdit component
+  return (
+    <>
+    <div className='w-full flex mb-4'>
+      <div className="flex flex-col items-center p-4 m-auto">
+        <div onClick={togglePopup} className="w-24 h-24">
+          <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
+        </div>
+        <div className="text-center">
+          <UserBasicInfo 
+            username={props.username ?? "John Doe"}
+            email={props.email ?? "Asdfasdfasdf@nyu.edu"}
+          />
         </div>
       </div>
-    </>
-    
-  )
-}
+    </div>
+    <h3 className='py-1'>Privacy</h3>
+    {Object.keys(formData).map((key, i) => {
+      return (
+        <div className='w-full p-2  border-b border-navyBlue hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
+          <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
+        </div>
+      )
+      }
+    )}
 
-export default Account;
+      {currentActionData &&
+        <PopupContent 
+          title={currentActionData.title}
+          inputs={currentActionData.inputs}
+          buttons={currentActionData.buttons}
+          handleClick = {handleClose}
+        />}
+      {currentActionData === "userpic" && 
+        <div onClick={togglePopup}
+          className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+          <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
+        </div>
+      }
+    </>
+  );
+};
+
+export default AccountEdit;
+
