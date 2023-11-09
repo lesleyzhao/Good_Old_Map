@@ -2,9 +2,8 @@ import ArtItem from "../art/ArtItem"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 const PopupSearch = (props) => {
-  // setFoundData
+  // setFoundData, foundData
   const [arts, setArts] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
@@ -33,7 +32,10 @@ const PopupSearch = (props) => {
 
   const handleClosePopup = (evt) => {
     evt.stopPropagation()
-    props?.setFoundData(null)
+    props?.setFoundData(prev => ({
+      ...prev,
+      search: false
+    }))
   }
 
   const updateFavorites = (artId, newFavoritedState) => {

@@ -1,12 +1,15 @@
 import { useOutletContext } from "react-router-dom"
-import CityList from "../../components/map/CityList"
 import { useEffect } from "react"
+import CityList from "../../components/map/CityList"
 
 const SearchMap = () => {
   const [searchData, ,setFoundData] = useOutletContext()
   useEffect(() => {
     // close popup
-    setFoundData(null)
+    setFoundData(perv => ({
+      ...perv,
+      search: false
+    }))
   },[])
   const cities = [
     'New York',

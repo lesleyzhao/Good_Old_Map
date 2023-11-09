@@ -5,16 +5,19 @@ const CityList = ({cities, searchData, setFoundData}) => {
     }
     return false;
   }).slice(0, 4);
-  console.log(filteredCities);
 
   const handleCityClick = (evt, city) => {
     evt.stopPropagation()
-    console.log("clicked")
-    setFoundData(city)
+    // TODO: find the location of city
+    setFoundData(prev => ({
+      ...prev,
+      location: city,
+      search: true
+    }))
   };
 
   return (
-    <div className='overflow-scroll content-center mt-5'>
+    <div className='overflow-scroll content-center'>
       <ul>
         {filteredCities.length ?
           filteredCities?.map((city, index) => (
