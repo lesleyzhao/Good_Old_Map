@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import Logo from '../../components/common/Logo'
+import Logo from '../../components/common/logo'
 import ArtItem from "../../components/art/ArtItem.jsx"
 import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom";
+import BottomNavBar from "../../components/common/bottomNavBar";
 // import axiosProvider from "../../util/api/axios"
 
 const FavoriteList = () => {
@@ -51,12 +52,13 @@ const FavoriteList = () => {
   };
   return (
     <>
-      <NavBar className="flex">
-        <LeftBtn className="flex-grow" />
-        <h2>My Favorite Arts</h2>
-        <Logo />
+      <NavBar>
+        <div className="flex justify-start items-center gap-3">
+          <LeftBtn/>
+          <h2>My Favorite Arts</h2>
+        </div>
       </NavBar>
-      <div className="max-w-[30rem] w-[80%] mx-auto min-h-screen flex flex-col">
+      <div className="max-w-[30rem] w-[80%] mx-auto flex flex-col">
         <div className="text-center space-x-8 my-3">
           <button
             className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
@@ -79,6 +81,7 @@ const FavoriteList = () => {
           ))}
         </div>
       </div>
+      <BottomNavBar relative="1"/>
     </>
 
 

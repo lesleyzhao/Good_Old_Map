@@ -5,6 +5,7 @@ import usePreventZoom from '../../util/hooks/usePreventZoom';
 import ProfilePic from "../../components/account/profilePic";
 import PopupSearch from "../../components/popup/popupSearch";
 import TimelineBar from "../../components/timeline/TimelineBar";
+import BottomNavBar from "../../components/common/bottomNavBar";
 
 const MapLayout = () => {
   usePreventZoom()
@@ -30,28 +31,22 @@ const MapLayout = () => {
     if (evt.target.value) {
       setSearchData(evt.target.value)
       if (location.pathname === "/") {
-        navigate('/search')
+        navigate("/search", { state: { from: location.pathname } });
         !searchPage && setSearchPage(true)
       }
     }
     else {
-      navigate('/')
+      navigate("/", { state: { from: location.pathname } });
       searchPage && setSearchPage(false)
       setSearchData("")
     }
-  }
-  
-  // navigate to profile page
-  const handleClickProfile = (evt) => {
-    evt.stopPropagation()
-    navigate('/account', {state:{from: location.pathname}})
   }
   
   // navigate back to home page
   const handleClickBack = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
-    navigate('/')
+    navigate("/", { state: { from: location.pathname } });
     searchPage && setSearchPage(false)
     setFoundData(prev => ({
       ...prev, 
@@ -62,7 +57,7 @@ const MapLayout = () => {
   const handleClickSearch = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
-    navigate('/search')
+    navigate("/search", { state: { from: location.pathname } });
     !searchPage && setSearchPage(true)
   }
   
@@ -72,7 +67,7 @@ const MapLayout = () => {
       <div className="h-[9rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige1 flex flex-col justify-between">
           <div className="relative w-full my-1">
-            <input className={`w-full py-2 pl-10 pr-10 text-left
+            <input className={`w-full py-2 pl-10 pr-4 text-left
               border-solid border-2 border-navyBlue rounded-full
               placeholder:text-left placeholder:text-gray-400 bg-white`}
               onInput={handleSubmit}
@@ -83,10 +78,6 @@ const MapLayout = () => {
                   ? <img className="w-9 hover:cursor-pointer" onClick={handleClickBack} src="/leftbtn.png" alt="leftbtn"/>
                   : <img className="w-9 hover:cursor-pointer" onClick={handleClickSearch} src="/search.png" alt="search"/>}
               </div>
-
-            <div className="h-9 w-9 absolute right-1 top-1" onClick={handleClickProfile}>
-              <ProfilePic pic="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg/1200px-Vincent_van_Gogh_-_Road_with_Cypress_and_Star_-_c._12-15_May_1890.jpg"/>
-            </div>
           </div>     
           
           <div className='mt-3'>
@@ -100,6 +91,7 @@ const MapLayout = () => {
       </div>
       {foundData.search && <PopupSearch setFoundData={setFoundData} foundData={foundData}/>}
     </div>
+    <BottomNavBar />
 
     </>
   );

@@ -21,9 +21,8 @@ const Login = () => {
     // pop up alert: confirm guest visit
     const continueGuest  = window.confirm('Guest visit will not save your data, continue?');
     if (continueGuest) {
-      navigate("/");  // Adjust this path as necessary
+      navigate("/", { state: { from: location.pathname } });
     }
-      
   }
 
   return(

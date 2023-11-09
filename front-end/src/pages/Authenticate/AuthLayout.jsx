@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Logo from "../../components/common/Logo";
+import Logo from "../../components/common/logo";
 import NavBar from "../../components/common/navBar";
 
 const AuthLayout = () => {
@@ -9,7 +9,7 @@ const AuthLayout = () => {
       <NavBar>
         <Logo />
       </NavBar>
-      <div className='w-[60%] mx-auto mt-[10vh]'>
+      <div className='w-[60%] max-w-[30rem] mx-auto mt-[10vh]'>
         <Outlet />
       </div>
     </div>

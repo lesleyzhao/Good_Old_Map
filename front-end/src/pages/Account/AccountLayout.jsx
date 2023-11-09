@@ -1,20 +1,19 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import Logo from "../../components/common/Logo"
+import BottomNavBar from "../../components/common/bottomNavBar"
 const AccountLayout = () => {
   return (
     <>
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <NavBar relative="1">
         <LeftBtn />
-        <Logo />
       </NavBar>
       <div className="w-[80%] max-w-[30rem] mx-auto">
         <Outlet />
       </div>
     </div>
-
+    <BottomNavBar relative="1"/>
     </>
   )
 }
