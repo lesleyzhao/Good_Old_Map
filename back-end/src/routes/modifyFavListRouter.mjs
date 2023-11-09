@@ -1,8 +1,8 @@
 let arts = [
   // Sample data structure
-  { id: '1', name: 'art1', author: 'Leonardo da Vinci', year: '4321', url: 'https://picsum.photos/200', inFavList: true },
+  { id: '1', name: 'art1', author: 'Leonardo da Vinci', year: '4321', url: 'https://picsum.photos/200', inFavList: false },
   { id: '2', name: 'art2', author: 'XXXXXX', year: '1234', url: 'https://picsum.photos/200', inFavList: false },
-
+  { id: '3', name: 'art3', author: 'XXXXXX', year: '2222', url: 'https://picsum.photos/200', inFavList: false },
 ];
 
 // export const removeFavListRouter = (req, res) => {
