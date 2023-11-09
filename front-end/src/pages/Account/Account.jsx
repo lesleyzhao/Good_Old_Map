@@ -32,19 +32,21 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  // const confirmLogout = (evt) => {
-  //   evt.preventDefault()
-  //   evt.stopPropagation()
-  // }
+
   const confirmLogOutAccount = (evt) => {
     evt.preventDefault()
+    evt.stopPropagation()
     navigate("/", { state: { from: location.pathname } });
   }
 
-  // TODO: double confirm delete account
-  const confirmDeleteAccount = async (evt) => {
-    evt.preventDefault()
+  const deleteAccount = (evt) => {
     evt.stopPropagation()
+    evt.preventDefault()
+    setCurrentActionData(confirmDelAccount)
+  }
+  const confirmDeleteAccount = async (evt) => {
+    evt.stopPropagation()
+    evt.preventDefault()
     try {
       await axiosProvider.post("/delaccount")
       navigate("/", { state: { from: location.pathname } });
@@ -94,7 +96,7 @@ const AccountEdit = (props) => {
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Okay", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Okay", handleClick: deleteAccount},
                 {value:"Discard", handleClick: discardChange}],
     }
   }
