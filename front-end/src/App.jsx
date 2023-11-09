@@ -6,10 +6,9 @@ import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
 import InfoDetail from './pages/InfoDetail/InfoDetail';
-import AuthLayout from './pages/Authenticate/AuthLayout';
-import AccountLayout from './pages/Account/AccountLayout';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import AppLayout from './AppLayout';
+import AuthLayout from './pages/Authenticate/AuthLayout';
 
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
@@ -33,11 +32,7 @@ const App = () => {
             {/* TODO: add params: /info/:pieceInfo */}
             <Route path="/info" element={<InfoDetail/>}/>
             <Route path="/favoritelist" element={<FavoriteList />}/>
-
-            <Route element={<AccountLayout />}>
-              <Route path="/account" element={<Account />} />
-            </Route>
-
+            <Route path="/account" element={<Account />} />
             <Route path="/*" element={<Error />} />
           </Route>
           
