@@ -1,15 +1,17 @@
-
 import React, { useState } from 'react';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
 import PopupUserPic from "../../components/popup/popupUserPic";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AccountEdit = (props) => {
 
   const [currentActionData, setCurrentActionData] = useState(null);
   // const [showPopup, setShowPopup] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   //TO DO for Richard: send data to backend
   const discardChange = (evt) => {
     evt.preventDefault()
@@ -35,6 +37,10 @@ const AccountEdit = (props) => {
   const confirmDeleteAccount = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
+  }
+  const confirmLogOutAccount = (evt) => {
+    evt.preventDefault()
+    navigate("/login", { state: { from: location.pathname } });
   }
 
 
@@ -74,7 +80,7 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
+      buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
                 {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
