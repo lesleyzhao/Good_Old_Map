@@ -68,9 +68,9 @@ npm run dev
 ```
 Back-end setup:
 ```
-cd ../back-end
+cd 4-final-project-teambaker/back-end
 npm install
-nodemon server.mjs
+nodemon src/server.mjs
 ```
 ## Build & Test the Project
    - We use React as the front-end, so when you want to build the project, open the terminal and type npm -start. Make sure to copy paste the localhost and the corresponding port website to your browser. 
