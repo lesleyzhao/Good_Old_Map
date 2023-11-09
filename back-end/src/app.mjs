@@ -47,7 +47,7 @@ app.post("/delaccount", delaccountRouter);
 
 // Favorites list routes
 app.get('/getfavlist', favListRouter);
-app.get('/getArts', getArts);
+app.post('/getArts', getArts);
 app.post('/favlist/add',addFavListRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 

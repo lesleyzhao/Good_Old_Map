@@ -2,27 +2,41 @@ import ArtItem from "../art/ArtItem"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axiosProvider from "../../util/api/axios"
 const PopupSearch = (props) => {
   // setFoundData, foundData
   const [arts, setArts] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
 
+
   useEffect(() => {
-    axios.get("http://localhost:3000/getArts")
-      .then(response => {
-        // Setting state based on potential response structures
-        if (response.data.arts) {
-          setArts(response.data.arts);
-        } else {
-          setArts(response.data);
+    async function getData() {
+      const postData = {
+        location: props?.foundData["location"],
+        time: props?.foundData["time"]
+      }
+      
+      // TODO: fix sending two requests at a time
+      const postOptions = {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setArts([])
-      });
-  }, []);
+      }
+      try {
+        const res = await axiosProvider.post(
+          "http://localhost:3000/getArts",
+          JSON.stringify(postData),
+          postOptions
+        )
+        const retData = res.data;
+        setArts(retData)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getData()
+  }, [props?.foundData])
 
   const handleArtItemClick = (artId) => {
     // Navigate to the art information page
