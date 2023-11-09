@@ -2,10 +2,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePreventZoom from '../../util/hooks/usePreventZoom';
-import ProfilePic from "../../components/account/profilePic";
 import PopupSearch from "../../components/popup/popupSearch";
 import TimelineBar from "../../components/timeline/TimelineBar";
-import BottomNavBar from "../../components/common/bottomNavBar";
 
 const MapLayout = () => {
   usePreventZoom()
@@ -63,7 +61,7 @@ const MapLayout = () => {
   
   return (
     <>
-    <div className="h-screen flex flex-col">
+    <div className="h-[calc(100vh-3vh-2.25rem)] flex flex-col">
       <div className="h-[9rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige1 flex flex-col justify-between">
           <div className="relative w-full my-1">
@@ -82,7 +80,7 @@ const MapLayout = () => {
           
           <div className='mt-3'>
             <TimelineBar className='mt-3'/>
-          </div>     
+          </div>
 
         </nav>
       </div>
@@ -91,8 +89,6 @@ const MapLayout = () => {
       </div>
       {foundData.search && <PopupSearch setFoundData={setFoundData} foundData={foundData}/>}
     </div>
-    <BottomNavBar />
-
     </>
   );
 };

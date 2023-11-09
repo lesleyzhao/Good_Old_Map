@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import BottomNavBar from "../../components/common/bottomNavBar"
 const AccountLayout = () => {
   return (
     <>
@@ -13,7 +12,6 @@ const AccountLayout = () => {
         <Outlet />
       </div>
     </div>
-    <BottomNavBar relative="1"/>
     </>
   )
 }

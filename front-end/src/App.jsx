@@ -9,6 +9,7 @@ import InfoDetail from './pages/InfoDetail/InfoDetail';
 import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountLayout from './pages/Account/AccountLayout';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
+import AppLayout from './AppLayout';
 
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
@@ -17,25 +18,28 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           
-          <Route element={<MapLayout />}>
-            <Route path="/" element={<MainMap />} />
-            <Route path="/search" element={<SearchMap />} />
-          </Route>
-          
-          <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Route>
-          {/* TODO: add params: /info/:pieceInfo */}
-          
-          <Route path="/info" element={<InfoDetail/>}/>
-          <Route path="/favoritelist" element={<FavoriteList />}/>
+          <Route element={<AppLayout/>}>
+            
+            <Route element={<MapLayout />}>
+              <Route path="/" element={<MainMap />} />
+              <Route path="/search" element={<SearchMap />} />
+            </Route>
+            
+            <Route element={<AuthLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
+            
+            {/* TODO: add params: /info/:pieceInfo */}
+            <Route path="/info" element={<InfoDetail/>}/>
+            <Route path="/favoritelist" element={<FavoriteList />}/>
 
-          <Route path="/account" element={<AccountLayout />}>
-            <Route path="" element={<Account />} />
-          </Route>
+            <Route element={<AccountLayout />}>
+              <Route path="/account" element={<Account />} />
+            </Route>
 
-          <Route path="/*" element={<Error />} />
+            <Route path="/*" element={<Error />} />
+          </Route>
           
         </Routes>
       </BrowserRouter>

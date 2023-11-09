@@ -1,6 +1,5 @@
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import BottomNavBar from "../../components/common/bottomNavBar"
 
 const InfoDetail = (props) => {
   // parameters: pic, name, subtitle(string array), parag
@@ -36,7 +35,6 @@ const InfoDetail = (props) => {
           </div>
         </div>
       </div>
-      <BottomNavBar relative="1"/>
     </>
   )
 }

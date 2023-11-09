@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import Logo from "./logo"
-const BottomNavBar = ({relative}) => {
+const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const handleClickHeart = (evt) => {
@@ -13,7 +13,7 @@ const BottomNavBar = ({relative}) => {
   }
   return (
     <>
-    <div className={`${relative ? "h-[calc(3vh+2.25rem)]" : ""}`}>
+    <div className={`h-[calc(3vh+2.25rem)]`}>
       <nav className="z-[1500] flex fixed bottom-0 pt-[2vh] pb-[2vh] px-[10%] w-full bg-beige1">
         <div className="flex flex-row justify-between w-full max-w-[30rem] mx-auto">
           <Logo />
