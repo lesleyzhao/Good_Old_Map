@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from '../../components/account/profilePic';
 import UserBasicInfo from '../../components/account/userBasicInfo';
@@ -34,13 +34,14 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  const confirmLogout = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-  }
+  // const confirmLogout = (evt) => {
+  //   evt.preventDefault()
+  //   evt.stopPropagation()
+  // }
   const confirmLogOutAccount = (evt) => {
     evt.preventDefault()
-    navigate("/login", { state: { from: location.pathname } });
+    // navigate("/login", { state: { from: location.pathname } });
+    navigate("/login");
   }
 
   const confirmDeleteAccount = async (evt) => {
@@ -95,7 +96,7 @@ const AccountEdit = (props) => {
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Okay", handleClick: deleteAccount},
+      buttons: [{value:"Okay", handleClick: confirmDeleteAccount},
                 {value:"Discard", handleClick: discardChange}],
     }
   }
