@@ -6,7 +6,10 @@ const SearchMap = () => {
   const [searchData, ,setFoundData] = useOutletContext()
   useEffect(() => {
     // close popup
-    setFoundData(null)
+    setFoundData(perv => ({
+      ...perv,
+      search: false
+    }))
   },[])
   const cities = [
     'New York',

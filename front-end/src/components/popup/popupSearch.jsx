@@ -2,34 +2,40 @@ import ArtItem from "../art/ArtItem"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axiosProvider from "../../util/api/axios"
 const PopupSearch = (props) => {
-  // setFoundData
+  // setFoundData, foundData
   const [arts, setArts] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
+
   useEffect(() => {
-    // Fetch mock data
-    axios.get("https://my.api.mockaroo.com/fav_list?key=dd3f48f0", {
-      headers: {
-        "X-API-Key": "dd3f48f0"
+    async function getData() {
+      const postData = {
+        location: props?.foundData["location"],
+        time: props?.foundData["time"]
       }
-    })
-      .then(response => {
-        // Setting state based on potential response structures
-        if (response.data.arts) {
-          setArts(response.data.arts);
-        } else {
-          setArts(response.data);
+      
+      // TODO: fix sending two requests at a time
+      const postOptions = {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setArts([
-          {id:"1", url:"https://picsum.photos/200", name:"error item1", year: "1234"},
-          {id:"2", url:"https://picsum.photos/200", name:"error item2", year: "2345"}
-        ])
-      });
-  }, []);
+      }
+      try {
+        const res = await axiosProvider.post(
+          "/getpiece",
+          JSON.stringify(postData),
+          postOptions
+        )
+        const retData = res.data;
+        setArts(retData)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getData()
+  }, [props?.foundData])
 
   const navigateToDetail = (evt) => {
     evt.preventDefault()
@@ -38,7 +44,10 @@ const PopupSearch = (props) => {
 
   const handleClosePopup = (evt) => {
     evt.stopPropagation()
-    props?.setFoundData(null)
+    props?.setFoundData(prev => ({
+      ...prev,
+      search: false
+    }))
   }
 
   return(
