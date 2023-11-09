@@ -6,8 +6,8 @@ const LeftBtn = () => {
   // naviagte to previous page via state={from: pathName} property passed to the Link
   const handleClick = (evt) => {
     evt.stopPropagation();
+    evt.preventDefault();
     navigate(location?.state?.from);
-    window.history.back();
   }
   return (
     <>
