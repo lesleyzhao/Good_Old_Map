@@ -10,6 +10,7 @@ const AccountEdit = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentActionData, setCurrentActionData] = useState(null);
+  const [showUserProfile,  setShowUserProfile] = useState(null);
 
   const discardChange = (evt) => {
     evt.preventDefault()
@@ -116,8 +117,11 @@ const AccountEdit = (props) => {
   }
   
   const togglePopup = (evt) => {
-    if (!currentActionData) setCurrentActionData("userpic")
-    else setCurrentActionData(null)
+    evt.stopPropagation()
+    evt.preventDefault()
+    if (!showUserProfile) setShowUserProfile("userpic")
+    else setShowUserProfile(null)
+    setCurrentActionData(null)
   }
 
   //Return the AccountEdit component
@@ -153,7 +157,7 @@ const AccountEdit = (props) => {
           buttons={currentActionData.buttons}
           handleClick = {handleClose}
         />}
-      {currentActionData === "userpic" && 
+      {showUserProfile && 
         <div onClick={togglePopup}
           className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
           <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
