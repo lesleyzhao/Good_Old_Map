@@ -1,5 +1,4 @@
 import ArtItem from "../art/ArtItem"
-import axios from "axios"
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axiosProvider from "../../util/api/axios"
@@ -25,7 +24,7 @@ const PopupSearch = (props) => {
       }
       try {
         const res = await axiosProvider.post(
-          "http://localhost:3000/getArts",
+          "/getArts",
           JSON.stringify(postData),
           postOptions
         )

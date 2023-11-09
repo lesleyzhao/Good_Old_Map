@@ -34,6 +34,7 @@ const App = () => {
             <Route path="/favoritelist" element={<FavoriteList />}/>
             <Route path="/account" element={<Account />} />
             <Route path="/*" element={<Error />} />
+            
           </Route>
           
         </Routes>
