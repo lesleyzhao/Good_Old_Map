@@ -3,14 +3,13 @@ import url from 'url';
 import path from 'path';
 // middlewares
 import multer from "multer";
-import axios from 'axios';
 import cors from 'cors';
 import "dotenv/config";
 import morgan from 'morgan';
 // routes
 import delaccountRouter from './routes/delaccoountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
-
+import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 const app = express();
 
 // use the morgan middleware to log all incoming http requests
@@ -44,6 +43,15 @@ app.post("/getpiece", getpieceRouter);
 
 // routes that needs authentication
 app.post("/delaccount", delaccountRouter);
+
+
+// Favorites list routes
+app.get('/getfavlist', favListRouter);
+app.post('/getArts', getArts);
+app.post('/favlist/add',addFavListRouter);
+// app.post('/favlist/remove',removeFavListRouter);
+
+
 
 
 // export the express app we created to make it available to other modules

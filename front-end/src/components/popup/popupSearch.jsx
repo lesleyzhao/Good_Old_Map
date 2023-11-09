@@ -9,6 +9,7 @@ const PopupSearch = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
 
+
   useEffect(() => {
     async function getData() {
       const postData = {
@@ -24,7 +25,7 @@ const PopupSearch = (props) => {
       }
       try {
         const res = await axiosProvider.post(
-          "/getpiece",
+          "http://localhost:3000/getArts",
           JSON.stringify(postData),
           postOptions
         )
@@ -37,10 +38,11 @@ const PopupSearch = (props) => {
     getData()
   }, [props?.foundData])
 
-  const navigateToDetail = (evt) => {
-    evt.preventDefault()
-    navigate("/info", {state:{from:location.pathname}});  // Adjust this path as necessary
-  }
+  const handleArtItemClick = (artId) => {
+    // Navigate to the art information page
+    navigate("/info", { state: { from: location.pathname } });
+  };
+
 
   const handleClosePopup = (evt) => {
     evt.stopPropagation()
@@ -50,20 +52,31 @@ const PopupSearch = (props) => {
     }))
   }
 
-  return(
+  const updateFavorites = (artId, newFavoritedState) => {
+    setArts(prevArts => prevArts.map(art => {
+      if (art.id === artId) {
+        return { ...art, inFavList: newFavoritedState };
+      }
+      return art;
+    }));
+  };
+
+
+  return (
     <>
       <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige2">
-
-        <img className="w-4 m-[4%]" src="/close.png" alt="x" onClick={handleClosePopup}/>
-          <div className="mx-[10%] items-center rounded-lg h-[calc(60vh-8%-1rem)] overflow-scroll">
-            {arts.map(art => 
-              <div onClick={navigateToDetail}>
-                <ArtItem key={art.id} art={art}/>
-              </div>)}
-          </div>
+        <img className="w-4 m-[4%]" src="/close.png" alt="x" onClick={handleClosePopup} />
+        <div className="mx-[10%] items-center rounded-lg h-[calc(60vh-8%-1rem)] overflow-scroll">
+          {arts.map((art) => (
+            <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
+              <ArtItem art={art} updateFavorites={updateFavorites} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
+
 
 export default PopupSearch

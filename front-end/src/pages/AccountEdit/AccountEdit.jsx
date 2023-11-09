@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PopupContent from '../../components/popup/popupContent';
@@ -12,6 +11,7 @@ const AccountEdit = (props) => {
   const [currentActionData, setCurrentActionData] = useState(null);
   // const [showPopup, setShowPopup] = useState(false);
 
+  const location = useLocation();
   //TO DO for Richard: send data to backend
   const discardChange = (evt) => {
     evt.preventDefault()
@@ -38,10 +38,9 @@ const AccountEdit = (props) => {
     evt.preventDefault()
     evt.stopPropagation()
   }
-  const deleteAccount = (evt) => {
+  const confirmLogOutAccount = (evt) => {
     evt.preventDefault()
-    evt.stopPropagation()
-    setCurrentActionData(confirmDelAccount)
+    navigate("/login", { state: { from: location.pathname } });
   }
 
   const confirmDeleteAccount = async (evt) => {
@@ -90,7 +89,7 @@ const AccountEdit = (props) => {
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Confirm", handleClick: confirmLogout},
+      buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
                 {value:"Discard", handleClick: discardChange}],
     },
     "deleteAccount": {
