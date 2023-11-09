@@ -5,11 +5,9 @@ const CityList = ({cities, searchData, setFoundData}) => {
     }
     return false;
   }).slice(0, 4);
-  console.log(filteredCities);
 
   const handleCityClick = (evt, city) => {
     evt.stopPropagation()
-    console.log("clicked")
     setFoundData(city)
   };
 
