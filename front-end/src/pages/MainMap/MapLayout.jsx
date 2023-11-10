@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePreventZoom from '../../util/hooks/usePreventZoom';
-import PopupSearch from "../../components/popup/popupSearch";
+import PopupSearch from "./popupSearch";
 import TimelineBar from "../../components/timeline/TimelineBar";
 
 const MapLayout = () => {

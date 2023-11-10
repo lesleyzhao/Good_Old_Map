@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AuthHeader from '../../components/form/authHeader'
+import AuthHeader from './authHeader'
 import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
