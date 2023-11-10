@@ -61,7 +61,7 @@ const MapLayout = () => {
   
   return (
     <>
-    <div className="h-[calc(100vh-3vh-2.25rem)] flex flex-col relative">
+    <div className="h-[calc(100vh-3vh-2rem)] flex flex-col relative">
       <div className="h-[9rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige1 flex flex-col justify-between">
           <div className="relative w-full my-1">

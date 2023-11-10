@@ -44,18 +44,20 @@ const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop t
     <>
       <Card onClick={navigateToDetail} >
         {/* ...other card content... */}
-        <img className="w-[70vw] max-w-[20rem] max-h-[20rem] rounded-md object-cover" src={art.url} alt={art.name} />
+        <img className="w-[70vw] max-w-[20rem] max-h-[20rem] overflow-hidden object-cover rounded-t-md" src={art.url} alt={art.name} />
         <p className='absolute bottom-[0.15rem] left-[0.18rem] rounded-xl px-1
           text-lg text-center bg-white bg-opacity-60'>
           {/* {art.name} */}
         </p>
-        <div className='w-full flex justify-between content-center'>
-          <p className="pt-1">{`${art.name} , ${art.year}`}</p>
-          
-          <IconButton onClick={toggleFavorite}>
-            {isFavorited ? <FavoriteIcon style={{ color: 'red' }} /> : <FavoriteBorderIcon />}
-          </IconButton>
+        <div className='w-full px-4 py-2'>
+          <div className='flex justify-between content-center'>
+            <h3 className="pt-1">{`${art.name}`}</h3>
+            <IconButton onClick={toggleFavorite}>
+              {isFavorited ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </div>
           {/* The rest of your card content, such as art title, author, year, etc. */}
+          <p>{`${art.year}`}</p>
         </div>
       </Card>
     </>
