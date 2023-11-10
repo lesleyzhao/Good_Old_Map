@@ -1,12 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import usePreventZoom from '../../util/hooks/usePreventZoom';
 import PopupSearch from "./popupSearch";
 import TimelineBar from "../../components/timeline/TimelineBar";
 
 const MapLayout = () => {
-  usePreventZoom()
   const location = useLocation()
   const navigate = useNavigate()
   const [searchPage, setSearchPage] = useState(false) // display search page or not
