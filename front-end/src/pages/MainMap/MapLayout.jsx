@@ -13,8 +13,9 @@ const MapLayout = () => {
   const [searchData, setSearchData] = useState("") // content that user typed in bar
   // subject to changes
   // data necessary to search for art object (time & location)
-  // {location:[lng, lat] (or city), time: num, search: bool}
-  const [foundData, setFoundData] = useState({location:[], time:0, search:false})
+  // {location:[lng, lat] (or city), time: num}
+  const [foundData, setFoundData] = useState({location:[], time:0})
+  const [refreshPopup, setRefreshPopup] = useState(0) // change counter to refresh popup, 0 to close popup
 
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
@@ -24,7 +25,6 @@ const MapLayout = () => {
   // submit search result
   const handleSubmit = (evt) => {
     evt.stopPropagation()
-    console.log(evt.target.value)
     // send data via react Context to SearchMap
     if (evt.target.value) {
       setSearchData(evt.target.value)
@@ -46,10 +46,7 @@ const MapLayout = () => {
     evt.preventDefault()
     navigate("/", { state: { from: location.pathname } });
     searchPage && setSearchPage(false)
-    setFoundData(prev => ({
-      ...prev, 
-      search: false
-    }))
+    setRefreshPopup(0)
   }
   // navigate to search page
   const handleClickSearch = (evt) => {
@@ -83,10 +80,10 @@ const MapLayout = () => {
       </div>
 
       <div className="w-full h-full">
-        <Outlet context={[searchData, foundData, setFoundData]}/>
+        <Outlet context={[searchData, foundData, setFoundData, setRefreshPopup]}/>
       </div>
 
-      <PopupSearch setFoundData={setFoundData} foundData={foundData}/>
+      <PopupSearch foundData={foundData} refreshPopup={refreshPopup} setRefreshPopup={setRefreshPopup}/>
       
     </div>
     </>

@@ -1,15 +1,11 @@
 import { useOutletContext } from "react-router-dom"
 import { useEffect } from "react"
-import CityList from "./cityList"
 
 const SearchMap = () => {
-  const [searchData, ,setFoundData] = useOutletContext()
+  const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext()
   useEffect(() => {
     // close popup
-    setFoundData(perv => ({
-      ...perv,
-      search: false
-    }))
+    setRefreshPopup(0)
   },[])
   const cities = [
     'New York',
@@ -36,9 +32,9 @@ const SearchMap = () => {
     // TODO: find the location of city
     setFoundData(prev => ({
       ...prev,
-      location: city,
-      search: true
+      location: city
     }))
+    setRefreshPopup(prev => prev+1)
   };
 
   return( 

@@ -5,7 +5,7 @@ import { BottomSheet } from 'react-spring-bottom-sheet'
 import axiosProvider from "../../util/api/axios"
 
 const PopupSearch = (props) => {
-  // setFoundData, foundData
+  // foundData, setRefreshPopup, refreshPopup
   const [arts, setArts] = useState([])
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
@@ -17,8 +17,6 @@ const PopupSearch = (props) => {
         location: props?.foundData["location"],
         time: props?.foundData["time"]
       }
-      
-      // TODO: fix sending two requests at a time
       const postOptions = {
         headers: {
           'Content-Type': 'application/json'
@@ -36,8 +34,8 @@ const PopupSearch = (props) => {
         console.error(err)
       }
     }
-    getData()
-  }, [props?.foundData])
+    if (props.refreshPopup) getData()
+  }, [props.refreshPopup])
   
   const handleArtItemClick = (artId) => {
     // Navigate to the art information page
@@ -55,15 +53,12 @@ const PopupSearch = (props) => {
   
   // handle close
   useEffect(() => {
-    if (props?.foundData.search) setOpen(true)
+    if (props.refreshPopup) setOpen(true)
     else setOpen(false)
-  }, [props?.foundData])
+  }, [props.refreshPopup])
 
   const handleClosePopup = (evt) => {
-    props?.setFoundData(prev => ({
-      ...prev,
-      search: false
-    }))
+    props.setRefreshPopup(0)
     setOpen(false);
   }
 
@@ -81,7 +76,6 @@ const PopupSearch = (props) => {
             <div className="mt-2"/>
             <img className="w-2 mt-2 top-2 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
             <p>time, location</p>
-            {/* <p>{props?.foundData.location}, {props?.foundData.time}</p> */}
           </>
         }
         blocking={false}>
