@@ -5,6 +5,7 @@ const Logo = () => {
   const location = useLocation();
   const handleClick = (evt) => {
     evt.stopPropagation()
+    evt.preventDefault()
     navigate("/", { state: { from: location.pathname } })
   }
 
