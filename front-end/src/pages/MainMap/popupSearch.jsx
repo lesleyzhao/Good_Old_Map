@@ -70,27 +70,28 @@ const PopupSearch = (props) => {
   return (
     <>
       <BottomSheet
-        className="relative z-[2000]"
+        className="relative z-[2000] mx-auto"
         open={open}
         onDismiss={handleClosePopup}
-        snapPoints={({ maxHeight }) => [
-          maxHeight * 0.3,
-          maxHeight * 0.6,
-          maxHeight]}
+        snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight * 0.25]}
         defaultSnap={({ snapPoints }) =>
           Math.min(...snapPoints)}
           header = {
           <>
             <div className="mt-2"/>
-            <img className="w-2 top-4 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
+            <img className="w-2 mt-2 top-2 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
+            <p>time, location</p>
+            {/* <p>{props?.foundData.location}, {props?.foundData.time}</p> */}
           </>
         }
         blocking={false}>
 
-        <div className="w-[30rem] mx-auto">
+        <div className="flex flex-row gap-8 overflow-scroll p-8">
           {arts.map((art) => (
             <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
-              <ArtItem art={art} updateFavorites={updateFavorites} />
+              <div>
+                <ArtItem art={art} updateFavorites={updateFavorites} />
+              </div>
             </div>
           ))}
         </div>

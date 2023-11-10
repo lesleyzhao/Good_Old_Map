@@ -24,12 +24,21 @@
     height: 100%;
   }
   :root {
-    --rsbs-backdrop-bg: theme("colors.beige1");
-    --rsbs-bg: theme("colors.beige1");
+    --rsbs-bg: theme("colors.beige2");
     --rsbs-handle-bg: theme("colors.navyBlue");
-    /* --rsbs-max-w: auto;
-    --rsbs-ml: env(safe-area-inset-left);
-    --rsbs-mr: env(safe-area-inset-right);*/
+  }
+
+  @media (min-width: 1000px){
+    .mapContainer {
+      margin: auto;
+      width: 80%;
+      border-radius: 0.5rem;
+    }
+    :root {
+      --rsbs-max-w: 80%;
+      --rsbs-ml: auto;
+      --rsbs-mr: auto;
+    }
   }
   
 }
