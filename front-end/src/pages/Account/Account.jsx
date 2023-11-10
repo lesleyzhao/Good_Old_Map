@@ -5,7 +5,7 @@ import LeftBtn from "../../components/common/leftBtn"
 import PopupContent from '../../components/popup/popupContent';
 import ProfilePic from './profilePic';
 import UserBasicInfo from './userBasicInfo';
-import PopupUserPic from "../../components/popup/popupUserPic";
+import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
 
 const AccountEdit = (props) => {
