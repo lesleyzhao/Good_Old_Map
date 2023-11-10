@@ -20,7 +20,7 @@ const InfoDetail = (props) => {
         <div className="max-h-[80vh] max-w-full mx-auto flex">
           <img className="object-contain" src={props.pic ?? dummyPic} alt="picture" />
         </div>
-        <div className="w-[80%] mb-[10%] mx-auto">
+        <div className="w-[80%] mb-[10%] mx-auto max-w-[30rem]">
           <div className="mt-2">
             <h2>{props.name ?? dummyName}</h2>
           </div>
