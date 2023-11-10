@@ -62,6 +62,7 @@ const MapLayout = () => {
   return (
     <>
     <div className="h-[calc(100vh-3vh-2rem)] flex flex-col relative">
+
       <div className="h-[9rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige1 flex flex-col justify-between">
           <div className="relative w-full my-1">
@@ -74,21 +75,19 @@ const MapLayout = () => {
                   ? <img className="w-9 hover:cursor-pointer" onClick={handleClickBack} src="/leftbtn.png" alt="leftbtn"/>
                   : <img className="w-9 hover:cursor-pointer" onClick={handleClickSearch} src="/search.png" alt="search"/>}
               </div>
-          </div>     
-          
+          </div>
           <div className='mt-3'>
             <TimelineBar className='mt-3'/>
           </div>
-
         </nav>
       </div>
+
       <div className="w-full h-full">
         <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
-      <PopupSearch setFoundData={setFoundData} foundData={foundData}/>
-      <div className="z-[2000]">
 
-      </div>
+      <PopupSearch setFoundData={setFoundData} foundData={foundData}/>
+      
     </div>
     </>
   );
