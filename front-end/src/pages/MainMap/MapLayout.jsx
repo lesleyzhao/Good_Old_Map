@@ -61,7 +61,7 @@ const MapLayout = () => {
   
   return (
     <>
-    <div className="h-[calc(100vh-3vh-2.25rem)] flex flex-col">
+    <div className="h-[calc(100vh-3vh-2.25rem)] flex flex-col relative">
       <div className="h-[9rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige1 flex flex-col justify-between">
           <div className="relative w-full my-1">
@@ -87,7 +87,10 @@ const MapLayout = () => {
       <div className="w-full h-full">
         <Outlet context={[searchData, foundData, setFoundData]}/>
       </div>
-      {foundData.search && <PopupSearch setFoundData={setFoundData} foundData={foundData}/>}
+      <PopupSearch setFoundData={setFoundData} foundData={foundData}/>
+      <div className="z-[2000]">
+
+      </div>
     </div>
     </>
   );

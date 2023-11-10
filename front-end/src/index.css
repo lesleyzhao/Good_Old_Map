@@ -23,6 +23,15 @@
   .mapContainer {
     height: 100%;
   }
+  :root {
+    --rsbs-backdrop-bg: theme("colors.beige1");
+    --rsbs-bg: theme("colors.beige1");
+    --rsbs-handle-bg: theme("colors.navyBlue");
+    /* --rsbs-max-w: auto;
+    --rsbs-ml: env(safe-area-inset-left);
+    --rsbs-mr: env(safe-area-inset-right);*/
+  }
+  
 }
 
 @layer utilities {

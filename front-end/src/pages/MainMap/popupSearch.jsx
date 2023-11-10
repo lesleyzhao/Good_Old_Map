@@ -7,6 +7,7 @@ import axiosProvider from "../../util/api/axios"
 const PopupSearch = (props) => {
   // setFoundData, foundData
   const [arts, setArts] = useState([])
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -37,19 +38,11 @@ const PopupSearch = (props) => {
     }
     getData()
   }, [props?.foundData])
-
+  
   const handleArtItemClick = (artId) => {
     // Navigate to the art information page
     navigate("/info", { state: { from: location.pathname } });
   };
-
-  const handleClosePopup = (evt) => {
-    evt.stopPropagation()
-    props?.setFoundData(prev => ({
-      ...prev,
-      search: false
-    }))
-  }
 
   const updateFavorites = (artId, newFavoritedState) => {
     setArts(prevArts => prevArts.map(art => {
@@ -59,22 +52,51 @@ const PopupSearch = (props) => {
       return art;
     }));
   };
+  
+  // handle close
+  useEffect(() => {
+    if (props?.foundData.search) setOpen(true)
+    else setOpen(false)
+  }, [props?.foundData])
+
+  const handleClosePopup = (evt) => {
+    props?.setFoundData(prev => ({
+      ...prev,
+      search: false
+    }))
+    setOpen(false);
+  }
 
   return (
     <>
-      <div className="overflow-scroll absolute z-[2000] rounded-lg bottom-0 w-full h-[60vh] bg-beige2">
-        <img className="w-4 m-[4%]" src="/close.png" alt="x" onClick={handleClosePopup} />
-        <div className="mx-[10%] items-center rounded-lg h-[calc(60vh-8%-1rem)] overflow-scroll">
+      <BottomSheet
+        className="relative z-[2000]"
+        open={open}
+        onDismiss={handleClosePopup}
+        snapPoints={({ maxHeight }) => [
+          maxHeight * 0.3,
+          maxHeight * 0.6,
+          maxHeight]}
+        defaultSnap={({ snapPoints }) =>
+          Math.min(...snapPoints)}
+          header = {
+          <>
+            <div className="mt-2"/>
+            <img className="w-2 top-4 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
+          </>
+        }
+        blocking={false}>
+
+        <div className="w-[30rem] mx-auto">
           {arts.map((art) => (
             <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
               <ArtItem art={art} updateFavorites={updateFavorites} />
             </div>
           ))}
         </div>
-      </div>
+      </BottomSheet>
     </>
   );
-
 }
 
 export default PopupSearch
