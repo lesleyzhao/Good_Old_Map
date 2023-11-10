@@ -150,7 +150,7 @@ const AccountEdit = (props) => {
         <h3 className='py-1'>Privacy</h3>
         {Object.keys(formData).map((key, i) => {
           return (
-            <div className='w-full p-2  border-b border-navyBlue hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
+            <div className='w-full p-2 border-b border-navyBlue hover:rounded-md hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
               <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
             </div>
           )
