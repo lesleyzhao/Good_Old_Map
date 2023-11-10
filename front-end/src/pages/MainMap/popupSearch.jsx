@@ -69,8 +69,7 @@ const PopupSearch = (props) => {
         open={open}
         onDismiss={handleClosePopup}
         snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight * 0.25]}
-        defaultSnap={({ snapPoints }) =>
-          Math.max(...snapPoints)}
+        defaultSnap={({ snapPoints }) => snapPoints[0]}
           header = {
           <>
             <div className="mt-2"/>
