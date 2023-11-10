@@ -49,11 +49,14 @@ const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop t
           text-lg text-center bg-white bg-opacity-60'>
           {/* {art.name} */}
         </p>
-        <IconButton onClick={toggleFavorite}>
-          {isFavorited ? <FavoriteIcon style={{ color: 'red' }} /> : <FavoriteBorderIcon />}
-        </IconButton>
-        <p className="pt-1">{`${art.name} , ${art.year}`}</p>
-        {/* The rest of your card content, such as art title, author, year, etc. */}
+        <div className='w-full flex justify-between content-center'>
+          <p className="pt-1">{`${art.name} , ${art.year}`}</p>
+          
+          <IconButton onClick={toggleFavorite}>
+            {isFavorited ? <FavoriteIcon style={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+          </IconButton>
+          {/* The rest of your card content, such as art title, author, year, etc. */}
+        </div>
       </Card>
     </>
   );
