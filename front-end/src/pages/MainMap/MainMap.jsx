@@ -16,7 +16,7 @@ const MainMap = () => {
         zoom={4} 
         scrollWheelZoom={false}
         whenCreated={map => mapRef.current = map}>
-        <TileLayer
+        <TileLayer 
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
@@ -33,7 +33,7 @@ const MainMap = () => {
 function LocationMarker(props) {
   // props: position, setPosition
   const markerRef = useRef(null)
-  const [, , setFoundData] = useOutletContext()
+  const [, , setFoundData, setRefreshPopup] = useOutletContext()
   const [position, setPosition] = useState([51.505, -0.09])
   const customIcon = new Icon({
     iconUrl: "/mapicon.png",
@@ -42,7 +42,6 @@ function LocationMarker(props) {
 
   const map = useMapEvents({
     click(evt) {
-      console.log(map)
       const pos = [evt.latlng.lat, evt.latlng.lng]
       setPosition(pos)
       map.flyTo(evt.latlng)
@@ -55,8 +54,8 @@ function LocationMarker(props) {
     setFoundData(prev => ({
       ...prev,
       location: position,
-      search: true
     }))
+    setRefreshPopup(prev => prev+1)
   }
   
   return(

@@ -26,7 +26,7 @@ const FormBtns = (props) =>  {
           <div className="w-full py-2" key={i}>
             <button className="rounded-lg py-2 w-full
               border-solid border-2 border-navyBlue bg-white text-navyBlue
-              hover:cursor-pointer active:cursor-pointer hover:bg-beige1"
+              hover:cursor-pointer active:cursor-pointer"
               onClick={button?.handleClick}>
                 {button?.value ?? "Submit"}
             </button>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import Card from '../common/card';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -42,21 +41,26 @@ const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop t
   };
 
   return (
-    <div className="mb-4">
-      <Card onClick={navigateToDetail}>
+    <>
+      <Card onClick={navigateToDetail} >
         {/* ...other card content... */}
-        <img className="w-full rounded-lg" src={art.url} alt={art.name} />
-        <p className='absolute bottom-[0.15rem] left-[0.15rem] rounded-xl px-1
-            text-lg text-center bg-white bg-opacity-60'>
-              {/* {art.name} */}
-          </p>
-        <IconButton onClick={toggleFavorite}>
-          {isFavorited ? <FavoriteIcon style={{ color: 'red' }} /> : <FavoriteBorderIcon />}
-        </IconButton>
-        <p className="pt-1">{`${art.name} , ${art.year}`}</p>
-        {/* The rest of your card content, such as art title, author, year, etc. */}
+        <img className="w-[70vw] max-w-[20rem] max-h-[20rem] overflow-hidden object-cover rounded-t-md" src={art.url} alt={art.name} />
+        <p className='absolute bottom-[0.15rem] left-[0.18rem] rounded-xl px-1
+          text-lg text-center bg-white bg-opacity-60'>
+          {/* {art.name} */}
+        </p>
+        <div className='w-full px-4 py-2'>
+          <div className='flex justify-between content-center'>
+            <h3 className="pt-1">{`${art.name}`}</h3>
+            <IconButton onClick={toggleFavorite}>
+              {isFavorited ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </div>
+          {/* The rest of your card content, such as art title, author, year, etc. */}
+          <p>{`${art.year}`}</p>
+        </div>
       </Card>
-    </div>
+    </>
   );
 };
 
