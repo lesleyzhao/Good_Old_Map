@@ -26,10 +26,18 @@ const Login = () => {
       password
     };
     console.log('Sending login request with:', loginData);
+
+    const postOptions = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
     try{
       const response = await axiosProvider.post(
         "/login",
-        loginData
+        loginData,
+        postOptions
       )
       if(response.status == 200){
         setMessage("Login successful!");
