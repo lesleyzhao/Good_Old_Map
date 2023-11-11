@@ -4,34 +4,36 @@ import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
 import { useNavigate } from 'react-router-dom'
+import { useRef } from 'react'
 
 const Login = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "password"]
-  const [formData, setFormData] = useState({
-    username: "",
-    password: ""
-  })
+  const formRef = useRef(null);
   const navigate = useNavigate();
-
-  const handleChange = (evt) => {
-    const {name, value} = evt.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name] : value
-    }))
-  }
 
   // click to login
   const handleClick = async (evt) => {
     evt.preventDefault();
+
+    const formData = new FormData(formRef.current)
+    const username = formData.get('username');
+    const password = formData.get('password');
+
+    const loginData = {
+      username,
+      password
+    };
+    console.log('Sending login request with:', loginData);
     try{
+      //console.log('Sending login request with:', loginData);
+
       const response = await fetch("http://localhost:3000/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(loginData),
         //credentials:'include'
       });
 
@@ -40,10 +42,10 @@ const Login = () => {
         setMessage("Login successful!");
         navigate("/")
       }else{
-        setMessage(data.message || 'Login failed, please try again.');
+        throw data.message || 'Login failed, please try again.';
       }
     }catch(error){
-      setMessage('An error occurred, please try again.');
+      setMessage(error.message);
     }
   }
   
@@ -56,14 +58,15 @@ const Login = () => {
       navigate("/", { state: { from: location.pathname } });
     }
   }
+  
 
   return(
     <>
       <AuthHeader header="Login" message={message}/>
-      <form>
-        <FormInputs fields={fields} handleChange={handleChange}/>
+      <form ref={formRef} onSubmit = {handleClick}>
+        <FormInputs fields={fields} />
         <div className='mt-2'>
-          <FormBtn handleClick={handleClick}/>
+          <FormBtn type="submit" handleClick={handleClick}/>
           <FormBtn value="Guest Visit" handleClick={handleGuest}/>
         </div>
       </form>

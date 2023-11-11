@@ -6,7 +6,7 @@ const FormInput = (props) => {
       <input className={`w-full py-2 text-center
         border-solid border-2 border-navyBlue rounded-lg
         placeholder:text-center placeholder:text-gray-400 ${props?.optionalClass}`}
-      type={props?.type ?? "text"} id={props?.id} placeholder={props?.placeholder}/>
+      type={props?.type ?? "text"} id={props?.id} placeholder={props?.placeholder} name={props?.name}/>
     </div>
   )
 }
@@ -16,7 +16,7 @@ const FormInputs = (props) => {
   return (
     props?.fields?.map(field => 
       <FormInput type={field == "password" ? "password" : ""}
-        id={field} placeholder={field} key={field}/>)
+        id={field} name={field} placeholder={field.charAt(0).toUpperCase() + field.slice(1)} key={field}/>)
   )
 }
 
