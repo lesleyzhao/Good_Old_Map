@@ -1,0 +1,101 @@
+{
+  "hash": "33ec7895",
+  "browserHash": "5e60ed9c",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "e75df84d",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "4bc0277f",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "a7d4dd66",
+      "needsInterop": false
+    },
+    "react-leaflet": {
+      "src": "../../node_modules/react-leaflet/lib/index.js",
+      "file": "react-leaflet.js",
+      "fileHash": "5fdbd233",
+      "needsInterop": false
+    },
+    "leaflet": {
+      "src": "../../node_modules/leaflet/dist/leaflet-src.js",
+      "file": "leaflet.js",
+      "fileHash": "5c8c5854",
+      "needsInterop": true
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "330fcfc8",
+      "needsInterop": false
+    },
+    "react-draggable": {
+      "src": "../../node_modules/react-draggable/build/cjs/cjs.js",
+      "file": "react-draggable.js",
+      "fileHash": "761aa1eb",
+      "needsInterop": true
+    },
+    "react-spring-bottom-sheet": {
+      "src": "../../node_modules/react-spring-bottom-sheet/dist/index.es.js",
+      "file": "react-spring-bottom-sheet.js",
+      "fileHash": "a3f2d7ab",
+      "needsInterop": false
+    },
+    "@mui/material/IconButton": {
+      "src": "../../node_modules/@mui/material/IconButton/index.js",
+      "file": "@mui_material_IconButton.js",
+      "fileHash": "68a6e117",
+      "needsInterop": false
+    },
+    "@mui/icons-material/Favorite": {
+      "src": "../../node_modules/@mui/icons-material/Favorite.js",
+      "file": "@mui_icons-material_Favorite.js",
+      "fileHash": "6a13e250",
+      "needsInterop": true
+    },
+    "@mui/icons-material/FavoriteBorder": {
+      "src": "../../node_modules/@mui/icons-material/FavoriteBorder.js",
+      "file": "@mui_icons-material_FavoriteBorder.js",
+      "fileHash": "98ffbf64",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-6D5U4XXC": {
+      "file": "chunk-6D5U4XXC.js"
+    },
+    "chunk-ELIY3XKJ": {
+      "file": "chunk-ELIY3XKJ.js"
+    },
+    "chunk-WD6HW2VM": {
+      "file": "chunk-WD6HW2VM.js"
+    },
+    "chunk-QV4ZPAJZ": {
+      "file": "chunk-QV4ZPAJZ.js"
+    },
+    "chunk-OTY6O57J": {
+      "file": "chunk-OTY6O57J.js"
+    },
+    "chunk-HC64NG5Q": {
+      "file": "chunk-HC64NG5Q.js"
+    },
+    "chunk-NYQDER2B": {
+      "file": "chunk-NYQDER2B.js"
+    },
+    "chunk-2PA4WPI3": {
+      "file": "chunk-2PA4WPI3.js"
+    },
+    "chunk-ROME4SDB": {
+      "file": "chunk-ROME4SDB.js"
+    }
+  }
+}

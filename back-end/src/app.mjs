@@ -9,6 +9,9 @@ import morgan from 'morgan';
 // routes
 import delaccountRouter from './routes/delaccoountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
+import login from './routes/login.mjs';
+import changeusername from './routes/changeusername.mjs';
+
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 const app = express();
 
@@ -44,6 +47,11 @@ app.post("/getpiece", getpieceRouter);
 // routes that needs authentication
 app.post("/delaccount", delaccountRouter);
 
+// login get request
+app.post("/login", login);
+
+// Change username
+app.patch("/changeusername", changeusername);
 
 // Favorites list routes
 app.get('/getfavlist', favListRouter);

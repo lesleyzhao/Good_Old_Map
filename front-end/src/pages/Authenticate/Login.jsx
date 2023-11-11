@@ -4,15 +4,43 @@ import PageLink from '../../components/common/pageLink'
 import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
 import { useNavigate } from 'react-router-dom'
+import { useRef } from 'react'
+import axiosProvider from '../../util/api/axios'
 
 const Login = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "password"]
+  const formRef = useRef(null);
   const navigate = useNavigate();
+
   // click to login
-  const handleClick = (evt) => {
+  const handleClick = async (evt) => {
     evt.preventDefault();
-    setMessage("error message if login failed");
+
+    const formData = new FormData(formRef.current)
+    const username = formData.get('username');
+    const password = formData.get('password');
+
+    const loginData = {
+      username,
+      password
+    };
+    console.log('Sending login request with:', loginData);
+    try{
+      const response = await axiosProvider.post(
+        "/login",
+        loginData
+      )
+      if(response.status == 200){
+        setMessage("Login successful!");
+        navigate("/")
+      }else{
+        setMessage(response.message || 'Login failed, please try again.');
+      }
+    }catch(error){
+      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      setMessage(errorMessage);
+    }
   }
   
   // if user click guest visit redirect to main map
@@ -24,14 +52,15 @@ const Login = () => {
       navigate("/", { state: { from: location.pathname } });
     }
   }
+  
 
   return(
     <>
       <AuthHeader header="Login" message={message}/>
-      <form>
-        <FormInputs fields={fields}/>
+      <form ref={formRef} onSubmit = {handleClick}>
+        <FormInputs fields={fields} />
         <div className='mt-2'>
-          <FormBtn handleClick={handleClick}/>
+          <FormBtn type="submit" handleClick={handleClick}/>
           <FormBtn value="Guest Visit" handleClick={handleGuest}/>
         </div>
       </form>
