@@ -8,11 +8,43 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const [message, setMessage] = useState("")
   const fields = ["username", "password"]
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  })
   const navigate = useNavigate();
+
+  const handleChange = (evt) => {
+    const {name, value} = evt.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name] : value
+    }))
+  }
+
   // click to login
-  const handleClick = (evt) => {
+  const handleClick = async (evt) => {
     evt.preventDefault();
-    setMessage("error message if login failed");
+    try{
+      const response = await fetch("http://localhost:3000/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        //credentials:'include'
+      });
+
+      const data = await response.json();
+      if(response.ok){
+        setMessage("Login successful!");
+        navigate("/")
+      }else{
+        setMessage(data.message || 'Login failed, please try again.');
+      }
+    }catch(error){
+      setMessage('An error occurred, please try again.');
+    }
   }
   
   // if user click guest visit redirect to main map
@@ -30,7 +62,7 @@ const Login = () => {
     <>
       <AuthHeader header="Login" message={message}/>
       <form>
-        <FormInputs fields={fields}/>
+        <FormInputs fields={fields} handleChange={handleChange}/>
         <div className='mt-2'>
           <FormBtn handleClick={handleClick}/>
           <FormBtn value="Guest Visit" handleClick={handleGuest}/>
