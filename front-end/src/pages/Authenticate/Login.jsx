@@ -5,6 +5,7 @@ import { FormInputs } from '../../components/form/formInput'
 import FormBtn from '../../components/form/formBtn'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
+import axiosProvider from '../../util/api/axios'
 
 const Login = () => {
   const [message, setMessage] = useState("")
@@ -26,26 +27,19 @@ const Login = () => {
     };
     console.log('Sending login request with:', loginData);
     try{
-      //console.log('Sending login request with:', loginData);
-
-      const response = await fetch("http://localhost:3000/login", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-        //credentials:'include'
-      });
-
-      const data = await response.json();
-      if(response.ok){
+      const response = await axiosProvider.post(
+        "/login",
+        loginData
+      )
+      if(response.status == 200){
         setMessage("Login successful!");
         navigate("/")
       }else{
-        throw data.message || 'Login failed, please try again.';
+        setMessage(response.message || 'Login failed, please try again.');
       }
     }catch(error){
-      setMessage(error.message);
+      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      setMessage(errorMessage);
     }
   }
   
