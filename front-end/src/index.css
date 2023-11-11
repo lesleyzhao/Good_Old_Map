@@ -23,6 +23,24 @@
   .mapContainer {
     height: 100%;
   }
+  :root {
+    --rsbs-bg: theme("colors.beige2");
+    --rsbs-handle-bg: theme("colors.navyBlue");
+  }
+
+  @media (min-width: 1000px){
+    .mapContainer {
+      margin: auto;
+      width: 80%;
+      border-radius: 0.5rem;
+    }
+    :root {
+      --rsbs-max-w: 80%;
+      --rsbs-ml: auto;
+      --rsbs-mr: auto;
+    }
+  }
+  
 }
 
 @layer utilities {

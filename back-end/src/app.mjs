@@ -3,7 +3,6 @@ import url from 'url';
 import path from 'path';
 // middlewares
 import multer from "multer";
-import axios from 'axios';
 import cors from 'cors';
 import "dotenv/config";
 import morgan from 'morgan';
@@ -13,6 +12,7 @@ import getpieceRouter from './routes/getpieceRouter.mjs';
 import login from './routes/login.mjs';
 import changeusername from './routes/changeusername.mjs';
 
+import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 const app = express();
 
 // use the morgan middleware to log all incoming http requests
@@ -52,6 +52,15 @@ app.post("/login", login);
 
 // Change username
 app.patch("/changeusername", changeusername);
+
+// Favorites list routes
+app.get('/getfavlist', favListRouter);
+app.post('/getArts', getArts);
+app.post('/favlist/add',addFavListRouter);
+// app.post('/favlist/remove',removeFavListRouter);
+
+
+
 
 // export the express app we created to make it available to other modules
 export default app;

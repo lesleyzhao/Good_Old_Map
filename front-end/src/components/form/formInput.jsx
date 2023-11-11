@@ -1,11 +1,11 @@
 const FormInput = (props) => {
   // attributes: id, placeholder
-  // optional: type
+  // optional: type, optionalClass
   return (
     <div className="w-full py-1">
-      <input className="w-full py-2 text-center
+      <input className={`w-full py-2 text-center
         border-solid border-2 border-navyBlue rounded-lg
-        placeholder:text-center placeholder:text-gray-400"
+        placeholder:text-center placeholder:text-gray-400 ${props?.optionalClass}`}
       type={props?.type ?? "text"} id={props?.id} placeholder={props?.placeholder}/>
     </div>
   )

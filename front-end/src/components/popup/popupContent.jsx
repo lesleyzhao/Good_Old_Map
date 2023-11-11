@@ -6,10 +6,10 @@ function PopupContent(props){
   return (
     // dark background
     <div 
-      className="popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center" 
+      className="popupBackground fixed top-0 left-0 z-[1700] w-full h-full bg-black bg-opacity-50 flex items-center justify-center" 
       onClick={props.handleClick}>
       {/* white popup container: */}
-      <div className="bg-white rounded-lg shadow-xl w-[80%]">
+      <div className="bg-white rounded-lg shadow-xl w-[80%] max-w-[30rem]">
         <div className="p-8">
           {/* content area */}
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>

@@ -1,33 +1,67 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Card from '../common/card';
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import axios from 'axios';
 
-const ArtItem = ({ art,onRemoveFromFavorites }) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  
-  const navigateToDetail = (evt) => {
-      evt.preventDefault()
-      navigate("/info", {state:{from:location.pathname}});  // Adjust this path as necessary
-      // window.location.href = "/info";
-  }
-  
+const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop to update parent component
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isFavorited, setIsFavorited] = useState(art.inFavList);
+
+  const navigateToDetail = () => {
+    navigate("/info", { state: { from: location.pathname, art } });
+  };
+
+  const toggleFavorite = async (event) => {
+    event.stopPropagation();
+    const newFavoritedState = !isFavorited;
+
+    setIsFavorited(newFavoritedState); 
+    const artData = {
+      id: art.id,
+      inFavList: newFavoritedState,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3000/favlist/add', artData);
+
+      if (response.data) {
+        setIsFavorited(response.data.inFavList);
+        if (updateFavorites) {
+          updateFavorites(art.id, response.data.inFavList);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating favorites', error);
+      setIsFavorited(!newFavoritedState);
+    }
+  };
+
   return (
-    <div className="mb-4">
-      <Card>
-        <div className="relative mx-auto">
-          <img className="w-full rounded-lg" src={art.url} alt={art.name} onClick={navigateToDetail} />
-          <p className='absolute bottom-[0.15rem] left-[0.15rem] rounded-xl px-1
-            text-lg text-center bg-white bg-opacity-60'>
-              <span className='pr-[0.15rem]' onClick={onRemoveFromFavorites}>❤️</span>
-              {art.name}
-          </p>
+    <>
+      <Card onClick={navigateToDetail} >
+        {/* ...other card content... */}
+        <img className="w-[70vw] max-w-[20rem] max-h-[20rem] overflow-hidden object-cover rounded-t-md" src={art.url} alt={art.name} />
+        <p className='absolute bottom-[0.15rem] left-[0.18rem] rounded-xl px-1
+          text-lg text-center bg-white bg-opacity-60'>
+          {/* {art.name} */}
+        </p>
+        <div className='w-full px-4 py-2'>
+          <div className='flex justify-between content-center'>
+            <h3 className="pt-1">{`${art.name}`}</h3>
+            <IconButton onClick={toggleFavorite}>
+              {isFavorited ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </div>
+          {/* The rest of your card content, such as art title, author, year, etc. */}
+          <p>{`${art.year}`}</p>
         </div>
-        <p className="pt-1">{`Van Gogh, Holland, ${art.year}`}</p>
       </Card>
-    </div>
+    </>
   );
-
 };
 
 export default ArtItem;

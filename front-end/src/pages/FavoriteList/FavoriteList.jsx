@@ -1,46 +1,40 @@
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-// import RightBtn from "../../components/common/rightBtn";
-import Logo from '../../components/common/Logo'
 import ArtItem from "../../components/art/ArtItem.jsx"
 import axios from "axios"
-import React, { useState, useEffect } from "react"
-
+import { useNavigate, useLocation } from "react-router-dom";
+// import axiosProvider from "../../util/api/axios"
 
 const FavoriteList = () => {
-  // Declare your arts data array inside the FavoriteList component
+  // const [favorites, setFavorites] = useState([]);
   const [arts, setArts] = useState([])
+  const navigate = useNavigate()
+  const location = useLocation()
+
   useEffect(() => {
-    // Fetch mock data
-    axios.get("https://my.api.mockaroo.com/fav_list?key=dd3f48f0", {
-      headers: {
-        "X-API-Key": "dd3f48f0"
+    async function getData() {
+      try {
+        const response = await axios.get(`http://localhost:3000/getfavlist`);
+        setArts(response.data);
+      } catch (error) {
+        console.error("Error fetching favorite arts:", error);
+       
+        setArts([]);
       }
-    })
-      .then(response => {
-        // Setting state based on potential response structures
-        if (response.data.arts) {
-          setArts(response.data.arts);
-        } else {
-          setArts(response.data);
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setArts([
-          {id:"1", url:"https://picsum.photos/200", name:"error item1", year: "1234"},
-          {id:"2", url:"https://picsum.photos/200", name:"error item2", year: "2345"}
-        ])
-      });
-  }, []);
+    }
+  
+    getData();
+  }, []); 
 
-  const navigate = useNavigate();
-
-  const navigateToDetail = (evt) => {
-    evt.preventDefault()
-    navigate("/info");  // Adjust this path as necessary
-  }
+  const updateFavorites = (artId, newFavoritedState) => {
+    setArts(prevArts => prevArts.map(art => {
+      if (art.id === artId) {
+        return { ...art, inFavList: newFavoritedState };
+      }
+      return art;
+    }));
+  };
 
   const sortArts = (criteria) => {
     if (criteria === "name") {
@@ -50,40 +44,39 @@ const FavoriteList = () => {
     }
   }
 
-  const handleRemoveFromFavorites = (idToRemove) => {
-    // Remove the art with the specified ID from the favorites list
-    setArts(prevArts => prevArts.filter(art => art.id !== idToRemove));
-  }
-
+  const handleArtItemClick = (artId) => {
+    // Navigate to the art information page
+    navigate("/info", { state: { from: location.pathname } });
+  };
   return (
     <>
-      <NavBar className="flex">
-          <LeftBtn className="flex-grow" />
+      <NavBar>
+        <div className="flex justify-start items-center gap-3">
+          <LeftBtn/>
           <h2>My Favorite Arts</h2>
-        <Logo />
+        </div>
       </NavBar>
-      <div className="max-w-[30rem] w-[80%] mx-auto min-h-screen flex flex-col">
+      <div className="max-w-[30rem] w-[80%] mx-auto flex flex-col">
         <div className="text-center space-x-8 my-3">
-          <button 
-              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
-              onClick={() => sortArts("name")}>
-              Sort by Name
+          <button
+            className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+            onClick={() => sortArts("name")}>
+            Sort by Name
           </button>
-          <button 
-              className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
-              onClick={() => sortArts("year")}>
-              Sort by Year
+          <button
+            className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
+            onClick={() => sortArts("year")}>
+            Sort by Year
           </button>
-        </div> 
+        </div>
 
 
         <div className='mt-5'>
-          {
-            arts.map(art => <ArtItem
-              key={art.id}
-              art={art}
-              onRemoveFromFavorites={() => handleRemoveFromFavorites(art.id)} />)
-          }
+          {arts.map((art) => (
+            <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
+              <ArtItem art={art} updateFavorites={updateFavorites} />
+            </div>
+          ))}
         </div>
       </div>
     </>
@@ -92,6 +85,5 @@ const FavoriteList = () => {
   )
 };
 
+
 export default FavoriteList;
-
-

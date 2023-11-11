@@ -1,58 +1,71 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
-import InfoCard from '../../components/map/InfoCard';
 import { useOutletContext } from "react-router-dom"
+import FormBtn from '../../components/form/formBtn';
+// import InfoCard from '../../components/map/InfoCard';
 // import countries from '../../util/data/countries.json'
 
 const MainMap = () => {
-  const [position, setPosition] = useState([51.505, -0.09])
+  const mapRef = useRef(null)
 
-  // const countryStyle = {
-  //   color: "black",
-  //   weight: 0.3,
-  //   opacity: 1,
-  // };
-    
   return(
     <>
-
-    <div className="fixed left-8 z-[2000] flex-col justify-center items-center">
-      <InfoCard title="Welcome!" text="Click anywhere on the map to start your European art & music journey! Let's get started!"/>
-      <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
-   </div>
-
-      <MapContainer className='mapContainer' center={position} zoom={4} scrollWheelZoom={false}>
-        <TileLayer
+      <MapContainer className='mapContainer'
+        center={[51.505, -0.09]}
+        zoom={4} 
+        scrollWheelZoom={false}
+        whenCreated={map => mapRef.current = map}>
+        <TileLayer 
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <LocationMarker position={position} setPosition={setPosition}/>
-        {/* <GeoJSON data={countries} style={countryStyle} /> */}
+          />
+        <LocationMarker/>
       </MapContainer>
+      {/* <div className="fixed left-8 z-[2000] flex-col justify-center items-center">
+        <InfoCard title="Welcome!" text="Click anywhere on the map to start your European art & music journey! Let's get started!"/>
+        <InfoCard title="What to do :)" text="Click the map for random art or drag the timeline to view map evolution over the history!"/>
+      </div> */}
     </>
   )
 }
 
 function LocationMarker(props) {
-  const [, foundData, setFoundData] = useOutletContext()
-  useMapEvents({
-    click(evt) {
-      const pos = [evt.latlng.lat, evt.latlng.lng]
-      props.setPosition(pos)
-      // TODO: subject to change
-      setFoundData(pos)
-    },
-  })
+  // props: position, setPosition
+  const markerRef = useRef(null)
+  const [, , setFoundData, setRefreshPopup] = useOutletContext()
+  const [position, setPosition] = useState([51.505, -0.09])
   const customIcon = new Icon({
     iconUrl: "/mapicon.png",
     iconSize: [38, 38],
   });
+
+  const map = useMapEvents({
+    click(evt) {
+      const pos = [evt.latlng.lat, evt.latlng.lng]
+      setPosition(pos)
+      map.flyTo(evt.latlng)
+      markerRef.current.openPopup()
+    }
+  })
+
+  const handleClick = (evt) => {
+    // TODO: center at upper side
+    setFoundData(prev => ({
+      ...prev,
+      location: position,
+    }))
+    setRefreshPopup(prev => prev+1)
+  }
+  
   return(
-    <Marker icon={customIcon} position={props.position}>
-      {/* <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup> */}
+    <Marker icon={customIcon} position={position} ref={markerRef}>
+      <Popup>
+        <div className='pt-1'>
+          {position}
+        </div>
+        <FormBtn value="Look up" handleClick={handleClick}/>
+      </Popup>
     </Marker>
 
   )
