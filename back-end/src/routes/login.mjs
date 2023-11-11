@@ -1,10 +1,13 @@
 let users = {
-    "1234": {id: "1234", username: "John Doe", password: "password123"}
+    "1234": {id: "1234", username: "John Doe", password: "password123"},
+    "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
    }
 
 const login = (req, res) =>{
+    console.log("Login route hit"); 
     const {username, password} =  req.body;
     const user = Object.values(users).find(u => u.username === username);
+
     if(user){
         //Check if two passwords match
         if(user.password === password){
