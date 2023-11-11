@@ -6,6 +6,8 @@ let users = {
 const login = (req, res) =>{
     console.log("Login route hit"); 
     const {username, password} =  req.body;
+    // console.log(username);
+    // console.log(password);
     const user = Object.values(users).find(u => u.username === username);
 
     if(user){
