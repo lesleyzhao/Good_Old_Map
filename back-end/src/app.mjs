@@ -10,6 +10,8 @@ import morgan from 'morgan';
 // routes
 import delaccountRouter from './routes/delaccoountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
+import login from './routes/login.mjs';
+import changeusername from './routes/changeusername.mjs';
 
 const app = express();
 
@@ -45,6 +47,11 @@ app.post("/getpiece", getpieceRouter);
 // routes that needs authentication
 app.post("/delaccount", delaccountRouter);
 
+// login get request
+app.post("/login", login);
+
+// Change username
+app.patch("/changeusername", changeusername);
 
 // export the express app we created to make it available to other modules
 export default app;
