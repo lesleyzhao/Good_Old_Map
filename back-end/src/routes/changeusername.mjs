@@ -10,6 +10,11 @@ const changeusername = async(req, res) =>{
     console.log("User ID from session:", req.session.userID)
 
     try{
+        //Simulate real server error for testing
+        if(newUsername === 'triggerError'){
+            throw error;
+        }
+
         //const wasUpdate = await database.updateUsername(newUserId, newUserName)
         //Simulate database update
         if(userID && users[userID]){
