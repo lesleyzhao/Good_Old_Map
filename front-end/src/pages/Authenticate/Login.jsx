@@ -39,7 +39,7 @@ const Login = () => {
         loginData,
         postOptions
       )
-      if(response.status == 200){
+      if(response.status){
         setMessage("Login successful!");
         navigate("/")
       }else{
