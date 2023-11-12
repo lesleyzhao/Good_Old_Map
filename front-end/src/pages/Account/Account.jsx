@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
@@ -8,9 +9,12 @@ import UserBasicInfo from './userBasicInfo';
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
 
+
 const AccountEdit = (props) => {
+  const formRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [message, setMessage] = useState('')
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
 
@@ -19,10 +23,36 @@ const AccountEdit = (props) => {
     evt.stopPropagation()
     setCurrentActionData(null);
   }
-  const confirmChangeUsername = (evt) => {
+  const confirmChangeUsername = async (evt) => {
     evt.preventDefault()
-    evt.stopPropagation()
+
+    const postOptions = {
+    }
+
+    const formData = new FormData(formRef.current)
+    console.log(formData)
+    const newUsername = formData.get('newUsername')
+    console.log(newUsername)
+    
+    
+    try{
+      const response = await axiosProvider.patch(
+        "/changeusername",
+        {newUsername: newUsername},
+        postOptions
+      )
+      if(response.status){
+        setMessage("Change Username successful!");
+        navigate("/account")
+      }else{
+        setMessage(response.message || 'Change failed, please try again.');
+      }
+    }catch(error){
+      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
+      setMessage(errorMessage);
+    }
   }
+
   const confirmChangeEmail = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
@@ -62,45 +92,51 @@ const AccountEdit = (props) => {
     "changeUsername": {
       link: "Change Username",
       title: "Change Username",
-      inputs: [{id:"newUsername", type:"text", placeholder:"new username"}],
+      inputs: [{id:"newUsername", name:"newUsername", type:"text", placeholder:"new username"}],
       buttons: [{value:"Discard", handleClick: discardChange},
                 {value:"Confirm", handleClick: confirmChangeUsername}],
+      submit: confirmChangeUsername
     },
     "changeEmail": {
       link: "Change Email",
       title: "Change Email",
-      inputs: [{id:"newEmail", type:"text", placeholder:"new email"},
+      inputs: [{id:"newEmail", name:"newEmail", type:"text", placeholder:"new email"},
                 {id:"password", type:"password", placeholder:"password"}],
       buttons: [{value:"Discard", handleClick: discardChange},
                 {value:"Confirm", handleClick: confirmChangeEmail}],
+      submit: confirmChangeEmail
     },
     "forgotPassword": {
       link: "Forget Password",
       title: "Forget Password",
-      inputs: [{id:"email", type:"text", placeholder:"email"}],
+      inputs: [{id:"email", name:"email", type:"text", placeholder:"email"}],
       buttons: [{value:"Discard", handleClick: discardChange},
                 {value: "Send Email", handleClick: sentForgetPwEmail}],
+      submit: sentForgetPwEmail
     },
     "changePassword": {
       link: "Change Password",
       title: "Change Password",
-      inputs: [{id:"oldPassword", type:"password", placeholder:"old password"},
-                {id:"password", type:"password", placeholder:"password"},
-                {id:"confirmPassword", type:"password", placeholder:"confirm password"}],
+      inputs: [{id:"oldPassword", name:"oldPassword", type:"password", placeholder:"old password"},
+                {id:"password", name:"password", type:"password", placeholder:"password"},
+                {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"}],
       buttons: [{value:"Discard", handleClick: discardChange},
                 {value:"Confirm", handleClick: confirmChangePassword}],
+      submit: confirmChangePassword
     },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
       buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
                 {value:"Discard", handleClick: discardChange}],
+      submit: confirmLogOutAccount
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
       buttons: [{value:"Okay", handleClick: deleteAccount},
                 {value:"Discard", handleClick: discardChange}],
+      submit: deleteAccount
     }
   }
   const confirmDelAccount = {
@@ -162,7 +198,9 @@ const AccountEdit = (props) => {
               title={currentActionData.title}
               inputs={currentActionData.inputs}
               buttons={currentActionData.buttons}
+              submit = {currentActionData.submit}
               handleClick = {handleClose}
+              ref = {formRef}
             />}
           {showUserProfile && 
             <div onClick={togglePopup}

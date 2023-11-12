@@ -39,13 +39,10 @@ const Login = () => {
         loginData,
         postOptions
       )
-      if(response.status == 200){
         setMessage("Login successful!");
         navigate("/")
-      }else{
-        setMessage(response.message || 'Login failed, please try again.');
       }
-    }catch(error){
+    catch(error){
       const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
