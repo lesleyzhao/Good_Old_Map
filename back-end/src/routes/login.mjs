@@ -13,6 +13,8 @@ const login = (req, res) =>{
     if(user){
         //Check if two passwords match
         if(user.password === password){
+            req.session.userID = user.id;
+            console.log(req.session.userID)
             res.status(200).json({message: "Successfully logged in!", user: users[user.id]})
         }else{
             res.status(401).json({message: "Incorrect Password."})

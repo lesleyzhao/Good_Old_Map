@@ -5,7 +5,9 @@ import path from 'path';
 import multer from "multer";
 import cors from 'cors';
 import "dotenv/config";
+import dotenv from 'dotenv';
 import morgan from 'morgan';
+import session from 'express-session'
 // routes
 import delaccountRouter from './routes/delaccoountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
@@ -13,7 +15,9 @@ import login from './routes/login.mjs';
 import changeusername from './routes/changeusername.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
+import { configDotenv } from 'dotenv';
 const app = express();
+dotenv.config()
 
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev"));
@@ -32,10 +36,17 @@ const clientURL = "http://localhost:5173";
 const corsOptions = {
   credentials: true,
   origin: clientURL,
-  methods: ['GET', 'PUT', 'POST', 'DELETE']
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
-// middlewares
+// other middlewares
+// Session to auto-save user data (like id) when they login
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized:true,
+  cookie: {httpOnly: true, secure: process.env.NODE_ENV==="production"}
+}))
 
 
 // routes that does not need authentication
