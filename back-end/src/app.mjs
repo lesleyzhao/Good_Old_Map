@@ -11,6 +11,8 @@ import delaccountRouter from './routes/delaccoountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
 import login from './routes/login.mjs';
 import changeusername from './routes/changeusername.mjs';
+import resetpassword from './routes/resetpassword.mjs';
+import resetemail from './routes/resetemail.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 const app = express();
@@ -52,6 +54,10 @@ app.post("/login", login);
 
 // Change username
 app.patch("/changeusername", changeusername);
+
+//change password and email
+app.patch("/resetpassword", resetpassword);
+app.patch("/resetemail", resetemail);
 
 // Favorites list routes
 app.get('/getfavlist', favListRouter);
