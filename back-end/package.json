@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "c8 --reporter=html --reporter=text mocha 'tests/routes/loginTest.mjs'"
+    "test": "c8 --reporter=html --reporter=text mocha 'tests/routes/*.mjs'"
   },
   "author": "",
   "license": "ISC",
