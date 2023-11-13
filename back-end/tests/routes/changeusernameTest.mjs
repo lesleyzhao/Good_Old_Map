@@ -42,7 +42,7 @@ describe('Change Username Functionality', ()=>{
         done()
     }) 
   })
-  it("should change username succesfully", (done) => {
+  it("should report 400 user-not-found", (done) => {
     agent2
     .patch("/changeusername")
     .send({newUsername: "jd"})
