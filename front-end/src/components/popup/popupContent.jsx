@@ -15,12 +15,12 @@ const PopupContent = forwardRef((props, ref) => {
         <div className="p-8">
           {/* content area */}
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
-          <form className="space-y-4" ref={ref} onSubmit={props?.onSubmit} >
+          <div className="space-y-4" >
             <FormInputsPopup inputs={props?.inputs}/>
             <div className="flex flex-row gap-2 justify-end"> {/* Adjust button positioning as needed */}
               <FormBtns buttons={props?.buttons}/>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
