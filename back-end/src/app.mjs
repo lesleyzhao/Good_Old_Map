@@ -15,6 +15,7 @@ import login from './routes/login.mjs';
 import changeusername from './routes/changeusername.mjs';
 import resetpassword from './routes/resetpassword.mjs';
 import resetemail from './routes/resetemail.mjs';
+import register from './routes/register.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -33,16 +34,14 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 app.use("/static", express.static(path.join(__dirname, 'public')));
 
 // cors
-// TODO: store in env
-const clientURL = "http://localhost:5173";
 const corsOptions = {
   credentials: true,
-  origin: clientURL,
+  origin: process.env.CLIENT_URL,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
-// other middlewares
-// Session to auto-save user data (like id) when they login
+
+// session to auto-save user data (like id) when they login
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -50,12 +49,15 @@ app.use(session({
   cookie: {httpOnly: true, secure: process.env.NODE_ENV==="production"}
 }))
 
+// other middlewares
 
 // routes that does not need authentication
 app.post("/getpiece", getpieceRouter);
 
 // authentication
 
+//register
+app.post("/register", register)
 
 // routes that needs authentication
 app.post("/delaccount", delaccountRouter);

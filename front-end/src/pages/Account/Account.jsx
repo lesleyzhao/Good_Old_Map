@@ -3,9 +3,8 @@ import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import PopupContent from '../../components/popup/popupContent';
+import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
-import UserBasicInfo from './userBasicInfo';
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
 
@@ -145,12 +144,9 @@ const AccountEdit = (props) => {
               {value:"Discard", handleClick: discardChange}],
   }
 
-  //Function to decide which PopupContent to display
-  const handleAction = (key) => {
-    setCurrentActionData(formData[key]);
-  };
-
   const handleClose = (evt) => {
+    evt.stopPropagation()
+    evt.preventDefault()
     if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
   }
   
@@ -176,10 +172,8 @@ const AccountEdit = (props) => {
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div className="text-center">
-              <UserBasicInfo 
-                username={props.username ?? "John Doe"}
-                email={props.email ?? "Asdfasdfasdf@nyu.edu"}
-              />
+              <h2>{props.username ?? "John Doe"}</h2>
+              <span className="text-gray-400">{props.email ?? "Asdfasdfasdf@nyu.edu"}</span>
             </div>
           </div>
         </div>
@@ -187,21 +181,22 @@ const AccountEdit = (props) => {
         {Object.keys(formData).map((key, i) => {
           return (
             <div className='w-full p-2 border-b border-navyBlue hover:rounded-md hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
-              <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
+              <p onClick={() => setCurrentActionData(formData[key])}>{formData[key]["link"]}</p>
             </div>
           )
           }
         )}
 
           {currentActionData &&
-            <PopupContent 
-              title={currentActionData.title}
-              inputs={currentActionData.inputs}
-              buttons={currentActionData.buttons}
-              submit = {currentActionData.submit}
-              handleClick = {handleClose}
-              ref = {formRef}
-            />}
+            <form ref = {formRef} onSubmit={currentActionData.submit}>
+              <PopupContent 
+                title={currentActionData.title}
+                inputs={currentActionData.inputs}
+                buttons={currentActionData.buttons}
+                handleClick = {handleClose}
+              />
+            </form>
+            }
           {showUserProfile && 
             <div onClick={togglePopup}
               className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
