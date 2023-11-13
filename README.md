@@ -1,6 +1,5 @@
 ![ah](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/100020447/b4320f2b-92c8-4dbf-8604-4aca64a8414e)
 ## I. Get Started
-### Set Up Environment
 Please run the following commands to initialize the local host: 
 
 Front-end setup:
