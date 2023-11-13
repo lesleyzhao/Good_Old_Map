@@ -33,16 +33,14 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 app.use("/static", express.static(path.join(__dirname, 'public')));
 
 // cors
-// TODO: store in env
-const clientURL = "http://localhost:5173";
 const corsOptions = {
   credentials: true,
-  origin: clientURL,
+  origin: process.env.CLIENT_URL,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
-// other middlewares
-// Session to auto-save user data (like id) when they login
+
+// session to auto-save user data (like id) when they login
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -50,6 +48,7 @@ app.use(session({
   cookie: {httpOnly: true, secure: process.env.NODE_ENV==="production"}
 }))
 
+// other middlewares
 
 // routes that does not need authentication
 app.post("/getpiece", getpieceRouter);
