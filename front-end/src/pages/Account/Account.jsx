@@ -144,12 +144,9 @@ const AccountEdit = (props) => {
               {value:"Discard", handleClick: discardChange}],
   }
 
-  //Function to decide which PopupContent to display
-  const handleAction = (key) => {
-    setCurrentActionData(formData[key]);
-  };
-
   const handleClose = (evt) => {
+    evt.stopPropagation()
+    evt.preventDefault()
     if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
   }
   
@@ -184,7 +181,7 @@ const AccountEdit = (props) => {
         {Object.keys(formData).map((key, i) => {
           return (
             <div className='w-full p-2 border-b border-navyBlue hover:rounded-md hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
-              <p onClick={() => handleAction(key)}>{formData[key]["link"]}</p>
+              <p onClick={() => setCurrentActionData(formData[key])}>{formData[key]["link"]}</p>
             </div>
           )
           }
