@@ -89,7 +89,6 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
 ## Build & Test the Project
 
    - We use React as the front-end, so when you want to build the project, open the terminal and type npm -start. Make sure to copy paste the localhost and the corresponding port website to your browser.
- ### Set Up Environment
   - Please run the following commands to initialize the local host: 
 
     Front-end setup:
