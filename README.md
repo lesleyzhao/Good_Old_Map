@@ -1,6 +1,21 @@
 ![ah](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/100020447/b4320f2b-92c8-4dbf-8604-4aca64a8414e)
 ## I. Get Started
-TBD--Instruction for how to set up and run this app.
+Please run the following commands to initialize the local host: 
+
+Front-end setup:
+```
+git clone https://github.com/agiledev-students-fall2023/4-final-project-teambaker.git
+cd 4-final-project-teambaker/front-end
+npm install
+npm run dev
+```
+Back-end setup:
+```
+cd 4-final-project-teambaker/back-end
+npm install
+nodemon src/server.mjs
+```
+For more instructions, please refer to the section "VII. Instruction on how to set up and run the project  --> Build & Test the Project" below to see how to set up and test your environment step by step.
 
 ## II.  Contributing Members
 - Nina Xiao (Product Owner): @
@@ -36,8 +51,8 @@ The platform is composed of three main themes below, as well as ordinary functio
 ## VI. Scope
 This project requires percise map building technology and web scraping skill. With instruction, a group of 4-6 is able to complete it in the semester.
 
-# Instruction on how to set up and run the project 
-## Git Workflow
+## VII. Instruction on how to set up and run the project 
+### Git Workflow
 
    To make any editions to the project, please follow the below procedures.
     - Clone the master repository and work on your cloned copy. Do not fork a copy of the master repository.
@@ -72,25 +87,24 @@ Provide instructions so we can reproduce. Please also list any relevant details 
 To resolve any merge conflicts, we recommend you to use rebase to resolve conflicts or simply use web merge conflicts editor.
 
 
-## Set Up Environment
-Please run the following commands to initialize the local host: 
-
-Front-end setup:
-```
-git clone https://github.com/agiledev-students-fall2023/4-final-project-teambaker.git
-cd 4-final-project-teambaker/front-end
-npm install
-npm run dev
-```
-Back-end setup:
-```
-cd 4-final-project-teambaker/back-end
-npm install
-nodemon src/server.mjs
-```
 ## Build & Test the Project
 
    - We use React as the front-end, so when you want to build the project, open the terminal and type npm -start. Make sure to copy paste the localhost and the corresponding port website to your browser.
+  - Please run the following commands to initialize the local host: 
+
+    Front-end setup:
+    ```
+    git clone https://github.com/agiledev-students-fall2023/4-final-project-teambaker.git
+    cd 4-final-project-teambaker/front-end
+    npm install
+    npm run dev
+    ```
+    Back-end setup:
+    ```
+    cd 4-final-project-teambaker/back-end
+    npm install
+    nodemon src/server.mjs
+    ```
    - We use mocha, chai, and c8 to perform unit testings on all of our codes. To enable testing, please run the following script to set up testing: 
       ```
       cd 4-final-project-teambaker/back-end
