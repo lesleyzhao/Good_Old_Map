@@ -3,7 +3,7 @@ import { FormBtns } from "../../components/form/formBtn";
 import { forwardRef } from "react";
 
 
-const PopupContent = forwardRef((props) => {
+const PopupContent = forwardRef((props, ref) => {
   // props: title(str), inputs(array of object), buttons:(array of object)
   return (
     // dark background
