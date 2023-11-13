@@ -15,6 +15,7 @@ import login from './routes/login.mjs';
 import changeusername from './routes/changeusername.mjs';
 import resetpassword from './routes/resetpassword.mjs';
 import resetemail from './routes/resetemail.mjs';
+import register from './routes/register.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -55,6 +56,8 @@ app.post("/getpiece", getpieceRouter);
 
 // authentication
 
+//register
+app.post("/register", register)
 
 // routes that needs authentication
 app.post("/delaccount", delaccountRouter);
