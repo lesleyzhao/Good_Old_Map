@@ -1,25 +1,23 @@
 let arts = [
   // Sample data structure
-  { id: '1', name: 'art1', author: 'Leonardo da Vinci', year: '4321', url: 'https://picsum.photos/200', inFavList: false },
-  { id: '2', name: 'art2', author: 'XXXXXX', year: '1234', url: 'https://picsum.photos/200', inFavList: false },
-  { id: '3', name: 'art3', author: 'XXXXXX', year: '2222', url: 'https://picsum.photos/200', inFavList: false },
+  { id: '1', inFavList: false , location: 'NewYork', name: 'art1', author: '1XXXXXX', year: 4321, url: 'https://picsum.photos/200'},
+  { id: '2', inFavList: false , location: 'Paris', name: 'art2', author: '2XXXXXX', year:1234, url: 'https://picsum.photos/200' },
+  { id: '3', inFavList: false , location: 'London', name: 'art3', author: '3XXXXXX', year: 2222, url: 'https://picsum.photos/200' },
 ];
-
-// export const removeFavListRouter = (req, res) => {
-//   const { id } = req.body;
-//   const index = favorites.findIndex(f => f.id === id);
-//   if (index !== -1) {
-//     favorites.splice(index, 1);
-//     res.status(200).send('Item removed from favorites.');
-//   } 
-// }
 
 export const getArts = (req,res) => {
   try {
     const {location, time} = req.body;
-    res.status(200).send(arts);
+    // const arts = arts.filter(art => art.location === location && art.time === time);
+    if (typeof location !== 'string' || typeof time !== 'string') {
+      return res.status(200).send(arts);
+    }else{
+      res.sendStatus(400);
+    }
+    // res.status(200).send(arts);
   } catch (error) {
     res.sendStatus(404);
+    // res.status(404).send(arts);
   }
 }
 

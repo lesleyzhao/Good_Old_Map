@@ -42,14 +42,14 @@ const PopupSearch = (props) => {
     navigate("/info", { state: { from: location.pathname } });
   };
 
-  const updateFavorites = (artId, newFavoritedState) => {
-    setArts(prevArts => prevArts.map(art => {
-      if (art.id === artId) {
-        return { ...art, inFavList: newFavoritedState };
-      }
-      return art;
-    }));
-  };
+  // const updateFavorites = (artId, newFavoritedState) => {
+  //   setArts(prevArts => prevArts.map(art => {
+  //     if (art.id === artId) {
+  //       return { ...art, inFavList: newFavoritedState };
+  //     }
+  //     return art;
+  //   }));
+  // };
   
   // handle close
   useEffect(() => {
@@ -83,7 +83,7 @@ const PopupSearch = (props) => {
           {arts.map((art) => (
             <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
               <div>
-                <ArtItem art={art} updateFavorites={updateFavorites} />
+                <ArtItem art={art} />
               </div>
             </div>
           ))}
