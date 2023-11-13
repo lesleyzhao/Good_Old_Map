@@ -50,8 +50,8 @@ The platform is composed of three main themes below, as well as ordinary functio
 ## VI. Scope
 This project requires percise map building technology and web scraping skill. With instruction, a group of 4-6 is able to complete it in the semester.
 
-# Instruction on how to set up and run the project 
-## Git Workflow
+## VII. Instruction on how to set up and run the project 
+### Git Workflow
 
    To make any editions to the project, please follow the below procedures.
     - Clone the master repository and work on your cloned copy. Do not fork a copy of the master repository.
