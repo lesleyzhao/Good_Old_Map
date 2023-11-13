@@ -1,5 +1,5 @@
-import { FormInputsPopup } from "../form/formInput";
-import { FormBtns } from "../form/formBtn";
+import { FormInputsPopup } from "../../components/form/formInput";
+import { FormBtns } from "../../components/form/formBtn";
 import { forwardRef } from "react";
 
 

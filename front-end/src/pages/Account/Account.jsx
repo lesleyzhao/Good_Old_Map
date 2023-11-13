@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
-import PopupContent from '../../components/popup/popupContent';
+import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
