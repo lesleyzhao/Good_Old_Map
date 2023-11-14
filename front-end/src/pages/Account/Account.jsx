@@ -80,7 +80,7 @@ const AccountEdit = (props) => {
     evt.stopPropagation()
     evt.preventDefault()
     try {
-      await axiosProvider.post("/delaccount")
+      await axiosProvider.delete("/delaccount")
       navigate("/", { state: { from: location.pathname } });
     } catch (error) {
       

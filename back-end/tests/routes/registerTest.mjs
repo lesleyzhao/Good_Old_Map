@@ -1,5 +1,4 @@
 import chai from 'chai';
-import request from 'supertest';
 import chaiHttp from 'chai-http';
 import app from '../../src/app.mjs';
 

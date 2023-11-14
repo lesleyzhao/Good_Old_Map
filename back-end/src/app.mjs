@@ -60,7 +60,7 @@ app.post("/getpiece", getpieceRouter);
 app.post("/register", register)
 
 // routes that needs authentication
-app.post("/delaccount", delaccountRouter);
+app.delete("/delaccount", delaccountRouter);
 
 // login get request
 app.post("/login", login);
