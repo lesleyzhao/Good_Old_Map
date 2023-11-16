@@ -19,7 +19,6 @@ const FavoriteList = () => {
         setArts(response.data);
       } catch (error) {
         console.error("Error fetching favorite arts:", error);
-       
         setArts([]);
       }
     }
@@ -27,14 +26,14 @@ const FavoriteList = () => {
     getData();
   }, []); 
 
-  const updateFavorites = (artId, newFavoritedState) => {
-    setArts(prevArts => prevArts.map(art => {
-      if (art.id === artId) {
-        return { ...art, inFavList: newFavoritedState };
-      }
-      return art;
-    }));
-  };
+  // const updateFavorites = (artId, newFavoritedState) => {
+  //   setArts(prevArts => prevArts.map(art => {
+  //     if (art.id === artId) {
+  //       return { ...art, inFavList: newFavoritedState };
+  //     }
+  //     return art;
+  //   }));
+  // };
 
   const sortArts = (criteria) => {
     if (criteria === "name") {
@@ -74,7 +73,7 @@ const FavoriteList = () => {
         <div className='mt-5'>
           {arts.map((art) => (
             <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
-              <ArtItem art={art} updateFavorites={updateFavorites} />
+              <ArtItem art={art}/>
             </div>
           ))}
         </div>

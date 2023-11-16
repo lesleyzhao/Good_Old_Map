@@ -6,7 +6,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from 'axios';
 
-const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop to update parent component
+
+const ArtItem = ({ art }) => {  
+  // Added updateFavorites prop to update parent component
   const navigate = useNavigate();
   const location = useLocation();
   const [isFavorited, setIsFavorited] = useState(art.inFavList);
@@ -18,7 +20,6 @@ const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop t
   const toggleFavorite = async (event) => {
     event.stopPropagation();
     const newFavoritedState = !isFavorited;
-
     setIsFavorited(newFavoritedState); 
     const artData = {
       id: art.id,
@@ -27,13 +28,12 @@ const ArtItem = ({ art, updateFavorites }) => {  // Added updateFavorites prop t
 
     try {
       const response = await axios.post('http://localhost:3000/favlist/add', artData);
-
-      if (response.data) {
-        setIsFavorited(response.data.inFavList);
-        if (updateFavorites) {
-          updateFavorites(art.id, response.data.inFavList);
-        }
-      }
+      // if (response.data) {
+      //   setIsFavorited(response.data.inFavList);
+      //   if (updateFavorites) {
+      //     updateFavorites(art.id, response.data.inFavList);
+      //   }
+      // }
     } catch (error) {
       console.error('Error updating favorites', error);
       setIsFavorited(!newFavoritedState);

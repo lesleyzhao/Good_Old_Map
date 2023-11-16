@@ -1,10 +1,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../src/app.mjs';
-import { agent } from 'supertest';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
+const agent = chai.request.agent(app)
 
 let users = {
   "1234": { id: "1234", username: "John Doe", password: "password123", email: "email@nyu.edu" },
@@ -18,7 +18,7 @@ describe('resetpassword', () => {
       newPassword: 'newpassword',
     };
 
-    agent(app)
+    agent
       .patch('/resetpassword')
       .send(userData)
       .end((err, res) => {
@@ -36,7 +36,7 @@ describe('resetpassword', () => {
       email: 'email@nyu.edu',
     };
 
-    agent(app)
+    agent
       .patch('/resetpassword')
       .send(userData)
       .end((err, res) => {
@@ -53,7 +53,7 @@ describe('resetpassword', () => {
       email: 'newemail@example.com',
     };
 
-    agent(app)
+    agent
       .patch('/resetpassword')
       .send(userData)
       .end((err, res) => {
