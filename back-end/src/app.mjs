@@ -1,6 +1,7 @@
 import express from 'express';
 import url from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 // middlewares
 import multer from "multer";
 import cors from 'cors';
@@ -20,7 +21,8 @@ import register from './routes/register.mjs';
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
 const app = express();
-dotenv.config()
+//const __filename = fileURLToPath(import.meta.url);
+
 
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev"));
@@ -32,6 +34,7 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 // serve static files
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 app.use("/static", express.static(path.join(__dirname, 'public')));
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // cors
 const corsOptions = {
@@ -48,6 +51,7 @@ app.use(session({
   saveUninitialized:true,
   cookie: {httpOnly: true, secure: process.env.NODE_ENV==="production"}
 }))
+console.log('Session secret:', process.env.SESSION_SECRET);
 
 // other middlewares
 
