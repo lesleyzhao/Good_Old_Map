@@ -18,15 +18,13 @@ nodemon src/server.mjs
 For more instructions, please refer to the section "VII. Instruction on how to set up and run the project  --> Build & Test the Project" below to see how to set up and test your environment step by step.
 
 ## II.  Contributing Members
-- Nina Xiao (Product Owner): @
-- Tracy Zhang (Scrum Master): yz5835 (https://github.com/Ceiceiceii)
+- Nina Xiao: qx523 [@Nina1o1](https://github.com/Nina1o1)
+- Tracy Zhang: yz5835 [@Ceiceiceii](https://github.com/Ceiceiceii)
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
-- Richard Lee: cl5515 (https://github.com/lunnnnnn)
+- Richard Lee: cl5515 [@lunnnnnn](https://github.com/lunnnnnn)
 - Charlotte Ma: @
-
-
   
- #### Contribute to this project
+#### Contribute to this project
  please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
 ## III. What and why?
 This is an engaging and educational map application, inspired by the scattered information about art history online. There is no a unified website to summarize all historical periods in art history, which posed challenge for art education. This application will allow users to explore random artwork and music in different historical time periods and regions across Europe. 
