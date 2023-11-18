@@ -20,7 +20,40 @@ Current Working ON and Challenges:
 - [ ] Tried to use Google Map API -> But only have limited budget
 - [ ] Laction Tracking Across Time
 - [ ] Better Search Function
-____________________________________________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________
+
+## Breif Walk Through:
+
+#### Landing Page:
+
+Interactive Map:
+ - Central feature of the web application, providing an immersive user experience.
+
+Timeline Feature: 
+ - Customizable tool allowing users to select and explore specific historical eras.
+
+![ezgif com-resize (1)](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/91210454/d2d582a5-cab4-4079-87fe-647f64741282)
+
+#### Dual Access Points: 
+
+Temporal & Geographical Exploration: 
+ - Access art and music information from the same location across different time periods.
+
+Simultaneous Time Frame Comparison: 
+ - Explore art and music from various locations within the same historical period.
+
+![ezgif com-resize (2)](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/91210454/97945322-34f8-4680-ab85-1bb92c02561c)
+
+
+#### Popup Results:
+
+Users are able to access to detailed art information by toggling to the art they interested in.
+
+Also can add artwork into favorite list for easier access in the future. 
+
+![ezgif com-resize (3)](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/91210454/d98aad3e-d7d0-42d8-bcc0-de07b848a296)
+
+___________________________________________________________________________________________
 ## I. Get Started
 Please run the following commands to initialize the local host: 
 
