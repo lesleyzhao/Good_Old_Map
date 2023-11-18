@@ -1,4 +1,26 @@
 ![ah](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/100020447/b4320f2b-92c8-4dbf-8604-4aca64a8414e)
+
+## GoodOldMap | Live like a 4 dimensional animal (Just like Lucy)
+
+![ezgif com-resize](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/assets/91210454/f6b70712-67b2-45de-89bb-786baebdb3f9)
+
+### Project Goal: 
+
+We are trying to create a map that break time and geographical boundaries and present user music and art information.
+Users will be able to get art and music information on same location across time or getting information in the same time ear but different location.
+
+What we Accomplished:
+ - ✅ UI/UX & Front-end Design
+ - ✅ Front-end and Back-end Connection
+ - ✅ Designed the User Authentication and Login System
+ - ✅ Designed and set up database
+
+Current Working ON and Challenges:
+- [ ] Data scalping on Art Information on Google Culture and Arts
+- [ ] Tried to use Google Map API -> But only have limited budget
+- [ ] Laction Tracking Across Time
+- [ ] Butter Search Function
+____________________________________________________________________________________________________________________________________________________________________________________
 ## I. Get Started
 Please run the following commands to initialize the local host: 
 
@@ -9,6 +31,12 @@ cd 4-final-project-teambaker/front-end
 npm install
 npm run dev
 ```
+if the is version conflict in  `nmp install` run below command instead
+```
+npm install --legacy-peer-deps
+npm run dev
+```
+
 Back-end setup:
 ```
 cd 4-final-project-teambaker/back-end
