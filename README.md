@@ -19,7 +19,7 @@ Current Working ON and Challenges:
 - [ ] Data scalping on Art Information on Google Culture and Arts
 - [ ] Tried to use Google Map API -> But only have limited budget
 - [ ] Laction Tracking Across Time
-- [ ] Butter Search Function
+- [ ] Better Search Function
 ____________________________________________________________________________________________________________________________________________________________________________________
 ## I. Get Started
 Please run the following commands to initialize the local host: 
@@ -31,7 +31,7 @@ cd 4-final-project-teambaker/front-end
 npm install
 npm run dev
 ```
-if the is version conflict in  `nmp install` run below command instead
+if the is version conflict in  `npm install` run below command instead
 ```
 npm install --legacy-peer-deps
 npm run dev
