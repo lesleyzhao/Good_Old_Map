@@ -6,8 +6,8 @@
 
 ### Project Goal: 
 
-We are trying to create a map that break time and geographical boundaries and present user music and art information.
-Users will be able to get art and music information on same location across time or getting information in the same time ear but different location.
+We are trying to create a map that breaks time and geographical boundaries to present user music and art information.
+Users will be able to get art and music information on the same location across time or getting information in the same time era but in different locations.
 
 What we Accomplished:
  - ✅ UI/UX & Front-end Design
@@ -18,7 +18,7 @@ What we Accomplished:
 Current Working ON and Challenges:
 - [ ] Data scalping on Art Information on Google Culture and Arts
 - [ ] Tried to use Google Map API -> But only have limited budget
-- [ ] Laction Tracking Across Time
+- [ ] Location Tracking Across Time
 - [ ] Better Search Function
 _________________________________________________________________________________________
 
