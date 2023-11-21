@@ -116,8 +116,6 @@ const AccountEdit = (props) => {
   }
 
   const deleteAccount = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
     setCurrentActionData(confirmDelAccount)
   }
 
@@ -189,14 +187,10 @@ const AccountEdit = (props) => {
   }
 
   const handleClose = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
     if(evt.target.classList.contains("popupBackground")) closePopup()
   }
   
   const togglePopup = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
     if (!showUserProfile) setShowUserProfile("userpic")
     else setShowUserProfile(null)
     setCurrentActionData(null)
