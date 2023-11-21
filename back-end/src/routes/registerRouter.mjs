@@ -2,7 +2,9 @@ let users = {
     "1234": { id: "1234", username: "John Doe", password: "password123", email: "email@nyu.edu" }
   };
   
-  const register = async (req, res) => {
+  const registerRouter = async (req, res) => {
+    // req.body: username, email, password
+    // TODO: might need email authentification / email optional
     const { username, email, password } = req.body;
   
     try {
@@ -47,5 +49,5 @@ let users = {
     }
   };
   
-  export default register;
+  export default registerRouter;
   

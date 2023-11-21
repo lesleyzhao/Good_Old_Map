@@ -10,13 +10,14 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session'
 // routes
-import delaccountRouter from './routes/delaccoountRouter.mjs';
+import loginRouter from './routes/loginRouter.mjs';
+import registerRouter from './routes/registerRouter.mjs';
+import changeusernameRouter from './routes/changeusernameRouter.mjs';
+import forgetpasswordRouter from './routes/forgetpasswordRouter.mjs';
+import delaccountRouter from './routes/delaccountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
-import login from './routes/login.mjs';
-import changeusername from './routes/changeusername.mjs';
-import resetpassword from './routes/resetpassword.mjs';
-import resetemail from './routes/resetemail.mjs';
-import register from './routes/register.mjs';
+import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
+import resetemailRouter from './routes/resetemailRouter.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -57,15 +58,17 @@ console.log('Session secret:', process.env.SESSION_SECRET);
 
 // routes that does not need authentication
 // app.post("/getpiece", getpieceRouter);
-app.post("/register", register)
-app.post("/login", login);
+app.post("/register", registerRouter)
+app.post("/login", loginRouter);
 
 // routes that needs authentication
 // Account routes
+app.patch("/changeusername", changeusernameRouter);
+app.patch("/resetemail", resetemailRouter);
+app.post("/forgetpassword", forgetpasswordRouter);
+app.patch("/resetpassword", resetpasswordRouter);
 app.delete("/delaccount", delaccountRouter);
-app.patch("/changeusername", changeusername);
-app.patch("/resetpassword", resetpassword);
-app.patch("/resetemail", resetemail);
+
 // Favorites list routes 
 app.get('/getfavlist', favListRouter);
 app.post('/favlist/add',addFavListRouter);

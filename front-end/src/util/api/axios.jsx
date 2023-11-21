@@ -4,11 +4,12 @@ const serverURL = "http://localhost:3000";
 
 const axiosProvider = axios.create({
   baseURL: serverURL,
-  // withCredentials: true
+  withCredentials: true
 });
 
 const axiosPrivateProvider = axios.create({
   baseURL: serverURL,
+  withCredentials: true
 })
 
 export default axiosProvider;

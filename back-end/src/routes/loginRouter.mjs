@@ -3,7 +3,9 @@ let users = {
     "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
    }
 
-const login = (req, res) =>{
+const loginRouter = (req, res) =>{
+  // req.body: username, password
+  // TODO: might change to email / userid
     console.log("Login route hit"); 
     const {username, password} =  req.body;
     // console.log(username);
@@ -24,5 +26,5 @@ const login = (req, res) =>{
     }
 }
 
-export default login;
+export default loginRouter;
 
