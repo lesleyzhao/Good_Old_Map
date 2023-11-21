@@ -14,76 +14,124 @@ const AccountEdit = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [message, setMessage] = useState('')
+  // json content: popup data, null: close popup
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
 
-  const discardChange = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-    setCurrentActionData(null);
-  }
-  const confirmChangeUsername = async (evt) => {
-    evt.preventDefault()
-
-    const postOptions = {
-    }
-
+  const getFormData = () => {
+    const requestData = {}
     const formData = new FormData(formRef.current)
-    console.log(formData)
-    const newUsername = formData.get('newUsername')
-    console.log(newUsername)
-    
-    
-    try{
+    formData.forEach((val, key) => {
+      requestData[key] = val
+      // throw failure on empty input slots
+      if (!val) throw {requestMessage:"Please fill in all input slots"}
+    })
+    return requestData
+  }
+
+  const closePopup = () => {
+    setCurrentActionData(null)
+    setMessage("")
+  }
+
+  // route /changeusername
+  // TODO: update localStorage
+  const confirmChangeUsername = async (evt) => {
+    try {
+      const requestData = getFormData()
       const response = await axiosProvider.patch(
         "/changeusername",
-        {newUsername: newUsername},
-        postOptions
+        requestData
       )
-      if(response.status){
-        setMessage("Change Username successful!");
-        navigate("/account")
-      }else{
-        setMessage(response.message || 'Change failed, please try again.');
-      }
-    }catch(error){
-      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
+      closePopup()
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
 
-  const confirmChangeEmail = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-  }
-  const sentForgetPwEmail = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-  }
-  const confirmChangePassword = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
+  // route /resetemail
+  // TODO: user id
+  const confirmResetEmail = async (evt) => {
+    try {
+      const requestData = getFormData()
+      requestData["userID"] = "1234"
+      const postOptions = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      const response = await axiosProvider.patch(
+        "/resetemail",
+        requestData,
+        postOptions
+      )
+      closePopup()
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      setMessage(errorMessage);
+    }
   }
 
-  const confirmLogOutAccount = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
+  // route /forgetpassword
+  // TODO: user id
+  const sentForgetPwEmail = async (evt) => {
+    try {
+      const requestData = getFormData()
+      requestData["userID"] = "1234"
+      const response = await axiosProvider.post(
+        "/forgetpassword",
+        requestData,
+      )
+      closePopup()
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      setMessage(errorMessage);
+    }
+  }
+
+  // route /resetpassword
+  const confirmResetPassword = async (evt) => {
+    try {
+      const requestData = getFormData()
+      // throw failure on password double check
+      if (requestData["oldPassword"] != requestData["confirmPassword"])
+        throw {message: "Your old password does not match."}
+      delete requestData["confirmPassword"]
+      requestData["userID"] = "1234"
+      const response = await axiosProvider.patch(
+        "/resetpassword",
+        requestData
+      )
+      closePopup()
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      setMessage(errorMessage);
+    }
+  }
+
+  // TODO: clear user data in local storage
+  const confirmLogOutAccount = async (evt) => {
     navigate("/", { state: { from: location.pathname } });
   }
 
   const deleteAccount = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
     setCurrentActionData(confirmDelAccount)
   }
+
+  // TODO: delete user account
   const confirmDeleteAccount = async (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
+    const requestData = {};
+    requestData["userID"] = "1234"
     try {
-      await axiosProvider.delete("/delaccount")
+      await axiosProvider.delete(
+        "/delaccount",
+        requestData
+        )
       navigate("/", { state: { from: location.pathname } });
     } catch (error) {
-      
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      setMessage(errorMessage);
     }
   }
   //All PopupContent data
@@ -92,67 +140,57 @@ const AccountEdit = (props) => {
       link: "Change Username",
       title: "Change Username",
       inputs: [{id:"newUsername", name:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", handleClick: discardChange},
+      buttons: [{value:"Discard", handleClick: closePopup},
                 {value:"Confirm", handleClick: confirmChangeUsername}],
-      submit: confirmChangeUsername
     },
     "changeEmail": {
       link: "Change Email",
       title: "Change Email",
       inputs: [{id:"newEmail", name:"newEmail", type:"text", placeholder:"new email"},
-                {id:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmChangeEmail}],
-      submit: confirmChangeEmail
+                {id:"password", name:"password", type:"password", placeholder:"password"}],
+      buttons: [{value:"Discard", handleClick: closePopup},
+                {value:"Confirm", handleClick: confirmResetEmail}],
     },
     "forgotPassword": {
       link: "Forget Password",
       title: "Forget Password",
       inputs: [{id:"email", name:"email", type:"text", placeholder:"email"}],
-      buttons: [{value:"Discard", handleClick: discardChange},
+      buttons: [{value:"Discard", handleClick: closePopup},
                 {value: "Send Email", handleClick: sentForgetPwEmail}],
-      submit: sentForgetPwEmail
     },
     "changePassword": {
       link: "Change Password",
       title: "Change Password",
       inputs: [{id:"oldPassword", name:"oldPassword", type:"password", placeholder:"old password"},
-                {id:"password", name:"password", type:"password", placeholder:"password"},
-                {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"}],
-      buttons: [{value:"Discard", handleClick: discardChange},
-                {value:"Confirm", handleClick: confirmChangePassword}],
-      submit: confirmChangePassword
+                {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"},
+                {id:"newPassword", name:"newPassword", type:"password", placeholder:"new password"}],
+      buttons: [{value:"Discard", handleClick: closePopup},
+                {value:"Confirm", handleClick: confirmResetPassword}],
     },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
       buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
-                {value:"Discard", handleClick: discardChange}],
-      submit: confirmLogOutAccount
+                {value:"Discard", handleClick: closePopup}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Okay", handleClick: deleteAccount},
-                {value:"Discard", handleClick: discardChange}],
-      submit: deleteAccount
+      buttons: [{value:"Confirm", handleClick: deleteAccount},
+                {value:"Discard", handleClick: closePopup}],
     }
   }
   const confirmDelAccount = {
     title: "This account will be gone...",
     buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
-              {value:"Discard", handleClick: discardChange}],
+              {value:"Discard", handleClick: closePopup}],
   }
 
   const handleClose = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
-    if(evt.target.classList.contains("popupBackground")) setCurrentActionData(null)
+    if(evt.target.classList.contains("popupBackground")) closePopup()
   }
   
   const togglePopup = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
     if (!showUserProfile) setShowUserProfile("userpic")
     else setShowUserProfile(null)
     setCurrentActionData(null)
@@ -165,6 +203,7 @@ const AccountEdit = (props) => {
       <NavBar relative="1">
         <LeftBtn />
       </NavBar>
+
       <div className="w-[80%] max-w-[30rem] mx-auto">
         <div className='w-full flex mb-4'>
           <div className="flex flex-col items-center p-4 m-auto">
@@ -187,21 +226,22 @@ const AccountEdit = (props) => {
           }
         )}
 
-          {currentActionData &&
-            <form ref = {formRef} onSubmit={currentActionData.submit}>
-              <PopupContent 
-                title={currentActionData.title}
-                inputs={currentActionData.inputs}
-                buttons={currentActionData.buttons}
-                handleClick = {handleClose}
-              />
-            </form>
-            }
-          {showUserProfile && 
-            <div onClick={togglePopup}
-              className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
-              <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
-            </div>
+        {currentActionData &&
+          <form ref = {formRef}>
+            <PopupContent 
+              message={message}
+              title={currentActionData.title}
+              inputs={currentActionData.inputs}
+              buttons={currentActionData.buttons}
+              handleClick = {handleClose}
+            />
+          </form>
+          }
+        {showUserProfile && 
+          <div onClick={togglePopup}
+            className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+            <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
+          </div>
           }
       </div>
     </div>

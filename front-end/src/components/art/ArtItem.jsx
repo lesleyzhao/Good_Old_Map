@@ -4,7 +4,7 @@ import Card from '../common/card';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import axios from 'axios';
+import axiosProvider from "../../util/api/axios"
 
 
 const ArtItem = ({ art }) => {  
@@ -27,7 +27,7 @@ const ArtItem = ({ art }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/favlist/add', artData);
+      const response = await axiosProvider.post('/favlist/add', artData);
       // if (response.data) {
       //   setIsFavorited(response.data.inFavList);
       //   if (updateFavorites) {

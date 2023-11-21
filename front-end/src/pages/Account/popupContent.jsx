@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 
 const PopupContent = forwardRef((props, ref) => {
   // props: title(str), inputs(array of object), buttons:(array of object)
+  // optional: message
   return (
     // dark background
     <div 
@@ -12,9 +13,11 @@ const PopupContent = forwardRef((props, ref) => {
       onClick={props.handleClick}>
       {/* white popup container: */}
       <div className="bg-white rounded-lg shadow-xl w-[80%] max-w-[30rem]">
-        <div className="p-8">
+        
+        <div className="p-8 text-center">
           {/* content area */}
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
+          <p>{props?.message}</p>
           <div className="space-y-4" >
             <FormInputsPopup inputs={props?.inputs}/>
             <div className="flex flex-row gap-2 justify-end"> {/* Adjust button positioning as needed */}
@@ -22,6 +25,7 @@ const PopupContent = forwardRef((props, ref) => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

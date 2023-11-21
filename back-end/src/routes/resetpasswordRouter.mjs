@@ -4,7 +4,8 @@ let users = {
     "1234": {id: "1234", username: "John Doe", password: "password123"}
    }
 
-const resetpassword = async(req, res) =>{
+const resetpasswordRouter = async(req, res) =>{
+  // userID, oldPassword, newPassword
     const {userID, oldPassword, newPassword} = req.body;
 
     try{
@@ -29,4 +30,4 @@ const resetpassword = async(req, res) =>{
     }
 
 }
-export default resetpassword;
+export default resetpasswordRouter;

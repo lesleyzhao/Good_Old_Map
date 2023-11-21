@@ -27,13 +27,13 @@ function TimelineBar() {
 
   return (
     <div id="audio-player-container" className="">
-      <div className="h-audio_progress w-audio_progress bg-pregress rounded-md" id="audio-progress">
+      <div className="h-[0.5rem] w-full bg-progress rounded-md" id="audio-progress">
         <Draggable axis="x" onDrag={handleDrag} defaultPosition={{ x: 0, y: 0 }} bounds={{ left: 0, right: parentWidth}}>
           <div className="float-left mt-[2px] mb-[5px]">
             <div id="audio-progress-handle" className="block relative z-10 mt-[-5px] w-[14px] h-[14px] border-4 border-timelinePointer transform rotate-45 rounded-full bg-white shadow-[0 1px 6px rgba(0, 0, 0, .2)] cursor-pointer"></div>
           </div>
         </Draggable>
-        <div id="audio-progress-bar" className="h-audio_bar bg-timeline rounded-md" style={{ width: `${xPos}%` }}></div>
+        <div id="audio-progress-bar" className="h-full bg-timeline rounded-md" style={{ width: `${xPos}%` }}></div>
       </div>
       <div>The current year is {year}</div>
     </div>
