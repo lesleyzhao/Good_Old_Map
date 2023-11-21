@@ -18,9 +18,6 @@ const Register = () => {
     });
 
     try {
-      // Reset the message before making the new request
-      setMessage('');
-
       const response = await axiosProvider.post("/register", formData);
       setMessage(response.data.message);
       console.log(response);

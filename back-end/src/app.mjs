@@ -56,34 +56,21 @@ console.log('Session secret:', process.env.SESSION_SECRET);
 // other middlewares
 
 // routes that does not need authentication
-app.post("/getpiece", getpieceRouter);
-
-// authentication
-
-//register
+// app.post("/getpiece", getpieceRouter);
 app.post("/register", register)
-
-// routes that needs authentication
-app.delete("/delaccount", delaccountRouter);
-
-// login get request
 app.post("/login", login);
 
-// Change username
+// routes that needs authentication
+// Account routes
+app.delete("/delaccount", delaccountRouter);
 app.patch("/changeusername", changeusername);
-
-//change password and email
 app.patch("/resetpassword", resetpassword);
 app.patch("/resetemail", resetemail);
-
-// Favorites list routes
+// Favorites list routes 
 app.get('/getfavlist', favListRouter);
-app.post('/getArts', getArts);
 app.post('/favlist/add',addFavListRouter);
+app.post('/getArts', getArts);
 // app.post('/favlist/remove',removeFavListRouter);
-
-
-
 
 // export the express app we created to make it available to other modules
 export default app;
