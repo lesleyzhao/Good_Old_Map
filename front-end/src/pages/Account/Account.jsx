@@ -24,7 +24,7 @@ const AccountEdit = (props) => {
     formData.forEach((val, key) => {
       requestData[key] = val
       // throw failure on empty input slots
-      if (!val) throw {message:"Please Fill in all input slots"}
+      if (!val) throw {requestMessage:"Please fill in all input slots"}
     })
     return requestData
   }
@@ -45,7 +45,7 @@ const AccountEdit = (props) => {
       )
       closePopup()
     } catch (error) {
-      const errorMessage = error?.message || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -56,13 +56,19 @@ const AccountEdit = (props) => {
     try {
       const requestData = getFormData()
       requestData["userID"] = "1234"
+      const postOptions = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
       const response = await axiosProvider.patch(
         "/resetemail",
-        requestData
+        requestData,
+        postOptions
       )
       closePopup()
     } catch (error) {
-      const errorMessage = error?.message || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -73,13 +79,13 @@ const AccountEdit = (props) => {
     try {
       const requestData = getFormData()
       requestData["userID"] = "1234"
-      const response = await axiosProvider.patch(
+      const response = await axiosProvider.post(
         "/forgetpassword",
-        requestData
+        requestData,
       )
       closePopup()
     } catch (error) {
-      const errorMessage = error?.message || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -99,7 +105,7 @@ const AccountEdit = (props) => {
       )
       closePopup()
     } catch (error) {
-      const errorMessage = error?.message || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -126,7 +132,7 @@ const AccountEdit = (props) => {
         )
       navigate("/", { state: { from: location.pathname } });
     } catch (error) {
-      const errorMessage = error?.message || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
