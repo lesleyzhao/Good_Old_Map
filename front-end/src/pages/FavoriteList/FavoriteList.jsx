@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/common/leftBtn"
 import ArtItem from "../../components/art/ArtItem.jsx"
-import axios from "axios"
-import { useNavigate, useLocation } from "react-router-dom";
-// import axiosProvider from "../../util/api/axios"
+import axiosProvider from "../../util/api/axios"
 
 const FavoriteList = () => {
   // const [favorites, setFavorites] = useState([]);
@@ -15,7 +14,7 @@ const FavoriteList = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`http://localhost:3000/getfavlist`);
+        const response = await axiosProvider.get(`/getfavlist`);
         setArts(response.data);
       } catch (error) {
         console.error("Error fetching favorite arts:", error);

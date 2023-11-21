@@ -7,4 +7,9 @@ const axiosProvider = axios.create({
   // withCredentials: true
 });
 
+const axiosPrivateProvider = axios.create({
+  baseURL: serverURL,
+})
+
 export default axiosProvider;
+export {axiosPrivateProvider};

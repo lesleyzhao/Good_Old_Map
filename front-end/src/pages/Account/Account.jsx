@@ -35,7 +35,7 @@ const AccountEdit = (props) => {
     
     
     try{
-      const response = await axiosProvider.patch(
+      const response = await Provider.patch(
         "/changeusername",
         {newUsername: newUsername},
         postOptions
