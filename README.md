@@ -87,7 +87,7 @@ For more instructions, please refer to the section "VII. Instruction on how to s
 - Tracy Zhang: yz5835 [@Ceiceiceii](https://github.com/Ceiceiceii)
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
 - Richard Lee: cl5515 [@lunnnnnn](https://github.com/lunnnnnn)
-- Charlotte Ma: @
+- Charlotte Ma: rm5592 [@Charlo-M](https://github.com/Charlo-M)
   
 #### Contribute to this project
  please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
