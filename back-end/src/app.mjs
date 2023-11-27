@@ -8,7 +8,9 @@ import cors from 'cors';
 import "dotenv/config";
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import session from 'express-session'
+import session from 'express-session';
+import mongoose from 'mongoose';  
+
 // routes
 import loginRouter from './routes/loginRouter.mjs';
 import registerRouter from './routes/registerRouter.mjs';
@@ -18,6 +20,7 @@ import delaccountRouter from './routes/delaccountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
+
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -44,6 +47,10 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
+
+mongoose.connect('mongodb://localhost:27017/bakerdb', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...', err));
 
 // session to auto-save user data (like id) when they login
 app.use(session({
