@@ -12,7 +12,6 @@ describe('Login Functionality', ()=>{
     .post("/login")
     .send({username: "John Doe", password: "password123"})
     .end((err,res) => {
-        //Chai's 'expect' assertions
         expect(res).to.have.status(200)
         expect(res.body).to.have.property('message', 'Successfully logged in!')
         done();

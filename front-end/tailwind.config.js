@@ -15,8 +15,6 @@ export default {
         "navyBlue": "#0F2C59",
         "audio_progress":"#C0C0C0",
         "audio_bar":"#E95F74",
-        "timeline":"#765827",
-        "timelinePointer":"#6C3428",
         "progress":"#DFA878"
 
       },
