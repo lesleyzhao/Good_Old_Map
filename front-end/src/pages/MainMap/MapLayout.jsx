@@ -2,11 +2,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PopupSearch from "./popupSearch";
-// import TimelineBar from "../../components/timeline/TimelineBar";
 import TimeRange from '../../components/timeline/TimeRange.jsx';
 import { format, setYear, endOfYear } from 'date-fns';
 
-
+//timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);
 const timelineInterval = [getSpecificYear(1900), endOfYear(getSpecificYear(2000))];
 
@@ -86,9 +85,9 @@ const MapLayout = () => {
               </div>
           </div>
           <div className='mt-3 ml-5'>
-            <div className="container  w-full">
+            <div className="container w-full">
               <div className="info ml-10">
-                <span className="text-xs mr-1">Selected Interval: </span>
+                <span className="text-xs mr-1 mb-0">Selected Interval: </span>
                 {selectedInterval.length === 2 && (
                   <span className="text-xs">
                     {format(selectedInterval[0], "yyyy")} - {format(selectedInterval[1], "yyyy")}
@@ -98,7 +97,7 @@ const MapLayout = () => {
 
               <TimeRange
                 error={error}
-                ticksNumber={6} // Adjust based on your requirements
+                ticksNumber={6} 
                 selectedInterval={selectedInterval}
                 timelineInterval={timelineInterval}
                 onUpdateCallback={errorHandler}

@@ -10,7 +10,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
 
 .react_time_range__time_range_container {
   padding: 15px 10% 0;
-  height: 15px;
+  height: 10px;
   width: 90%;
   box-sizing: border-box;
 }
@@ -20,7 +20,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
   transform: translate(-50%, -50%);
   z-index: 3;
   width: 24px;
-  height: 15px;
+  height: 10px;
   border-radius: 50%;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
@@ -28,7 +28,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
 .react_time_range__track {
   position: absolute;
   transform: translate(0%, -50%);
-  height: 15px;
+  height: 10px;
   cursor: pointer;
   transition: background-color .15s ease-in-out, border-color .15s ease;
   z-index: 3;
@@ -45,14 +45,14 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
   &__outer {
     position: absolute;
     width: 100%;
-    height: 15px;
+    height: 10px;
     transform: translate(0%, -50%);
     cursor: pointer;
   }
   &__inner {
     position: absolute;
     width: 100%;
-    height: 15px;
+    height: 10px;
     transform: translate(0%, -50%);
     pointer-events: none;
     background-color: $react-time-range--rail-bg;
@@ -67,7 +67,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
     -webkit-tap-highlight-color: $react-time-range--highlight-tap;
     z-index: 6;
     width: 24px;
-    height: 15px;
+    height: 10px;
     cursor: pointer;
     background-color: transparent;
   }
@@ -77,7 +77,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
     transform: translate(-50%, -50%);
     z-index: 4;
     width: 10px;
-    height: 20px;
+    height: 15px;
     border-radius: 4px;
     box-shadow: 0 0 3px rgba(0,0,0, 0.4);
     background-color: $react-time-range--handle-bg;
@@ -88,7 +88,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
   }
   &_marker {
     width: 2px;
-    height: 12px;
+    height: 10px;
     margin: auto;
     border-radius: 2px;
     background-color: $react-time-range--track--valid;
@@ -103,9 +103,9 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
 .react_time_range__tick {
   &_marker {
     position: absolute;
-    margin-top: 12px;
+    margin-top: 6px;
     width: 1px;
-    height: 5px;
+    height: 3px;
     background-color: $react-time-range--gray;
     z-index: 2;
     &__large {
@@ -116,7 +116,7 @@ $react-time-range--track--disabled: repeating-linear-gradient( -45deg, transpare
   }
   &_label {
     position: absolute;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 10px;
     text-align: center;
     z-index: 2;
