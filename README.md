@@ -162,21 +162,24 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
     npm install
     npm run dev
     ```
+    
     if the is version conflict in  `npm install` run below command instead
-   ```
-   npm install --legacy-peer-deps
-   npm run dev
-   ```
+    ```
+    npm install --legacy-peer-deps
+    npm run dev
+    ```
+
     Back-end setup:
     ```
     cd 4-final-project-teambaker/back-end
     npm install
     nodemon src/server.mjs
     ```
+    
     if the nodemon command fails, run below command instead
-      ```
-      npx nodemon src/server.mjs
-      ```
+    ```
+    npx nodemon src/server.mjs
+    ```
 
    - We use mocha, chai, and c8 to perform unit testings on all of our codes. To enable testing, please run the following script to set up testing: 
       ```
