@@ -76,6 +76,10 @@ cd 4-final-project-teambaker/back-end
 npm install
 nodemon src/server.mjs
 ```
+if the nodemon command fails, run below command instead
+```
+npx nodemon src/server.mjs
+```
 For more instructions, please refer to the section "VII. Instruction on how to set up and run the project  --> Build & Test the Project" below to see how to set up and test your environment step by step.
 
 ## II.  Contributing Members
