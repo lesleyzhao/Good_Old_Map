@@ -6,10 +6,6 @@ const EventSchema = new moogoose.Schema({
         unique: true,
         required: true,
     },
-    inFavList: {
-        type: Boolean,
-        required: true,
-    },
     location: {
         type: String,
         required: true,
