@@ -6,13 +6,12 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('Registration Functionality', () => {
-  // Write test cases using 'it'
   it('should register successfully', (done) => {
     chai.request(app)
       .post('/register')
       .send({ username: 'NewUser', email: 'newuser@example.com', password: 'newpassword' })
       .end((err, res) => {
-        // Chai's 'expect' assertions
+
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('message', 'User successfully registered');
         expect(res.body).to.have.property('user');

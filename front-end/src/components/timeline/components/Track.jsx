@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const getTrackConfig = ({ error, source, target, disabled }) => {
@@ -16,7 +15,7 @@ const getTrackConfig = ({ error, source, target, disabled }) => {
         borderRight: '1px solid rgba(214,0,11,0.5)',
       }
     : {
-        backgroundColor: 'rgba(98, 203, 102, 0.5)',
+        backgroundColor: 'rgba(118,88,39,0.8)',
         borderLeft: '1px solid #62CB66',
         borderRight: '1px solid #62CB66',
       };
