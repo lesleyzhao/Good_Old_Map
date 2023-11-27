@@ -2,10 +2,12 @@ let users = {
     "1234": {id: "1234", username: "John Doe", password: "password123"},
     "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
    }
-
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import bcryptjs from 'bcryptjs';
+// const bcrypt = require('bcryptjs');
+import jwt from 'jsonwebtoken';
+// const jwt = require('jsonwebtoken');
+import User from '../models/User.mjs';
+// const User = require('../models/User');
 
 const loginRouter = async (req, res) => {
     console.log("Login route hit");
