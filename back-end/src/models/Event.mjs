@@ -1,6 +1,9 @@
-const moogoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const EventSchema = new moogoose.Schema({
+// Import statements
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+
+// Schema definition
+const EventSchema = new mongoose.Schema({
     id: {
         type: String,
         unique: true,
@@ -27,5 +30,9 @@ const EventSchema = new moogoose.Schema({
         required: true,
     },
 });
-const Event = moogoose.model('Event', EventSchema);
-module.exports = Event;
+
+// Model creation
+const Event = mongoose.model('Event', EventSchema);
+
+// Export the model
+export default Event;

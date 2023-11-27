@@ -1,7 +1,7 @@
-const moogoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-const UserSchema = new moogoose.Schema({
+const UserSchema = new mongoose.Schema({
     uuid: {
         type: String,
         unique: true,
@@ -27,6 +27,6 @@ const UserSchema = new moogoose.Schema({
     },
 });
 
-const User = moogoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = User;
+export default User;
