@@ -76,6 +76,10 @@ cd 4-final-project-teambaker/back-end
 npm install
 nodemon src/server.mjs
 ```
+if the nodemon command fails, run below command instead
+```
+npx nodemon src/server.mjs
+```
 For more instructions, please refer to the section "VII. Instruction on how to set up and run the project  --> Build & Test the Project" below to see how to set up and test your environment step by step.
 
 ## II.  Contributing Members
@@ -83,7 +87,7 @@ For more instructions, please refer to the section "VII. Instruction on how to s
 - Tracy Zhang: yz5835 [@Ceiceiceii](https://github.com/Ceiceiceii)
 - Lesley Zhao: tz2074  [@lesleyzhao](https://github.com/lesleyzhao)
 - Richard Lee: cl5515 [@lunnnnnn](https://github.com/lunnnnnn)
-- Charlotte Ma: @
+- Charlotte Ma: rm5592 [@Charlo-M](https://github.com/Charlo-M)
   
 #### Contribute to this project
  please refer [CONTRIBUTING.md](https://github.com/agiledev-students-fall2023/4-final-project-teambaker/blob/master/CONTRIBUTING.md) to see how to contribute to this project.
@@ -158,12 +162,25 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
     npm install
     npm run dev
     ```
+    
+    if the is version conflict in  `npm install` run below command instead
+    ```
+    npm install --legacy-peer-deps
+    npm run dev
+    ```
+
     Back-end setup:
     ```
     cd 4-final-project-teambaker/back-end
     npm install
     nodemon src/server.mjs
     ```
+    
+    if the nodemon command fails, run below command instead
+    ```
+    npx nodemon src/server.mjs
+    ```
+
    - We use mocha, chai, and c8 to perform unit testings on all of our codes. To enable testing, please run the following script to set up testing: 
       ```
       cd 4-final-project-teambaker/back-end
