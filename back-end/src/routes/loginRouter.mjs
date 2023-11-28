@@ -13,11 +13,12 @@ const loginRouter = async (req, res) => {
   
   try {
     // Find the user asynchronously
-    const user = await User.findOne({ email: email }).select('+password'); // Changed from email to username
+    const user = await User.findOne({ email: email })
     
     if (user) {
       // Check if two passwords match
-      if (bcrypt.compareSync(password, user.password)) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch) {
           // Generate an access token
           const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "2h" });
           res.status(200).json({ message: "Successfully logged in!", accessToken });
