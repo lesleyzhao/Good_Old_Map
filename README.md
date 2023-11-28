@@ -20,6 +20,7 @@ Current Working ON and Challenges:
 - [ ] Tried to use Google Map API -> But only have limited budget
 - [ ] Location Tracking Across Time
 - [ ] Better Search Function
+- [ ] Adding Historical Border on Map
 _________________________________________________________________________________________
 
 ## Breif Walk Through:
