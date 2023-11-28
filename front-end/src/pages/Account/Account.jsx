@@ -19,7 +19,7 @@ const AccountEdit = (props) => {
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
   console.log(props)
-  const [username, setUsername] = useState(props.username ?? "John Doe");
+  const [username, setUsername] = useState(null);
   // const [email, setEmail] = useState(props.email ?? "Asdfasdfasdf@nyu.edu")
 
   // Set updated username to show on screen
