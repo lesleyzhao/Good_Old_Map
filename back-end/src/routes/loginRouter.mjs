@@ -13,7 +13,7 @@ const loginRouter = async (req, res) => {
   
   try {
     // Find the user asynchronously
-    const user = await User.findOne({ email: email })
+    const user = await User.findOne({ email: email }).select("+password");
     
     if (user) {
       // Check if two passwords match
