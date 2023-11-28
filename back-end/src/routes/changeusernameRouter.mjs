@@ -2,7 +2,20 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.mjs';
 
+
 const changeusernameRouter = async(req, res) =>{
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // Concatenate all error messages into a single string
+    const errorMessage = errors.array()
+      .map(err => err.msg)
+      .join(", ");
+
+    // Send the concatenated error message
+    return res.status(400).json({ message: errorMessage });
+  }
+
   console.log("Request headers:", req.headers);
   // req.body : newUsername, userID
   const {newUsername} = req.body;

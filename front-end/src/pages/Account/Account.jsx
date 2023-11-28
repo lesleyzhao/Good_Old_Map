@@ -7,6 +7,7 @@ import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
+import AuthHeader from '../Authenticate/authHeader';
 
 
 const AccountEdit = (props) => {
@@ -21,6 +22,7 @@ const AccountEdit = (props) => {
   const [username, setUsername] = useState(props.username ?? "John Doe");
   // const [email, setEmail] = useState(props.email ?? "Asdfasdfasdf@nyu.edu")
 
+  // Set updated username to show on screen
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     setUsername(storedUsername || 'John Doe');
@@ -51,21 +53,24 @@ const AccountEdit = (props) => {
   // route /changeusername
   const confirmChangeUsername = async (evt) => {
     try {
+      evt.preventDefault(); 
       const requestData = getFormData()
       const response = await axiosProvider.patch(
         "/changeusername",
         requestData
       )
-      console.log("Response from change username:", response);
+
       if(response?.data?.user){
         setUsername(response.data.user.name);
         localStorage.setItem('username', response.data.user.name);
+        
       }else{
         console.log("Error!!!!!");
       }
       closePopup()
+
     } catch (error) {
-      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -89,6 +94,7 @@ const AccountEdit = (props) => {
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      //const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
   }
