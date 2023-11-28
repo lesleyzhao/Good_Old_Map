@@ -1,8 +1,11 @@
+import { body, validationResult } from 'express-validator';
+
 let users = {
     "1234": {id: "1234", username: "John Doe", password: "password123"},
     "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
    }
 
+   
 const changeusernameRouter = async(req, res) =>{
   // req.body : newUsername, userID
   // TODO: might not use server session

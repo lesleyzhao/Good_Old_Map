@@ -1,8 +1,10 @@
 import e from "express";
+import { body, validationResult } from 'express-validator';
 
 let users = {
     "1234": {id: "1234", username: "John Doe", password: "password123"}
    }
+
 
 const resetpasswordRouter = async(req, res) =>{
   // userID, oldPassword, newPassword
