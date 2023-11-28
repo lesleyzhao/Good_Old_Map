@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Account from './pages/Account/Account';
+import AccountEdit from './pages/Account/Account';
 import MainMap from './pages/MainMap/MainMap';
 import SearchMap from './pages/MainMap/SearchMap';
 import Login from './pages/Authenticate/Login';
@@ -32,7 +32,7 @@ const App = () => {
             {/* TODO: add params: /info/:pieceInfo */}
             <Route path="/info" element={<InfoDetail/>}/>
             <Route path="/favoritelist" element={<FavoriteList />}/>
-            <Route path="/account" element={<Account />} />
+            <Route path="/account" element={<AccountEdit />} />
             <Route path="/*" element={<Error />} />
             
           </Route>

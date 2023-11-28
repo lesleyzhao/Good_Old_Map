@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
@@ -7,6 +7,7 @@ import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
+import AuthHeader from '../Authenticate/authHeader';
 
 
 const AccountEdit = (props) => {
@@ -17,10 +18,25 @@ const AccountEdit = (props) => {
   // json content: popup data, null: close popup
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
+  console.log(props)
+  const [username, setUsername] = useState(null);
+  // const [email, setEmail] = useState(props.email ?? "Asdfasdfasdf@nyu.edu")
+
+  // Set updated username to show on screen
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    setUsername(storedUsername || 'John Doe');
+  }, []);
+
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('email');
+  //   setEmail(storedEmail || "Asdfasdfasdf@nyu.edu");
+  // }, []);
 
   const getFormData = () => {
     const requestData = {}
     const formData = new FormData(formRef.current)
+    console.log("Form data:", requestData);
     formData.forEach((val, key) => {
       requestData[key] = val
       // throw failure on empty input slots
@@ -35,17 +51,26 @@ const AccountEdit = (props) => {
   }
 
   // route /changeusername
-  // TODO: update localStorage
   const confirmChangeUsername = async (evt) => {
     try {
+      evt.preventDefault(); 
       const requestData = getFormData()
       const response = await axiosProvider.patch(
         "/changeusername",
         requestData
       )
+
+      if(response?.data?.user){
+        setUsername(response.data.user.name);
+        localStorage.setItem('username', response.data.user.name);
+        
+      }else{
+        console.log("Error!!!!!");
+      }
       closePopup()
+
     } catch (error) {
-      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -69,6 +94,7 @@ const AccountEdit = (props) => {
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      //const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -196,6 +222,7 @@ const AccountEdit = (props) => {
     setCurrentActionData(null)
   }
 
+  console.log("Component render, current username:", username);
   //Return the AccountEdit component
   return (
     <>
@@ -211,7 +238,7 @@ const AccountEdit = (props) => {
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div className="text-center">
-              <h2>{props.username ?? "John Doe"}</h2>
+              <h2>{username}</h2>
               <span className="text-gray-400">{props.email ?? "Asdfasdfasdf@nyu.edu"}</span>
             </div>
           </div>

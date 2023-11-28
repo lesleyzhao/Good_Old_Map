@@ -57,34 +57,6 @@ app.use(cors(corsOptions));
   mongoose.connect('mongodb://localhost:27017/bakerdb', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
       console.log('Connected to MongoDB...');
-  
-      // Hash the password
-      // const password = "password123";
-      // const saltRounds = 10;
-      // bcrypt.hash(password, saltRounds, function(err, hash) {
-      //   if (err) {
-      //     console.error(err);
-      //     return;
-      //   }
-      //   console.log("Hashed password:", hash);
-  
-      // Insert the first test user into the database
-      // If you want to connect to the database and set up this first user, uncomment all the comments here
-      // Check whether user setup is successful by entering this in mongodb shell:  db.users.find()
-      // After adding this user, comment out these user setup code to avoid multiple creations of John Doe
-      
-      //   const newUser = new User({
-      //     uuid: uuidv4(),
-      //     name: "John Doe",
-      //     email: "email@nyu.edu",
-      //     password: hash
-      //   });
-  
-      //   newUser.save()
-      //     .then(doc => console.log("User saved:", doc))
-      //     .catch(err => console.error(err));
-      // });
-  
     })
     .catch(err => console.error('Could not connect to MongoDB...', err));
   
@@ -105,9 +77,20 @@ console.log('Session secret:', process.env.SESSION_SECRET);
 app.post("/register", registerRouter)
 app.post("/login", loginRouter);
 
+// Validation rules for changeusernameRouter
+const usernameValidationRules = [
+  body('newUsername')
+    .trim() // Removes leading and trailing spaces
+    .isLength({ min: 3, max: 30 }) // Sets a length range for the username
+    .withMessage('Username must be between 3 and 30 characters long.')
+    .matches(/^[a-zA-Z0-9_]+$/) // Regular expression to allow letters, numbers, and underscores
+    .withMessage('Username must contain only letters, numbers, and underscores.')
+];
+
+
 // routes that needs authentication
 // Account routes
-app.patch("/changeusername", changeusernameRouter);
+app.patch("/changeusername", usernameValidationRules, changeusernameRouter);
 app.patch("/resetemail", resetemailRouter);
 app.post("/forgetpassword", forgetpasswordRouter);
 app.patch("/resetpassword", resetpasswordRouter);
