@@ -20,6 +20,7 @@ Current Working ON and Challenges:
 - [ ] Tried to use Google Map API -> But only have limited budget
 - [ ] Location Tracking Across Time
 - [ ] Better Search Function
+- [ ] Adding Historical Border on Map
 _________________________________________________________________________________________
 
 ## Breif Walk Through:
@@ -180,6 +181,11 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
     ```
     npx nodemon src/server.mjs
     ```
+
+    Database setup:
+    
+    - we are using MongoDB Atlas as our database
+    - when you run the back-end, the database will be automatically connected
 
    - We use mocha, chai, and c8 to perform unit testings on all of our codes. To enable testing, please run the following script to set up testing: 
       ```

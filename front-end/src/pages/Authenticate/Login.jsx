@@ -39,6 +39,14 @@ const Login = () => {
         loginData,
         postOptions
       )
+        localStorage.setItem('token', response.data.accessToken); // Store the token
+        const userData = {
+          uuid: response.data.user.uuid,
+          name: response.data.user.name,
+          email: response.data.user.email
+        };
+        localStorage.setItem('user', JSON.stringify(userData))
+        // console.log(response.data.user)
         setMessage("Login successful!");
         navigate("/")
       }

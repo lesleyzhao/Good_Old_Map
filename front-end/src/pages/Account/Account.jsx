@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
@@ -18,9 +18,27 @@ const AccountEdit = (props) => {
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
 
+  // Initialize username and email from localStorage
+  const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
+  const [username, setUsername] = useState(storedUserData.name || 'John Doe');
+  const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
+  // console.log(localStorage.getItem('user'))
+  console.log(storedUserData.email)
+
+  // Set username and email on the screen
+  useEffect(() => {
+    const userDataString =  localStorage.getItem('user'); 
+    const userData = JSON.parse(userDataString || '{}'); // Parse JSON string
+
+    setUsername(userData.name || 'John Doe');
+    setEmail(userData.email || "Asdfasdfasdf@nyu.edu")
+  }, []);
+
+
   const getFormData = () => {
     const requestData = {}
     const formData = new FormData(formRef.current)
+    console.log("Form data:", requestData);
     formData.forEach((val, key) => {
       requestData[key] = val
       // throw failure on empty input slots
@@ -34,28 +52,42 @@ const AccountEdit = (props) => {
     setMessage("")
   }
 
-  // route /changeusername
-  // TODO: update localStorage
+  // Finished: route /changeusername
   const confirmChangeUsername = async (evt) => {
     try {
+      evt.preventDefault(); 
       const requestData = getFormData()
       const response = await axiosProvider.patch(
         "/changeusername",
         requestData
       )
+
+      if(response?.data?.user){
+        setUsername(response.data.user.name);
+        const userData = {
+          uuid: response.data.user.uuid,
+          name: response.data.user.name,
+          email: response.data.user.email
+        };
+        localStorage.setItem('user', JSON.stringify(userData))
+        // localStorage.setItem('username', response.data.user.name);
+        
+      }else{
+        console.log("Error!!!!!");
+      }
       closePopup()
+
     } catch (error) {
-      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
 
-  // route /resetemail
-  // TODO: user id
+  // Finished: route /resetemail
   const confirmResetEmail = async (evt) => {
     try {
+      evt.preventDefault();
       const requestData = getFormData()
-      requestData["userID"] = "1234"
       const postOptions = {
         headers: {
           'Content-Type': 'application/json'
@@ -66,6 +98,19 @@ const AccountEdit = (props) => {
         requestData,
         postOptions
       )
+
+      if(response?.data?.user){
+        setEmail(response.data.user.email);
+        const userData = {
+          uuid: response.data.user.uuid,
+          name: response.data.user.name,
+          email: response.data.user.email
+        };
+        localStorage.setItem('user', JSON.stringify(userData))
+        
+      }else{
+        console.log("Error!!!!!");
+      }
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
@@ -196,6 +241,7 @@ const AccountEdit = (props) => {
     setCurrentActionData(null)
   }
 
+  console.log("Component render, current username:", username);
   //Return the AccountEdit component
   return (
     <>
@@ -211,8 +257,8 @@ const AccountEdit = (props) => {
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div className="text-center">
-              <h2>{props.username ?? "John Doe"}</h2>
-              <span className="text-gray-400">{props.email ?? "Asdfasdfasdf@nyu.edu"}</span>
+              <h2>{username}</h2>
+              <span className="text-gray-400">{email}</span>
             </div>
           </div>
         </div>
