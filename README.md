@@ -181,6 +181,11 @@ To resolve any merge conflicts, we recommend you to use rebase to resolve confli
     npx nodemon src/server.mjs
     ```
 
+    Database setup:
+    
+    - we are using MongoDB Atlas as our database
+    - when you run the back-end, the database will be automatically connected
+
    - We use mocha, chai, and c8 to perform unit testings on all of our codes. To enable testing, please run the following script to set up testing: 
       ```
       cd 4-final-project-teambaker/back-end
