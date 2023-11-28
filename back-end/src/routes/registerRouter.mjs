@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 let users = {
     "1234": { id: "1234", username: "John Doe", password: "password123", email: "email@nyu.edu" }
   };
@@ -16,13 +17,14 @@ let users = {
       } else {
         // Generate a unique user ID (you can use a library like uuid for this)
         const userId = generateUniqueId();
+        const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   
         // Create a new user object
         const newUser = {
           id: userId,
           username,
           email,
-          password
+          password: hashedPassword
         };
   
         // Add the new user to the users object

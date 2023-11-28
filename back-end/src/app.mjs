@@ -2,14 +2,18 @@ import express from 'express';
 import url from 'url';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import User from './models/User.mjs'; 
 // middlewares
 import multer from "multer";
+import bcrypt from 'bcryptjs';
 import cors from 'cors';
 import "dotenv/config";
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session';
 import mongoose from 'mongoose';  
+import { v4 as uuidv4 } from 'uuid';
+import { body, validationResult }  from 'express-validator';
 
 // routes
 import loginRouter from './routes/loginRouter.mjs';
@@ -48,9 +52,38 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-mongoose.connect('mongodb://localhost:27017/bakerdb', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...', err));
+
+// Connect to MongoDB
+  mongoose.connect('mongodb://localhost:27017/bakerdb', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log('Connected to MongoDB...');
+  
+      // Hash the password
+      const password = "password123";
+      const saltRounds = 10;
+      bcrypt.hash(password, saltRounds, function(err, hash) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("Hashed password:", hash);
+  
+        // Insert the first test user into the database
+        const newUser = new User({
+          uuid: uuidv4(),
+          name: "John Doe",
+          email: "email@nyu.edu",
+          password: hash
+        });
+  
+        newUser.save()
+          .then(doc => console.log("User saved:", doc))
+          .catch(err => console.error(err));
+      });
+  
+    })
+    .catch(err => console.error('Could not connect to MongoDB...', err));
+  
 
 // session to auto-save user data (like id) when they login
 app.use(session({
