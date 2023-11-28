@@ -9,14 +9,17 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.mjs';
 // const User = require('../models/User');
 
-// The commented part is "Login with email & password"
+// "Login with email & password"
 // const loginRouter = async (req, res) => {
 //     console.log("Login route hit");
 //     const { email, password } = req.body;
   
+//     console.log(email)
+//     console.log(password)
 //     try {
 //       // Find the user asynchronously
-//       const user = await User.findOne({ email });
+//       const user = await User.findOne({ email }).select('+password');
+//       console.log(user)
   
 //       if (user) {
 //         // Check if two passwords match
@@ -38,15 +41,15 @@ import User from '../models/User.mjs';
 //   };
 // export default loginRouter;
 
-// The following is "Login with Username and Password"
+//The following is "Login with Username and Password"
 const loginRouter = async (req, res) => {
   console.log("Login route hit");
-  const { username, password } = req.body; // Changed from email to username
-  console.log(password)
+  const { email, password } = req.body; // Changed from email to username
+  
   try {
     // Find the user asynchronously
-    const user = await User.findOne({ username }).select('+password'); // Changed from email to username
-    console.log(user.password)
+    const user = await User.findOne({ email: email }).select('+password'); // Changed from email to username
+    
     if (user) {
       // Check if two passwords match
       if (bcrypt.compareSync(password, user.password)) {

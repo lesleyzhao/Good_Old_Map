@@ -9,7 +9,7 @@ import axiosProvider from '../../util/api/axios'
 
 const Login = () => {
   const [message, setMessage] = useState("")
-  const fields = ["username", "password"]
+  const fields = ["email", "password"]
   const formRef = useRef(null);
   const navigate = useNavigate();
 
@@ -18,11 +18,11 @@ const Login = () => {
     evt.preventDefault();
 
     const formData = new FormData(formRef.current)
-    const username = formData.get('username');
+    const email = formData.get('email');
     const password = formData.get('password');
 
     const loginData = {
-      username,
+      email,
       password
     };
     console.log('Sending login request with:', loginData);

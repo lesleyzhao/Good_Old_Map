@@ -53,33 +53,33 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-// Connect to MongoDB
+// Connect to MongoDB & Create test user 'John Doe' 
   mongoose.connect('mongodb://localhost:27017/bakerdb', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
       console.log('Connected to MongoDB...');
   
       // Hash the password
-      const password = "password123";
-      const saltRounds = 10;
-      bcrypt.hash(password, saltRounds, function(err, hash) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log("Hashed password:", hash);
+      // const password = "password123";
+      // const saltRounds = 10;
+      // bcrypt.hash(password, saltRounds, function(err, hash) {
+      //   if (err) {
+      //     console.error(err);
+      //     return;
+      //   }
+      //   console.log("Hashed password:", hash);
   
         // Insert the first test user into the database
-        const newUser = new User({
-          uuid: uuidv4(),
-          name: "John Doe",
-          email: "email@nyu.edu",
-          password: hash
-        });
+      //   const newUser = new User({
+      //     uuid: uuidv4(),
+      //     name: "John Doe",
+      //     email: "email@nyu.edu",
+      //     password: hash
+      //   });
   
-        newUser.save()
-          .then(doc => console.log("User saved:", doc))
-          .catch(err => console.error(err));
-      });
+      //   newUser.save()
+      //     .then(doc => console.log("User saved:", doc))
+      //     .catch(err => console.error(err));
+      // });
   
     })
     .catch(err => console.error('Could not connect to MongoDB...', err));
