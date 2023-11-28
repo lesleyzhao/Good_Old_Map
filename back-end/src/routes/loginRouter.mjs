@@ -1,10 +1,6 @@
 import bcrypt from 'bcryptjs';
-// const bcrypt = require('bcryptjs');
 import jwt from 'jsonwebtoken';
-// const jwt = require('jsonwebtoken');
 import User from '../models/User.mjs';
-// const User = require('../models/User');
-
 
 //The following is "Login with Email and Password"
 const loginRouter = async (req, res) => {
