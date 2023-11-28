@@ -10,11 +10,27 @@ const FavoriteList = () => {
   const [arts, setArts] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
+  //TODO: 
+  const userUUID = localStorage.getItem('uuid');
 
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const response = await axiosProvider.get(`/getfavlist`);
+  //       setArts(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching favorite arts:", error);
+  //       setArts([]);
+  //     }
+  //   }
+  
+  //   getData();
+  // }, []); 
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axiosProvider.get(`/getfavlist`);
+        // Include the user's UUID in your request
+        const response = await axiosProvider.get(`/getfavlist`, { params: { uuid: userUUID } });
         setArts(response.data);
       } catch (error) {
         console.error("Error fetching favorite arts:", error);
@@ -22,17 +38,10 @@ const FavoriteList = () => {
       }
     }
   
-    getData();
-  }, []); 
-
-  // const updateFavorites = (artId, newFavoritedState) => {
-  //   setArts(prevArts => prevArts.map(art => {
-  //     if (art.id === artId) {
-  //       return { ...art, inFavList: newFavoritedState };
-  //     }
-  //     return art;
-  //   }));
-  // };
+    if (userUUID) { // Only fetch data if UUID is available
+      getData();
+    }
+  }, [userUUID]);
 
   const sortArts = (criteria) => {
     if (criteria === "name") {
