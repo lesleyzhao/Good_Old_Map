@@ -22,7 +22,8 @@ const Register = () => {
       setMessage(response.data.message);
       console.log(response);
     } catch (error) {
-      setMessage(error.response.data.messages);
+      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      setMessage(errorMessage);
     }
   };
 

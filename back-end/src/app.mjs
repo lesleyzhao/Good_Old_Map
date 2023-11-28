@@ -68,7 +68,11 @@ app.use(cors(corsOptions));
       //   }
       //   console.log("Hashed password:", hash);
   
-        // Insert the first test user into the database
+      // Insert the first test user into the database
+      // If you want to connect to the database and set up this first user, uncomment all the comments here
+      // Check whether user setup is successful by entering this in mongodb shell:  db.users.find()
+      // After adding this user, comment out these user setup code to avoid multiple creations of John Doe
+      
       //   const newUser = new User({
       //     uuid: uuidv4(),
       //     name: "John Doe",

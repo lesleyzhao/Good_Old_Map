@@ -1,7 +1,3 @@
-// let users = {
-//     "1234": {id: "1234", username: "John Doe", password: "password123"},
-//     "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
-//    }
 import bcrypt from 'bcryptjs';
 // const bcrypt = require('bcryptjs');
 import jwt from 'jsonwebtoken';
