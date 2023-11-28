@@ -113,7 +113,7 @@ app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //F
 app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
 app.post("/forgetpassword", forgetpasswordRouter);
 app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
-app.delete("/delaccount", delaccountRouter);
+app.delete("/delaccount", delaccountRouter); //Finished 
 
 // Favorites list routes 
 app.get('/getfavlist', favListRouter);
