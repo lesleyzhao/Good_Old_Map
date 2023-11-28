@@ -9,7 +9,7 @@ const registerRouter = async (req, res) => {
   
     try {
       // Check if the email is already registered
-      const user = await User.findOne({ email: email }).select('+password')
+      const user = await User.findOne({ email: email })
      
       if (user) {
         res.status(400).json({ message: "Email is already registered." });
@@ -21,7 +21,8 @@ const registerRouter = async (req, res) => {
           uuid: uuidv4(), //Generate a unique id for each new user
           name: username,
           email: email,
-          password: hashedPassword
+          password: hashedPassword,
+          favorites: [],
         });
   
         // Add the new user to mongodb database
