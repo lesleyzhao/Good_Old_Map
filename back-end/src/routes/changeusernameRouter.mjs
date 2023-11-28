@@ -24,7 +24,7 @@ const changeusernameRouter = async(req, res) =>{
     if(user){
         user.name = newUsername;
         await user.save();
-        res.status(200).json({message: "Succesfully update username", user: {uuid: user.uuid, name: user.name}});
+        res.status(200).json({message: "Succesfully update username", user});
     }
     else{
         res.status(400).json({message: "User not found."});

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
@@ -17,10 +17,24 @@ const AccountEdit = (props) => {
   // json content: popup data, null: close popup
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
+  console.log(props)
+  const [username, setUsername] = useState(props.username ?? "John Doe");
+  // const [email, setEmail] = useState(props.email ?? "Asdfasdfasdf@nyu.edu")
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    setUsername(storedUsername || 'John Doe');
+  }, []);
+
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('email');
+  //   setEmail(storedEmail || "Asdfasdfasdf@nyu.edu");
+  // }, []);
 
   const getFormData = () => {
     const requestData = {}
     const formData = new FormData(formRef.current)
+    console.log("Form data:", requestData);
     formData.forEach((val, key) => {
       requestData[key] = val
       // throw failure on empty input slots
@@ -35,7 +49,6 @@ const AccountEdit = (props) => {
   }
 
   // route /changeusername
-  // TODO: update localStorage
   const confirmChangeUsername = async (evt) => {
     try {
       const requestData = getFormData()
@@ -43,6 +56,13 @@ const AccountEdit = (props) => {
         "/changeusername",
         requestData
       )
+      console.log("Response from change username:", response);
+      if(response?.data?.user){
+        setUsername(response.data.user.name);
+        localStorage.setItem('username', response.data.user.name);
+      }else{
+        console.log("Error!!!!!");
+      }
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
@@ -196,6 +216,7 @@ const AccountEdit = (props) => {
     setCurrentActionData(null)
   }
 
+  console.log("Component render, current username:", username);
   //Return the AccountEdit component
   return (
     <>
@@ -211,7 +232,7 @@ const AccountEdit = (props) => {
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div className="text-center">
-              <h2>{props.username ?? "John Doe"}</h2>
+              <h2>{username}</h2>
               <span className="text-gray-400">{props.email ?? "Asdfasdfasdf@nyu.edu"}</span>
             </div>
           </div>
