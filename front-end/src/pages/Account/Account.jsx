@@ -107,10 +107,10 @@ const AccountEdit = (props) => {
           email: response.data.user.email
         };
         localStorage.setItem('user', JSON.stringify(userData))
-        
       }else{
         console.log("Error!!!!!");
       }
+
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
@@ -138,16 +138,24 @@ const AccountEdit = (props) => {
   // route /resetpassword
   const confirmResetPassword = async (evt) => {
     try {
+      evt.preventDefault()
       const requestData = getFormData()
       // throw failure on password double check
       if (requestData["oldPassword"] != requestData["confirmPassword"])
         throw {message: "Your old password does not match."}
+      
       delete requestData["confirmPassword"]
-      requestData["userID"] = "1234"
       const response = await axiosProvider.patch(
         "/resetpassword",
         requestData
       )
+
+      if(response?.data?.user){
+        setMessage(response.data.message)
+      }else{
+        console.log("Error!!!!!");
+      }
+
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';

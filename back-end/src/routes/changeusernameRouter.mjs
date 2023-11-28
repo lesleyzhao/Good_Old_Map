@@ -19,13 +19,11 @@ const changeusernameRouter = async(req, res) =>{
 
   // req.body : newUsername, userID
   const {newUsername} = req.body;
-  console.log("Received body:", req.body)
 
   // Check if the Authorization header is present
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Authorization token is missing" });
   }
-
   
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(token, process.env.JWT_SECRET);

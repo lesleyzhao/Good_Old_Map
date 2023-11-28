@@ -93,6 +93,17 @@ const emailValidationRules = [
     .withMessage('Please enter a valid email address.')
     .normalizeEmail() // Optionally, normalize the email address
 ];
+const passwordValidationRules = [
+  // Validate new password
+  body('newPassword')
+    .isLength({ min: 8 }) // Set a minimum length for the new password
+    .withMessage('Password must be at least 8 characters long')
+    .matches(/\d/) // Ensure the password contains a number
+    .withMessage('Password must contain at least one number')
+    .matches(/[a-zA-Z]/) // Ensure the password contains a letter
+    .withMessage('Password must contain at least one letter')
+    // Optionally, include checks for special characters or uppercase letters
+];
 
 
 
@@ -101,7 +112,7 @@ const emailValidationRules = [
 app.patch("/changeusername", usernameValidationRules, changeusernameRouter);
 app.patch("/resetemail", emailValidationRules, resetemailRouter);
 app.post("/forgetpassword", forgetpasswordRouter);
-app.patch("/resetpassword", resetpasswordRouter);
+app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter);
 app.delete("/delaccount", delaccountRouter);
 
 // Favorites list routes 
