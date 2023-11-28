@@ -135,7 +135,7 @@ const AccountEdit = (props) => {
     }
   }
 
-  // route /resetpassword
+  // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
     try {
       evt.preventDefault()
@@ -163,8 +163,10 @@ const AccountEdit = (props) => {
     }
   }
 
-  // TODO: clear user data in local storage
+  // Finished
   const confirmLogOutAccount = async (evt) => {
+    // Clear all local storage data
+    localStorage.clear();
     navigate("/", { state: { from: location.pathname } });
   }
 

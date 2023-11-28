@@ -77,7 +77,7 @@ console.log('Session secret:', process.env.SESSION_SECRET);
 app.post("/register", registerRouter)
 app.post("/login", loginRouter);
 
-// Validation rules for changeusernameRouter, resetemailRouter
+// Validation rules for routers
 const usernameValidationRules = [
   body('newUsername')
     .trim() // Removes leading and trailing spaces
@@ -109,10 +109,10 @@ const passwordValidationRules = [
 
 // routes that needs authentication
 // Account routes
-app.patch("/changeusername", usernameValidationRules, changeusernameRouter);
-app.patch("/resetemail", emailValidationRules, resetemailRouter);
+app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //Finished
+app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
 app.post("/forgetpassword", forgetpasswordRouter);
-app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter);
+app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
 app.delete("/delaccount", delaccountRouter);
 
 // Favorites list routes 
