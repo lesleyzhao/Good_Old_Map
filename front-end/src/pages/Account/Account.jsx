@@ -22,7 +22,6 @@ const AccountEdit = (props) => {
   const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
   const [username, setUsername] = useState(storedUserData.name || 'John Doe');
   const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
-  // console.log(localStorage.getItem('user'))
   console.log(storedUserData.email)
 
   // Set username and email on the screen
@@ -135,7 +134,7 @@ const AccountEdit = (props) => {
     }
   }
 
-  // route /resetpassword
+  // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
     try {
       evt.preventDefault()
@@ -163,30 +162,34 @@ const AccountEdit = (props) => {
     }
   }
 
-  // TODO: clear user data in local storage
+  // Finished
   const confirmLogOutAccount = async (evt) => {
+    // Clear all local storage data
+    localStorage.clear();
     navigate("/", { state: { from: location.pathname } });
   }
 
+  // Finished
   const deleteAccount = (evt) => {
-    setCurrentActionData(confirmDelAccount)
+    setCurrentActionData(confirmDeleteAccount)
   }
 
-  // TODO: delete user account
+  // Finished
   const confirmDeleteAccount = async (evt) => {
     const requestData = {};
-    requestData["userID"] = "1234"
     try {
       await axiosProvider.delete(
         "/delaccount",
         requestData
         )
+      localStorage.clear();
       navigate("/", { state: { from: location.pathname } });
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
+
   //All PopupContent data
   const formData = {
     "changeUsername": {
