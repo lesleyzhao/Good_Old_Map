@@ -15,7 +15,7 @@ const loginRouter = async (req, res) => {
       // Check if two passwords match
       if (bcrypt.compareSync(password, user.password)) {
           // Generate an access token
-          const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "2h" });
+          const accessToken = jwt.sign({ id: user.uuid, name: user.name }, process.env.JWT_SECRET, { expiresIn: "2h" });
           res.status(200).json({ message: "Successfully logged in!", accessToken });
       } else {
           res.status(401).json({ message: "Incorrect Password." });

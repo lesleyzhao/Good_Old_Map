@@ -39,6 +39,7 @@ const Login = () => {
         loginData,
         postOptions
       )
+        localStorage.setItem('token', response.data.accessToken); // Store the token
         setMessage("Login successful!");
         navigate("/")
       }
