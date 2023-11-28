@@ -10,14 +10,15 @@ import User from '../models/User.mjs';
 const loginRouter = async (req, res) => {
   console.log("Login route hit");
   const { email, password } = req.body; // Changed from email to username
-  
+  console.log(password)
   try {
     // Find the user asynchronously
-    const user = await User.findOne({ email: email })
-    
+    const user = await User.findOne({ email: email }).select('+password')
+    console.log(user.password)
     if (user) {
       // Check if two passwords match
       const isMatch = await bcrypt.compare(password, user.password);
+      console.log(isMatch)
       if (isMatch) {
           // Generate an access token
           const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "2h" });
