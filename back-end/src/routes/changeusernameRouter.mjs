@@ -5,6 +5,7 @@ import User from '../models/User.mjs';
 
 const changeusernameRouter = async(req, res) =>{
 
+  // Input Validation Result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // Concatenate all error messages into a single string
@@ -16,7 +17,6 @@ const changeusernameRouter = async(req, res) =>{
     return res.status(400).json({ message: errorMessage });
   }
 
-  console.log("Request headers:", req.headers);
   // req.body : newUsername, userID
   const {newUsername} = req.body;
   console.log("Received body:", req.body)
@@ -38,7 +38,12 @@ const changeusernameRouter = async(req, res) =>{
     if(user){
         user.name = newUsername;
         await user.save();
-        res.status(200).json({message: "Succesfully update username", user});
+        res.status(200).json({message: "Succesfully update username", 
+        user: {
+          uuid: user.uuid,
+          name: user.name,
+          email: user.email
+        }});
     }
     else{
         res.status(400).json({message: "User not found."});

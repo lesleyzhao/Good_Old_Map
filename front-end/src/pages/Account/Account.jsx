@@ -7,7 +7,6 @@ import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
-import AuthHeader from '../Authenticate/authHeader';
 
 
 const AccountEdit = (props) => {
@@ -18,20 +17,23 @@ const AccountEdit = (props) => {
   // json content: popup data, null: close popup
   const [currentActionData, setCurrentActionData] = useState(null);
   const [showUserProfile,  setShowUserProfile] = useState(null);
-  console.log(props)
-  const [username, setUsername] = useState(null);
-  // const [email, setEmail] = useState(props.email ?? "Asdfasdfasdf@nyu.edu")
 
-  // Set updated username to show on screen
+  // Initialize username and email from localStorage
+  const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
+  const [username, setUsername] = useState(storedUserData.name || 'John Doe');
+  const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
+  // console.log(localStorage.getItem('user'))
+  console.log(storedUserData.email)
+
+  // Set username and email on the screen
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    setUsername(storedUsername || 'John Doe');
+    const userDataString =  localStorage.getItem('user'); 
+    const userData = JSON.parse(userDataString || '{}'); // Parse JSON string
+
+    setUsername(userData.name || 'John Doe');
+    setEmail(userData.email || "Asdfasdfasdf@nyu.edu")
   }, []);
 
-  // useEffect(() => {
-  //   const storedEmail = localStorage.getItem('email');
-  //   setEmail(storedEmail || "Asdfasdfasdf@nyu.edu");
-  // }, []);
 
   const getFormData = () => {
     const requestData = {}
@@ -50,7 +52,7 @@ const AccountEdit = (props) => {
     setMessage("")
   }
 
-  // route /changeusername
+  // Finished: route /changeusername
   const confirmChangeUsername = async (evt) => {
     try {
       evt.preventDefault(); 
@@ -62,7 +64,13 @@ const AccountEdit = (props) => {
 
       if(response?.data?.user){
         setUsername(response.data.user.name);
-        localStorage.setItem('username', response.data.user.name);
+        const userData = {
+          uuid: response.data.user.uuid,
+          name: response.data.user.name,
+          email: response.data.user.email
+        };
+        localStorage.setItem('user', JSON.stringify(userData))
+        // localStorage.setItem('username', response.data.user.name);
         
       }else{
         console.log("Error!!!!!");
@@ -75,12 +83,11 @@ const AccountEdit = (props) => {
     }
   }
 
-  // route /resetemail
-  // TODO: user id
+  // Finished: route /resetemail
   const confirmResetEmail = async (evt) => {
     try {
+      evt.preventDefault();
       const requestData = getFormData()
-      requestData["userID"] = "1234"
       const postOptions = {
         headers: {
           'Content-Type': 'application/json'
@@ -91,10 +98,22 @@ const AccountEdit = (props) => {
         requestData,
         postOptions
       )
+
+      if(response?.data?.user){
+        setEmail(response.data.user.email);
+        const userData = {
+          uuid: response.data.user.uuid,
+          name: response.data.user.name,
+          email: response.data.user.email
+        };
+        localStorage.setItem('user', JSON.stringify(userData))
+        
+      }else{
+        console.log("Error!!!!!");
+      }
       closePopup()
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
-      //const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -239,7 +258,7 @@ const AccountEdit = (props) => {
             </div>
             <div className="text-center">
               <h2>{username}</h2>
-              <span className="text-gray-400">{props.email ?? "Asdfasdfasdf@nyu.edu"}</span>
+              <span className="text-gray-400">{email}</span>
             </div>
           </div>
         </div>

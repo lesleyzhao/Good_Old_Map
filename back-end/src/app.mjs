@@ -53,7 +53,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-// Connect to MongoDB & Create test user 'John Doe' 
+// Connect to MongoDB
   mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
       console.log('Connected to MongoDB...');
@@ -77,7 +77,7 @@ console.log('Session secret:', process.env.SESSION_SECRET);
 app.post("/register", registerRouter)
 app.post("/login", loginRouter);
 
-// Validation rules for changeusernameRouter
+// Validation rules for changeusernameRouter, resetemailRouter
 const usernameValidationRules = [
   body('newUsername')
     .trim() // Removes leading and trailing spaces
@@ -86,12 +86,20 @@ const usernameValidationRules = [
     .matches(/^[a-zA-Z0-9_]+$/) // Regular expression to allow letters, numbers, and underscores
     .withMessage('Username must contain only letters, numbers, and underscores.')
 ];
+const emailValidationRules = [
+  body('newEmail')
+    .trim() // Removes leading and trailing spaces
+    .isEmail() // Checks if the input is an email
+    .withMessage('Please enter a valid email address.')
+    .normalizeEmail() // Optionally, normalize the email address
+];
+
 
 
 // routes that needs authentication
 // Account routes
 app.patch("/changeusername", usernameValidationRules, changeusernameRouter);
-app.patch("/resetemail", resetemailRouter);
+app.patch("/resetemail", emailValidationRules, resetemailRouter);
 app.post("/forgetpassword", forgetpasswordRouter);
 app.patch("/resetpassword", resetpasswordRouter);
 app.delete("/delaccount", delaccountRouter);
