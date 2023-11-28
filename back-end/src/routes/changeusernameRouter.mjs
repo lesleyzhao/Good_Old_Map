@@ -1,38 +1,42 @@
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.mjs';
 
-let users = {
-    "1234": {id: "1234", username: "John Doe", password: "password123"},
-    "4567": {id: "4567", username: "Lesley Zhao", password: "lesleyzhao"}
-   }
-
-   
 const changeusernameRouter = async(req, res) =>{
+  console.log("Request headers:", req.headers);
   // req.body : newUsername, userID
-  // TODO: might not use server session
-  const userID = req.session.userID;
   const {newUsername} = req.body;
   console.log("Received body:", req.body)
-  console.log("User ID from session:", req.session.userID)
+  // Check if the Authorization header is present
+  if (!req.headers.authorization) {
+    return res.status(401).json({ message: "Authorization token is missing" });
+  }
+
+  const token = req.headers.authorization.split(' ')[1];
+
+  // Verify and decode the token
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userID = decoded.id;
 
   try{
-    //Simulate real server error for testing
-    if(newUsername === 'triggerError'){
-        throw error;
-    }
-
     //const wasUpdate = await database.updateUsername(newUserId, newUserName)
-    //Simulate database update
-    if(userID && users[userID]){
-        users[userID].username = newUsername;
-        res.status(200).json({message: "Succesfully update username", user: users[userID]});
-        console.log('Updated user data:', users[userID])
+    const user = await User.findOne({ uuid: userID }).select('+password'); 
+    if(user){
+        user.username = newUsername;
+        await user.save();
+        res.status(200).json({message: "Succesfully update username", user: {uuid: user.uuid, username: user.username}});
     }
     else{
         res.status(400).json({message: "User not found."});
     }
   }
   catch(error){
-    res.status(500).json({message: "Server error occurred", error})
+    if(error.name === 'JsonWebTokenError') {
+      // Handle invalid token
+      res.status(401).json({message: "Invalid Token"});
+    } else{
+      res.status(500).json({message: "Server error occurred", error})
+    }
   }
 
 }
