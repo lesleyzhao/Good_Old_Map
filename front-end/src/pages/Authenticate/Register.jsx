@@ -13,17 +13,21 @@ const Register = () => {
   const handleClick = async (evt) => {
     evt.preventDefault();
 
-    const formData = {};
-    fields.forEach((field) => {
-      formData[field] = document.getElementById(field).value;
-    });
-
+    
     try {
+      const formData = {};
+      fields.forEach((field) => {
+        const inputData = document.getElementById(field).value
+        // Handle incomplete data
+        if (!inputData) throw {requestMessage: "Please fill in all input slots"}
+        formData[field] = inputData
+      });
+
       const response = await axiosProvider.post("/register", formData);
       setMessage(response.data.message)
       navigate("/login")
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      const errorMessage = error.requestMessage || error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage)
     }
   };

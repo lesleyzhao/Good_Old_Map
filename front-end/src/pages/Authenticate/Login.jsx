@@ -33,6 +33,8 @@ const Login = () => {
     }
 
     try {
+      // Handle incomplete data
+      if (!loginData.email || !loginData.password) throw {requestMessage: "Please fill in all input slots"}
       const response = await axiosProvider.post(
         "/login",
         loginData,
@@ -51,7 +53,7 @@ const Login = () => {
       navigate("/")
     }
     catch(error){
-      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      const errorMessage = error.requestMessage || error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
   }
