@@ -14,7 +14,8 @@ const registerRouter = async (req, res) => {
       // Email is Registered
       if (user) return res.status(400).json({ message: "Email is already registered." });
 
-      const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(password, salt);
       
       // Create a new user object
       const newUser = new User({
