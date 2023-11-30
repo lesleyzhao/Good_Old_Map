@@ -54,12 +54,11 @@ app.use(cors(corsOptions));
 
 
 // Connect to MongoDB
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-      console.log('Connected to MongoDB...');
-    })
-    .catch(err => console.error('Could not connect to MongoDB...', err));
-  
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB...');
+  })
+  .catch(err => console.error('Could not connect to MongoDB...', err));
 
 // session to auto-save user data (like id) when they login
 app.use(session({

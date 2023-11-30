@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosProvider from "../../util/api/axios"
 import PageLink from '../../components/common/pageLink';
 import AuthHeader from './authHeader';
@@ -6,9 +7,9 @@ import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
 
 const Register = () => {
-  const [message, setMessage] = useState('');
-  const fields = ['username', 'email', 'password'];
-
+  const [message, setMessage] = useState('')
+  const fields = ['username', 'email', 'password']
+  const navigate = useNavigate()
   const handleClick = async (evt) => {
     evt.preventDefault();
 
@@ -19,11 +20,11 @@ const Register = () => {
 
     try {
       const response = await axiosProvider.post("/register", formData);
-      setMessage(response.data.message);
-      console.log(response);
+      setMessage(response.data.message)
+      navigate("/login")
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
-      setMessage(errorMessage);
+      setMessage(errorMessage)
     }
   };
 

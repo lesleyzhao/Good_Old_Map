@@ -1,6 +1,5 @@
 // Import statements
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
 
 // Schema definition
 const EventSchema = new mongoose.Schema({
