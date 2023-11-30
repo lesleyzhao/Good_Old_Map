@@ -6,10 +6,7 @@ const AuthLayout = () => {
   return (
     <>
     <div className="min-h-screen flex flex-col">
-      <NavBar>
-        <Logo />
-      </NavBar>
-      <div className='w-[60%] max-w-[30rem] mx-auto mt-[10vh]'>
+      <div className='w-[60%] max-w-[30rem] mx-auto mt-[15vh]'>
         <Outlet />
       </div>
     </div>

@@ -25,7 +25,6 @@ const Login = () => {
       email,
       password
     };
-    console.log('Sending login request with:', loginData);
 
     const postOptions = {
       headers: {
@@ -33,25 +32,28 @@ const Login = () => {
       }
     }
 
-    try{
+    try {
+      // Handle incomplete data
+      if (!loginData.email || !loginData.password) throw {requestMessage: "Please fill in all input slots"}
       const response = await axiosProvider.post(
         "/login",
         loginData,
         postOptions
       )
-        localStorage.setItem('token', response.data.accessToken); // Store the token
-        const userData = {
-          uuid: response.data.user.uuid,
-          name: response.data.user.name,
-          email: response.data.user.email
-        };
-        localStorage.setItem('user', JSON.stringify(userData))
-        // console.log(response.data.user)
-        setMessage("Login successful!");
-        navigate("/")
-      }
+
+      localStorage.setItem('token', response.data.accessToken); // Store the token
+      const userData = {
+        uuid: response.data.user.uuid,
+        name: response.data.user.name,
+        email: response.data.user.email
+      };
+      localStorage.setItem('user', JSON.stringify(userData))
+
+      setMessage("Login successful!");
+      navigate("/")
+    }
     catch(error){
-      const errorMessage = error.response?.data?.message || 'Login failed, please try again.';
+      const errorMessage = error.requestMessage || error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage);
     }
   }

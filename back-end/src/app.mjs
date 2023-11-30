@@ -1,8 +1,6 @@
 import express from 'express';
 import url from 'url';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import User from './models/User.mjs'; 
 // middlewares
 import multer from "multer";
 import bcrypt from 'bcryptjs';
@@ -12,7 +10,6 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session';
 import mongoose from 'mongoose';  
-import { v4 as uuidv4 } from 'uuid';
 import { body, validationResult }  from 'express-validator';
 
 // routes
@@ -29,7 +26,6 @@ import resetemailRouter from './routes/resetemailRouter.mjs';
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
 const app = express();
-//const __filename = fileURLToPath(import.meta.url);
 
 
 // use the morgan middleware to log all incoming http requests
@@ -54,12 +50,11 @@ app.use(cors(corsOptions));
 
 
 // Connect to MongoDB
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-      console.log('Connected to MongoDB...');
-    })
-    .catch(err => console.error('Could not connect to MongoDB...', err));
-  
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB...');
+  })
+  .catch(err => console.error('Could not connect to MongoDB...', err));
 
 // session to auto-save user data (like id) when they login
 app.use(session({
