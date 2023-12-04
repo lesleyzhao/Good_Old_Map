@@ -1,30 +1,44 @@
-// let arts = [
-  
-//   { id: '1', inFavList: false , location: 'NewYork', name: 'art1', author: '1XXXXXX', year: 4321, url: 'https://picsum.photos/200'},
-//   { id: '2', inFavList: false , location: 'Paris', name: 'art2', author: '2XXXXXX', year:1234, url: 'https://picsum.photos/200' },
-//   { id: '3', inFavList: false , location: 'London', name: 'art3', author: '3XXXXXX', year: 2222, url: 'https://picsum.photos/200' },
-// ];
+import Artwork from '../models/Artwork.mjs';
+import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.mjs';
 
-export const getArts = (req,res) => {
+
+export const getArts = async (req, res) => {
+  const { timeRange, location } = req.body;
+  console.log(location)
+
+  const startYear = parseInt(timeRange[0]);
+  const endYear = parseInt(timeRange[1]);
+
   try {
-    const {location, time} = req.body;
-    
-    if (typeof location !== 'string' || typeof time !== 'string') {
-      return res.status(200).send(arts);
-    }else{
-      res.sendStatus(400);
+    const artworks = await Artwork.find({
+      Year: { $gte: startYear, $lte: endYear },
+      // "latitude": location.latitude, 
+      // "longitude": location.longitude
+      geoLocation: {
+        $near: { 
+          $geometry: { 
+            type: "Point", 
+            coordinates: [location[1], location[0]]
+          }
+        }
+      }
+    }).limit(15);
+
+    if (artworks.length === 0) {
+      return res.status(404).send('No artwork found in the specified location and time range');
     }
-    
-  } catch (error) {
-    res.sendStatus(404);
 
+    res.json(artworks);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send('Internal Server Error');
   }
-}
+};
 
-// export const favListRouter = (req, res) => {
-//     const favorites = arts.filter(art => art.inFavList === true);
-//     res.status(200).send(favorites);
-// };
+
+
 export const favListRouter = async (req, res) => {
   try {
       const userUuid = req.params.uuid;
@@ -61,30 +75,41 @@ export const favListRouter = async (req, res) => {
 // };
 
 export const addFavListRouter = async (req, res) => {
-  const { userUUID, artUUID } = req.body; 
+  // const { userUUID, artUUID } = req.body; 
+
+  // try {
+  //   const user = await UserModel.findOne({ "_id": userUUID });
+
+  //   if (!user) {
+  //     return res.status(404).send('User not found');
+  //   }
+  //   const isFavorite = user.favorites.includes(artUUID);
+
+  //   if (isFavorite) {
+  //     // already a favorite, remove it from the favorites array
+  //     user.favorites = user.favorites.filter(fav => fav !== artUUID);
+  //     await user.save(); // Save the updated user document
+  //   } else {
+      
+  //     user.favorites.push(artUUID);
+  //     await user.save(); 
+  //   }
+
+  //   res.status(200).json(user);
+  // } catch (error) {
+  //   console.error("Error updating favorite list:", error);
+  //   res.status(500).send('Internal Server Error');
+  // }
+  const userId = req.user.uuid;
 
   try {
-    const user = await UserModel.findOne({ "_id": userUUID });
+    const user = await User.findById(userId).populate('favorites');
 
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    const isFavorite = user.favorites.includes(artUUID);
+    if (!user) return res.status(404).json({ message: "User not found." });
 
-    if (isFavorite) {
-      // already a favorite, remove it from the favorites array
-      user.favorites = user.favorites.filter(fav => fav !== artUUID);
-      await user.save(); // Save the updated user document
-    } else {
-      
-      user.favorites.push(artUUID);
-      await user.save(); 
-    }
-
-    res.status(200).json(user);
+    res.json(user.favorites);
   } catch (error) {
-    console.error("Error updating favorite list:", error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ message: "Internal server error." });
   }
 };
 

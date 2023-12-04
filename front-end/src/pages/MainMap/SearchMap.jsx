@@ -4,6 +4,7 @@ import { useEffect } from "react"
 const SearchMap = () => {
   const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext()
   useEffect(() => {
+    
     // close popup
     setRefreshPopup(0)
   },[])

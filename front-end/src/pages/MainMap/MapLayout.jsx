@@ -18,14 +18,22 @@ const MapLayout = () => {
   // subject to changes
   // data necessary to search for art object (time & location)
   // {location:[lng, lat] (or city), time: num}
-  const [foundData, setFoundData] = useState({location:[], time:0})
+  const [foundData, setFoundData] = useState({location:[],timeRange:[1920, 1940]})
   const [refreshPopup, setRefreshPopup] = useState(0) // change counter to refresh popup, 0 to close popup
 
   //timeline
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
   const errorHandler = ({ error }) => setError(error);
-  const onChangeCallback = (newInterval) => setSelectedInterval(newInterval);
+
+
+  const onChangeCallback = (newInterval) => {
+    setSelectedInterval(newInterval);
+    setFoundData(prevData => ({
+      ...prevData,
+      timeRange: [format(newInterval[0], "yyyy"),format(newInterval[1], "yyyy")]
+    }));
+  };
 
 
   useEffect(() => {
@@ -66,6 +74,8 @@ const MapLayout = () => {
     navigate("/search", { state: { from: location.pathname } });
     !searchPage && setSearchPage(true)
   }
+
+  
   
   return (
     <>
@@ -87,7 +97,7 @@ const MapLayout = () => {
           <div className='mt-3 ml-5'>
             <div className="container w-full">
               <div className="info ml-10">
-                <span className="text-xs mr-1 mb-0">Selected Interval: </span>
+                <span className="text-xs mr-1 mb-0">Selected Interval:</span>
                 {selectedInterval.length === 2 && (
                   <span className="text-xs">
                     {format(selectedInterval[0], "yyyy")} - {format(selectedInterval[1], "yyyy")}
@@ -112,7 +122,7 @@ const MapLayout = () => {
       <div className="w-full h-full">
         <Outlet context={[searchData, foundData, setFoundData, setRefreshPopup]}/>
       </div>
-
+      
       <PopupSearch foundData={foundData} refreshPopup={refreshPopup} setRefreshPopup={setRefreshPopup}/>
       
     </div>

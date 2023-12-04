@@ -11,45 +11,63 @@ const PopupSearch = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
 
+  // useEffect(() => {
+  //   async function getData() {
+  //     const postData = {
+  //       location: props?.foundData["location"],
+  //       time: props?.foundData["timeRange"]
+  //     }
+  //     const postOptions = {
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     }
+  //     try {
+  //       const res = await axiosProvider.post(
+  //         "/getArts",
+  //         JSON.stringify(postData),
+  //         postOptions
+  //       )
+  //       const retData = res.data;
+  //       setArts(retData)
+  //     } catch (err) {
+  //       console.error(err)
+  //     }
+  //   }
+  //   if (props.refreshPopup) getData()
+  // }, [props.refreshPopup])
+
   useEffect(() => {
     async function getData() {
       const postData = {
-        location: props?.foundData["location"],
-        time: props?.foundData["time"]
-      }
+        location: props.foundData.location,
+        timeRange: props.foundData.timeRange
+      };
       const postOptions = {
         headers: {
           'Content-Type': 'application/json'
         }
-      }
+      };
       try {
         const res = await axiosProvider.post(
           "/getArts",
           JSON.stringify(postData),
           postOptions
-        )
+        );
         const retData = res.data;
-        setArts(retData)
+        setArts(retData);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     }
-    if (props.refreshPopup) getData()
-  }, [props.refreshPopup])
+    if (props.refreshPopup) getData();
+  }, [props.refreshPopup, props.foundData]);
   
   const handleArtItemClick = (artId) => {
     // Navigate to the art information page
     navigate("/info", { state: { from: location.pathname } });
   };
 
-  // const updateFavorites = (artId, newFavoritedState) => {
-  //   setArts(prevArts => prevArts.map(art => {
-  //     if (art.id === artId) {
-  //       return { ...art, inFavList: newFavoritedState };
-  //     }
-  //     return art;
-  //   }));
-  // };
   
   // handle close
   useEffect(() => {
@@ -74,7 +92,7 @@ const PopupSearch = (props) => {
           <>
             <div className="mt-2"/>
             <img className="w-2 mt-2 top-2 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
-            <p>time, location</p>
+            <p>{props?.foundData["timeRange"][0]} ~ {props?.foundData["timeRange"][1]}</p>
           </>
         }
         blocking={false}>
@@ -87,6 +105,18 @@ const PopupSearch = (props) => {
               </div>
             </div>
           ))}
+          {/* {arts.map((art, index) => (
+          <div key={index} className="art-item">
+            <img src={art.url} alt={art.title} />
+            <div className="art-details">
+              <h3>{art.title}</h3>
+              <p>{art.location}</p>
+              <p>{art.Date}</p>
+
+            </div>
+          </div>
+        ))} */}
+
         </div>
       </BottomSheet>
     </>
