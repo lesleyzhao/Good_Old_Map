@@ -11,6 +11,7 @@ import morgan from 'morgan';
 import session from 'express-session';
 import mongoose from 'mongoose';  
 import { body, validationResult }  from 'express-validator';
+import jwt from 'jsonwebtoken';
 
 // routes
 import loginRouter from './routes/loginRouter.mjs';
@@ -100,6 +101,20 @@ const passwordValidationRules = [
     // Optionally, include checks for special characters or uppercase letters
 ];
 
+//check login status:
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (token == null) return res.status(401).json({ message: 'No token provided' });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Token is not valid' });
+    req.user = user;
+    next();
+  });
+};
+
 
 
 // routes that needs authentication
@@ -111,8 +126,10 @@ app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Fin
 app.delete("/delaccount", delaccountRouter); //Finished 
 
 // Favorites list routes 
-app.get('/getfavlist', favListRouter);
-app.post('/favlist/add',addFavListRouter);
+// app.get('/getfavlist', favListRouter);
+// app.post('/favlist/add',addFavListRouter);
+app.patch('/addFavorite', authenticateToken, addFavListRouter);
+app.patch('/getfavlist', authenticateToken, favListRouter);
 app.post('/getArts', getArts);
 // app.post('/favlist/remove',removeFavListRouter);
 

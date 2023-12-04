@@ -22,7 +22,7 @@ const ArtItem = ({ art }) => {
     const newFavoritedState = !isFavorited;
     setIsFavorited(newFavoritedState); 
     const artData = {
-      id: art.id,
+      id: art._id,
       inFavList: newFavoritedState,
     };
 
@@ -51,13 +51,15 @@ const ArtItem = ({ art }) => {
         </p>
         <div className='w-full px-4 py-2'>
           <div className='flex justify-between content-center'>
-            <h3 className="pt-1">{`${art.name}`}</h3>
+            <h3 className="pt-1">{`${art.title}`}</h3>
             <IconButton onClick={toggleFavorite}>
               {isFavorited ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
             </IconButton>
           </div>
           {/* The rest of your card content, such as art title, author, year, etc. */}
-          <p>{`${art.year}`}</p>
+          <p>{`${art.Year}`}</p>
+          <p>{`${art.artist}`}</p>
+          <p>{`${art.location}`}</p>
         </div>
       </Card>
     </>
