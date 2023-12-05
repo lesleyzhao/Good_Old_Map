@@ -14,8 +14,6 @@ export const getArts = async (req, res) => {
   try {
     const artworks = await Artwork.find({
       Year: { $gte: startYear, $lte: endYear },
-      // "latitude": location.latitude, 
-      // "longitude": location.longitude
       geoLocation: {
         $near: { 
           $geometry: { 
@@ -40,10 +38,20 @@ export const getArts = async (req, res) => {
 
 
 export const favListRouter = async (req, res) => {
-  try {
-      const userUuid = req.params.uuid;
+  
+  if (!req.headers.authorization) {
+    return res.status(401).json({ message: "Authorization token is missing" });
+  }
 
-      const user = await User.findOne({ uuidd: userUuid });
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userID = decoded.id;
+  const artID = req.body;
+  
+  try {
+
+
+    const user = await User.findOne({ uuid: userID }); 
 
       if (!user) {
           return res.status(404).send({ message: 'User not found' });
@@ -61,55 +69,42 @@ export const favListRouter = async (req, res) => {
 };
 
 
-// export const addFavListRouter = (req, res) => {
-//   const artToUpdate = req.body; 
-
-//   const artIndex = arts.findIndex(art => art.id === artToUpdate.id);
-
-//   if (artIndex > -1) {
-//     arts[artIndex].inFavList = !arts[artIndex].inFavList;
-//     res.status(200).json(arts[artIndex]);
-//   } else {
-//     res.status(404).send('Art not found');
-//   }
-// };
 
 export const addFavListRouter = async (req, res) => {
-  // const { userUUID, artUUID } = req.body; 
+  // Check if the Authorization header is present
+  console.log(req.body);
+  if (!req.headers.authorization) {
+    return res.status(401).json({ message: "Authorization token is missing" });
+  }
 
-  // try {
-  //   const user = await UserModel.findOne({ "_id": userUUID });
-
-  //   if (!user) {
-  //     return res.status(404).send('User not found');
-  //   }
-  //   const isFavorite = user.favorites.includes(artUUID);
-
-  //   if (isFavorite) {
-  //     // already a favorite, remove it from the favorites array
-  //     user.favorites = user.favorites.filter(fav => fav !== artUUID);
-  //     await user.save(); // Save the updated user document
-  //   } else {
-      
-  //     user.favorites.push(artUUID);
-  //     await user.save(); 
-  //   }
-
-  //   res.status(200).json(user);
-  // } catch (error) {
-  //   console.error("Error updating favorite list:", error);
-  //   res.status(500).send('Internal Server Error');
-  // }
-  const userId = req.user.uuid;
-
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userID = decoded.id;
+  const artID = req.body;
   try {
-    const user = await User.findById(userId).populate('favorites');
+    const user = await User.findOne({ uuid: userID });  
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
 
-    if (!user) return res.status(404).json({ message: "User not found." });
+    let isFavorited;
+    const index = user.favorites.indexOf(artID);
+    if (index > -1) {
+      user.favorites.splice(index, 1);
+      console.log('removed');
+      isFavorited = false;
+    } else {
+      // If the art is not in favorites, add it
+      user.favorites.push(artID)
+      await user.save();
+      // await User.findByIdAndUpdate(userID, { $addToSet: { favorites: artID } });
+      isFavorited = true;
+    }
 
-    res.json(user.favorites);
+    res.status(200).json({ message: 'Favorites updated', isFavorited });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error." });
+    console.error('Error updating favorites', error);
+    res.status(500).send('Error updating favorites');
   }
 };
 

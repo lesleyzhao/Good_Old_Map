@@ -7,7 +7,7 @@ import { format, setYear, endOfYear } from 'date-fns';
 
 //timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);
-const timelineInterval = [getSpecificYear(1900), endOfYear(getSpecificYear(2000))];
+const timelineInterval = [getSpecificYear(1000), endOfYear(getSpecificYear(2020))];
 
 
 const MapLayout = () => {

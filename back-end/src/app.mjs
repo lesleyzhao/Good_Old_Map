@@ -22,7 +22,7 @@ import delaccountRouter from './routes/delaccountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
-
+import searchRouter from './routes/searchRouter.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -102,18 +102,15 @@ const passwordValidationRules = [
 ];
 
 //check login status:
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (token == null) return res.status(401).json({ message: 'No token provided' });
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Token is not valid' });
-    req.user = user;
+function isAuthenticated(req, res, next) {
+  console.log(req.session._id);
+  if (req.session.uuid) {
+    console.log(req.session._id);
     next();
-  });
-};
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
+  }
+}
 
 
 
@@ -126,11 +123,11 @@ app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Fin
 app.delete("/delaccount", delaccountRouter); //Finished 
 
 // Favorites list routes 
-// app.get('/getfavlist', favListRouter);
-// app.post('/favlist/add',addFavListRouter);
-app.patch('/addFavorite', authenticateToken, addFavListRouter);
-app.patch('/getfavlist', authenticateToken, favListRouter);
-app.post('/getArts', getArts);
+app.post('/addFavorite', addFavListRouter);
+// app.patch('/getfavlist', isAuthenticated, favListRouter);
+app.post('/getfavlist', favListRouter);
+app.post('/getArts', getArts);//finished
+app.get('/search', searchRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 
 // export the express app we created to make it available to other modules

@@ -22,7 +22,7 @@ const AccountEdit = (props) => {
   const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
   const [username, setUsername] = useState(storedUserData.name || 'John Doe');
   const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
-  console.log(storedUserData.email)
+  // console.log(storedUserData.email)
 
   // Set username and email on the screen
   useEffect(() => {
