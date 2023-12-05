@@ -7,46 +7,40 @@ import axiosProvider from "../../util/api/axios"
 
 const FavoriteList = () => {
   // const [favorites, setFavorites] = useState([]);
-  const [arts, setArts] = useState([])
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [arts, setArts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   //TODO: 
-  const userUUID = localStorage.getItem('uuid');
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const response = await axiosProvider.get(`/getfavlist`);
-  //       setArts(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching favorite arts:", error);
-  //       setArts([]);
-  //     }
-  //   }
-  
-  //   getData();
-  // }, []); 
+
   useEffect(() => {
-    async function getData() {
-      try {
-        // Include the user's UUID in your request
-        const response = await axiosProvider.get(`/getfavlist`, { params: { uuid: userUUID } });
-        setArts(response.data);
-      } catch (error) {
-        console.error("Error fetching favorite arts:", error);
-        setArts([]);
-      }
+    const userUUID = localStorage.getItem('uuid');
+    console.log(userUUID);
+    if (userUUID) {
+      // Optionally, add more robust checks here, like validating the UUID with the server
+      setIsLoggedIn(true);
+      fetchFavoriteArts(userUUID);
+    } else {
+      setIsLoggedIn(false);
     }
-  
-    if (userUUID) { // Only fetch data if UUID is available
-      getData();
+  }, []);
+
+  const fetchFavoriteArts = async (uuid) => {
+    try {
+      const response = await axiosProvider.get(`/getfavlist`, { params: { uuid } });
+      setArts(response.data);
+    } catch (error) {
+      console.error("Error fetching favorite arts:", error);
+      setArts([]);
     }
-  }, [userUUID]);
+  };
+
 
   const sortArts = (criteria) => {
     if (criteria === "name") {
       setArts(prevArts => [...prevArts].sort((a, b) => a.name.localeCompare(b.name)));
-    } else if (criteria === "year") {
+    } else if (criteria === "Year") {
       setArts(prevArts => [...prevArts].sort((a, b) => a.year - b.year));
     }
   }

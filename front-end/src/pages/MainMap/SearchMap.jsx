@@ -1,13 +1,31 @@
 import { useOutletContext } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import axiosProvider from "../../util/api/axios"
 
 const SearchMap = () => {
-  const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext()
+  const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext();
+  const [searchdata, setSearchData] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
   useEffect(() => {
-    
-    // close popup
-    setRefreshPopup(0)
-  },[])
+    const loadSuggestions = async () => {
+      try {
+        const response = await axiosProvider.get(`/search`);
+        setSuggestions(response.data);
+      } catch (error) {
+        console.error('Error fetching search suggestions', error);
+      }
+    };
+
+    if (searchdata) {
+      loadSuggestions();
+    } else {
+      setSuggestions([]);
+    }
+    // setRefreshPopup(0)
+  }, [searchData]);
+
+  console.log(suggestions);
   const cities = [
     'New York',
     'San Francisco',
@@ -44,10 +62,10 @@ const SearchMap = () => {
       <div className='overflow-scroll content-center'>
         <ul>
           {filteredCities.length ?
-            filteredCities?.map((city, index) => (
-              <li className="border-b border-navyBlue" key={index} onClick={(evt) => handleCityClick(evt, city)}>
+            filteredCities?.map((suggestions, index) => (
+              <li className="border-b border-navyBlue" key={index} >
                 <div className="p-2 rounded-lg active:bg-white cursor-pointer">
-                  {city}
+                  {suggestions.location}
                 </div>
               </li>
             )) :
