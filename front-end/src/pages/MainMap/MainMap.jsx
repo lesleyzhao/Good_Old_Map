@@ -45,6 +45,7 @@ function LocationMarker(props) {
     }
   })
 
+  // update search data upon user click "look up" btn
   const handleClick = (evt) => {
     // TODO: center at upper side
     setFoundData(prev => ({
@@ -58,8 +59,7 @@ function LocationMarker(props) {
   return(
     <Marker icon={customIcon} position={position} ref={markerRef}>
       <Popup>
-
-      <LookupBtn value="Look up 🔍" handleClick={handleClick}/>
+        <LookupBtn value="Look up 🔍" handleClick={handleClick}/>
       </Popup>
     </Marker>
 
