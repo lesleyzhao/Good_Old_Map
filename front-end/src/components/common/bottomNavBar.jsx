@@ -5,13 +5,20 @@ const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
+  
   const handleClickHeart = (evt) => {
     evt.stopPropagation()
     navigate("/favoritelist", { state: { from: location.pathname } })
   }
   const handleClickUser = (evt) => {
     evt.stopPropagation()
-    navigate("/account", { state: { from: location.pathname } })
+    if(localStorage.getItem('token') != null){
+      navigate("/account", { state: { from: location.pathname } });
+    }else{
+      navigate("/accountLog", { state: { from: location.pathname } });
+    }
+    
+    
   }
   return (
     <>
