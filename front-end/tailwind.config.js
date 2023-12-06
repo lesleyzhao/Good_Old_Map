@@ -21,6 +21,10 @@ export default {
       backgroundColor: {
         "beige1": "#F8F0E5",
       },
+      backgroundImage: {
+        'monet-login-pattern': "url('/field.jpg')",
+        'monet-register-pattern': "url('/sunset.jpg')"
+      },
       spacing: {
         "80%": "80%",
         "90%": "90%",
