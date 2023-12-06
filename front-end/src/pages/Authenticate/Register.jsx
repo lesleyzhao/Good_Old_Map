@@ -34,6 +34,24 @@ const Register = () => {
 
   return (
     <>
+     <style>
+     {`
+          body::before {
+            content: '';
+            position: fixed; /* Cover the entire viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: url('/river.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(2px); /* Apply the blur effect */
+            z-index: -1; /* Ensure it's behind the content */
+          }
+        `}
+       </style>
       <AuthHeader header="Register" message={message} />
       <form>
         <FormInputs fields={fields} />
