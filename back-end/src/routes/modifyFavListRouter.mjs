@@ -2,6 +2,7 @@ import Artwork from '../models/Artwork.mjs';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.mjs';
+import mongoose from 'mongoose';
 
 
 export const getArts = async (req, res) => {
@@ -46,18 +47,16 @@ export const favListRouter = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const userID = decoded.id;
-  const artID = req.body;
   
   try {
-
 
     const user = await User.findOne({ uuid: userID }); 
 
       if (!user) {
           return res.status(404).send({ message: 'User not found' });
       }
-
-      const favorites = await Art.find({
+      console.log(user.favorites);
+      const favorites = await Artwork.find({
           '_id': { $in: user.favorites }
       });
 
@@ -72,7 +71,6 @@ export const favListRouter = async (req, res) => {
 
 export const addFavListRouter = async (req, res) => {
   // Check if the Authorization header is present
-  console.log(req.body);
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Authorization token is missing" });
   }
@@ -81,26 +79,32 @@ export const addFavListRouter = async (req, res) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const userID = decoded.id;
   const artID = req.body;
+  const objectId = mongoose.Types.ObjectId(artID);
+  console.log('uuid',userID);
   try {
+
     const user = await User.findOne({ uuid: userID });  
     if (!user) {
       return res.status(404).send('User not found');
     }
 
     let isFavorited;
-    const index = user.favorites.indexOf(artID);
+    const index = user.favorites.findIndex(fav => fav.toString() === objectId.toString());
+
+    console.log(index);
+
+    console.log(user.favorites);
     if (index > -1) {
       user.favorites.splice(index, 1);
-      console.log('removed');
       isFavorited = false;
     } else {
-      // If the art is not in favorites, add it
-      user.favorites.push(artID)
-      await user.save();
-      // await User.findByIdAndUpdate(userID, { $addToSet: { favorites: artID } });
+      user.favorites.push(objectId);
       isFavorited = true;
     }
 
+
+    await user.save();
+    console.log(user.favorites);
     res.status(200).json({ message: 'Favorites updated', isFavorited });
   } catch (error) {
     console.error('Error updating favorites', error);

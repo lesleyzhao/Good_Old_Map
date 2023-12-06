@@ -8,37 +8,27 @@ import axiosProvider from "../../util/api/axios"
 const FavoriteList = () => {
   // const [favorites, setFavorites] = useState([]);
   const [arts, setArts] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   //TODO: 
 
-
   useEffect(() => {
-    const userUUID = localStorage.getItem('uuid');
-    console.log(userUUID);
-    if (userUUID) {
-      // Optionally, add more robust checks here, like validating the UUID with the server
-      setIsLoggedIn(true);
-      fetchFavoriteArts(userUUID);
-    } else {
-      setIsLoggedIn(false);
-    }
+    fetchFavoriteArts();
   }, []);
 
-  const fetchFavoriteArts = async (uuid) => {
+  const fetchFavoriteArts = async () => {
     try {
-      const response = await axiosProvider.get(`/getfavlist`, { params: { uuid } });
+      const response = await axiosProvider.get('/getfavlist');
       setArts(response.data);
+      console.log(arts);
     } catch (error) {
       console.error("Error fetching favorite arts:", error);
-      setArts([]);
     }
   };
 
 
   const sortArts = (criteria) => {
-    if (criteria === "name") {
+    if (criteria === "title") {
       setArts(prevArts => [...prevArts].sort((a, b) => a.name.localeCompare(b.name)));
     } else if (criteria === "Year") {
       setArts(prevArts => [...prevArts].sort((a, b) => a.year - b.year));
@@ -74,7 +64,7 @@ const FavoriteList = () => {
 
         <div className='mt-5'>
           {arts.map((art) => (
-            <div key={art.id} onClick={() => handleArtItemClick(art.id)}>
+            <div key={art._id} onClick={() => handleArtItemClick(art.id)}>
               <ArtItem art={art}/>
             </div>
           ))}
