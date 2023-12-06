@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   uuid: {
     type: String, // String type for the UUID
     required: true
@@ -20,9 +20,9 @@ const userSchema = new Schema({
     type: String, // String type for the hashed password
     required: true
   },
-  favorites: [{
-    type: mongoose.Schema.Types.Mixed, // Mixed type for an array of favorites, adjust as needed
-  }],
+  favorites: [
+    {type: mongoose.Schema.Types.Mixed}
+  ],
   __v: {
     type: Number // Number type for the version key
   }

@@ -101,17 +101,6 @@ const passwordValidationRules = [
     // Optionally, include checks for special characters or uppercase letters
 ];
 
-//check login status:
-function isAuthenticated(req, res, next) {
-  console.log(req.session._id);
-  if (req.session.uuid) {
-    console.log(req.session._id);
-    next();
-  } else {
-    res.status(401).json({ message: 'Not authenticated' });
-  }
-}
-
 
 
 // routes that needs authentication
@@ -123,9 +112,8 @@ app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Fin
 app.delete("/delaccount", delaccountRouter); //Finished 
 
 // Favorites list routes 
-app.post('/addFavorite', addFavListRouter);
-// app.patch('/getfavlist', isAuthenticated, favListRouter);
-app.post('/getfavlist', favListRouter);
+app.post('/addFavorite', addFavListRouter);//finished
+app.get('/getfavlist', favListRouter);
 app.post('/getArts', getArts);//finished
 app.get('/search', searchRouter);
 // app.post('/favlist/remove',removeFavListRouter);

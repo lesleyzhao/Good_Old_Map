@@ -38,9 +38,9 @@ const PopupSearch = (props) => {
     if (props.refreshPopup) getData();
   }, [props.refreshPopup, props.foundData]);
   
-  const handleArtItemClick = (artId) => {
+  const handleArtItemClick = (art) => {
     // Navigate to the art information page
-    navigate("/info", { state: { from: location.pathname } });
+    navigate("/info");
   };
 
   
@@ -75,7 +75,7 @@ const PopupSearch = (props) => {
 
         <div className="flex flex-row gap-8 overflow-scroll p-8">
           {arts.map((art) => (
-            <div key={art._id} onClick={() => handleArtItemClick(art.id)}>
+            <div key={art._id} onClick={(art) => handleArtItemClick(art)}>
               <div>
                 <ArtItem art={art} />
               </div>
