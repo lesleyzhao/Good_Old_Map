@@ -107,7 +107,7 @@ const passwordValidationRules = [
 // Account routes
 app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //Finished
 app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
-app.post("/forgetpassword", forgetpasswordRouter);
+app.post("/forget", forgetpasswordRouter);
 app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
 app.delete("/delaccount", delaccountRouter); //Finished 
 

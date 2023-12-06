@@ -64,7 +64,7 @@ const Login = () => {
       return;
     }
     try {
-      await axiosProvider.post("/forgotpassword", { email });
+      await axiosProvider.post("http://localhost:3000/forget", { email });
       setPopupMessage("Reset password link sent to your email.");
     } catch (error) {
       setPopupMessage(error.message || 'Error sending reset password link.');
