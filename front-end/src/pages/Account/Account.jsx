@@ -236,11 +236,6 @@ const AccountEdit = (props) => {
                 {value:"Discard", handleClick: closePopup}],
     }
   }
-  const confirmDelAccount = {
-    title: "This account will be gone...",
-    buttons: [{value:"Confirm", handleClick: confirmDeleteAccount},
-              {value:"Discard", handleClick: closePopup}],
-  }
 
   const handleClose = (evt) => {
     if(evt.target.classList.contains("popupBackground")) closePopup()

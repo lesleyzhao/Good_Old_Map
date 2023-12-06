@@ -9,6 +9,7 @@ import InfoDetail from './pages/InfoDetail/InfoDetail';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import AppLayout from './AppLayout';
 import AuthLayout from './pages/Authenticate/AuthLayout';
+import AccountWithLogin from './pages/Account/AccountWithLogin';
 
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/info" element={<InfoDetail/>}/>
             <Route path="/favoritelist" element={<FavoriteList />}/>
             <Route path="/account" element={<AccountEdit />} />
+            <Route path="/accountLog" element={<AccountWithLogin />} />
             <Route path="/*" element={<Error />} />
             
           </Route>
