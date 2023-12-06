@@ -23,6 +23,8 @@ const MapLayout = () => {
   // timeline
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
+
+  // timeline error handler
   const errorHandler = ({ error }) => setError(error);
 
   // change timeline upon user interaction
@@ -39,7 +41,6 @@ const MapLayout = () => {
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
-
 
   // update user input data to searchData state. Display search page if necessary
   const handleSubmit = (evt) => {

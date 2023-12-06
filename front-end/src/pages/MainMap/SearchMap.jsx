@@ -4,7 +4,6 @@ import axiosProvider from "../../util/api/axios"
 
 const SearchMap = () => {
   const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext();
-  const [searchdata, setSearchData] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
@@ -17,11 +16,8 @@ const SearchMap = () => {
       }
     };
 
-    if (searchdata) {
-      loadSuggestions();
-    } else {
-      setSuggestions([]);
-    }
+    if (searchData) loadSuggestions();
+    else setSuggestions([]);
     // setRefreshPopup(0)
   }, [searchData]);
 
