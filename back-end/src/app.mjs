@@ -22,7 +22,7 @@ import delaccountRouter from './routes/delaccountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
-import searchRouter from './routes/searchRouter.mjs';
+import searchArtsRouter from './routes/searchArtsRouter.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 import { configDotenv } from 'dotenv';
@@ -115,7 +115,7 @@ app.delete("/delaccount", delaccountRouter); //Finished
 app.post('/addFavorite', addFavListRouter);//finished
 app.get('/getfavlist', favListRouter);
 app.post('/getArts', getArts);//finished
-app.get('/search', searchRouter);
+app.get('/searchArts', searchArtsRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 
 // export the express app we created to make it available to other modules

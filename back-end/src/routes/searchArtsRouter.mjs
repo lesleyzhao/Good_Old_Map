@@ -1,6 +1,6 @@
 import Artwork from '../models/Artwork.mjs';
 
-const searchRouter = async (req, res) => {
+const searchArtsRouter = async (req, res) => {
   // artinfo, timeRange
   const { artinfo, timeRange } = req.query;
   const timeRangeArray = timeRange.split(',');
@@ -28,4 +28,4 @@ const searchRouter = async (req, res) => {
   }
 };
 
-export default searchRouter;
+export default searchArtsRouter;
