@@ -56,10 +56,8 @@ function LocationMarker(props) {
   return(
     <Marker icon={customIcon} position={position} ref={markerRef}>
       <Popup>
-        <div className='pt-1'>
-          {position}
-        </div>
-        <FormBtn value="Look up" handleClick={handleClick}/>
+
+      <FormBtn value="Look up" handleClick={handleClick}/>
       </Popup>
     </Marker>
 
