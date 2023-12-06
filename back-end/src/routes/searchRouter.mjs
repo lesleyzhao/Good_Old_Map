@@ -1,55 +1,30 @@
 import Artwork from '../models/Artwork.mjs';
 
 export const searchRouter = async (req, res) => {
-
-    const { city, artinfo, timeline } = req.query;
-    let startYear = -10000000;
-    let endYear = 10000;
-    let location = [0, 0];
+    console.log('Search route accessed');
+    const { artinfo, timeRange } = req.query;
+    const timeRangeArray = timeRange.split(',');
+    const startYear = parseInt(timeRangeArray[0]);
+    const endYear = parseInt(timeRangeArray[1]);
+    console.log(req.query);
+    console.log(startYear);
+    console.log(endYear);
 
     try {
-        let searchCriteria = {};
-
-        if (city) {
-            location = city.split(',').map(Number);
-        }
-
-        if (timeline) {
-            console.log("Timeline values:", timeline[0], timeline[1]);
-            startYear = parseInt(timeline[0]);
-            endYear = parseInt(timeline[1]);
-        }
-
-        if (artinfo) {
-            searchCriteria.$or = [
-                { artist: { $regex: artinfo, $options: 'i' } },
-                { title: { $regex: artinfo, $options: 'i' } }
-            ];
-        }
-
-        searchCriteria.Year = { $gte: startYear, $lte: endYear };
-        searchCriteria.geoLocation = {
-            $near: {
-                $geometry: {
-                    type: "Point",
-                    coordinates: [location[1], location[0]]
-                }
-            }
-        };
-        console.log("Search criteria:", searchCriteria);
-
-        const artworks = await Artwork.find(searchCriteria).limit(15);
-        console.log("Mongoose Query:", artworks._mongooseOptions.query);
+        console.log('Searching for artworks...');
+        const artworks = await Artwork.find({
+            Year: { $gte: startYear, $lte: endYear },
+            $or: [
+                { title: { $regex: `${artinfo}`, $options: 'i' } },
+                { artist: { $regex: `${artinfo}`, $options: 'i' } }
+            ]
+        }).limit(15);
+        console.log('Artworks found');
+        console.log(artworks);
         res.json(artworks);
-    } 
-    catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error." });
-     }
+    } catch (err) {
+        console.error(err); // Log the error for debugging
+        res.status(500).send('Internal Server Error');
+    }
 };
-
-  
-
 export default searchRouter;
-
-  

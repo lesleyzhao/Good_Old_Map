@@ -96,10 +96,29 @@ const Login = () => {
     }
   };
 
-  return (
+  return(
+    //<div className='bg-monet-login-pattern bg-cover w-screen h-screen bg-no-repeat'>
     <>
-      <AuthHeader header="Login" message={loginMessage} />
-      <form ref={formRef} onSubmit={handleLogin}>
+     <style>
+     {`
+          body::before {
+            content: '';
+            position: fixed; /* Cover the entire viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: url('/field.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(2px); /* Apply the blur effect */
+            z-index: -1; /* Ensure it's behind the content */
+          }
+        `}
+       </style>
+      <AuthHeader header="Login" message={message}/>
+      <form ref={formRef} onSubmit = {handleLogin}>
         <FormInputs fields={fields} />
         <div className='mt-2'>
           <FormBtn type="submit" value="Login" />

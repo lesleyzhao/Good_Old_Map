@@ -2,24 +2,26 @@ import { useState, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
 import { useOutletContext } from "react-router-dom"
-import FormBtn from '../../components/form/formBtn';
-
+import LookupBtn from '../../components/map/lookupBtn';
+import InfoCard from '../../components/map/InfoCard';
 const MainMap = () => {
   const mapRef = useRef(null)
 
   return(
-    <>
-      <MapContainer className='mapContainer'
+    <> 
+      <MapContainer className='mapContainer my-4'
         center={[51.505, -0.09]}
         zoom={4} 
         scrollWheelZoom={false}
         whenCreated={map => mapRef.current = map}>
+        
         <TileLayer 
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         <LocationMarker/>
       </MapContainer>
+
     </>
   )
 }
@@ -57,7 +59,7 @@ function LocationMarker(props) {
     <Marker icon={customIcon} position={position} ref={markerRef}>
       <Popup>
 
-      <FormBtn value="Look up" handleClick={handleClick}/>
+      <LookupBtn value="Look up 🔍" handleClick={handleClick}/>
       </Popup>
     </Marker>
 
