@@ -26,25 +26,6 @@ const SearchMap = () => {
   }, [searchData]);
 
   console.log(suggestions);
-  const cities = [
-    'New York',
-    'San Francisco',
-    'Los Angeles',
-    'Chicago',
-    'Seattle',
-    'Miami',
-    'Beijing',
-    'Washington',
-    'Sydney',
-    'Charlotte'
-  ];
-
-  const filteredCities = cities.filter(city => {
-    if (searchData) {
-      return city.toLowerCase().startsWith(searchData.toLowerCase());
-    }
-    return false;
-  }).slice(0, 4);
 
   const handleCityClick = (evt, city) => {
     evt.stopPropagation()
@@ -56,27 +37,5 @@ const SearchMap = () => {
     setRefreshPopup(prev => prev+1)
   };
 
-  return( 
-    <>
-    <div className="px-[10%]">
-      <div className='overflow-scroll content-center'>
-        <ul>
-          {filteredCities.length ?
-            filteredCities?.map((suggestions, index) => (
-              <li className="border-b border-navyBlue" key={index} >
-                <div className="p-2 rounded-lg active:bg-white cursor-pointer">
-                  {suggestions.location}
-                </div>
-              </li>
-            )) :
-            <li className="border-b border-navyBlue p-2 text-gray-400">
-              No Cities Found, Try "New York"
-            </li>
-            }
-        </ul>
-      </div>
-    </div>
-    </>
-  )
 }
 export default SearchMap

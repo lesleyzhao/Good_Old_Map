@@ -86,7 +86,7 @@ const MapLayout = () => {
           <div className="relative w-full my-1">
             <input className={`w-full py-2 pl-10 pr-4 text-left border-solid border-2 border-navyBlue rounded-full placeholder:text-left placeholder:text-gray-400 bg-white`}
               onInput={handleSubmit}
-              type="text" id="searchLocation" placeholder="Search for a city name"/>
+              type="text" id="searchLocation" placeholder="Title/Author"/>
 
               <div className="absolute left-1 top-1">
                 {searchPage 
