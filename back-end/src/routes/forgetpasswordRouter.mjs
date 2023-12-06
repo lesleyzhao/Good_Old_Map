@@ -31,6 +31,8 @@ const forgetpasswordRouter = async (req, res) => {
     console.error("Error in /forgotpassword route:", error);
     return res.status(500).json({ message: "Internal server error." });
   }
+
+  
 };
 
 export default forgetpasswordRouter;

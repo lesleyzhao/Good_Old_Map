@@ -7,7 +7,7 @@ const sendRecoveryEmail = async (email, token) => {
     secure: false, // true for 465, false for other ports
     auth: {
       user: 'goodoldmap@gmail.com',
-      pass: 'Goodoldmap123', // Use environment variables to keep this secure
+      pass: 'ebro wnec snzf fcqt',
     },
   });
 
