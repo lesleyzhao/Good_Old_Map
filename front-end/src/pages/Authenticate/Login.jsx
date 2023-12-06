@@ -117,7 +117,7 @@ const Login = () => {
           }
         `}
        </style>
-      <AuthHeader header="Login" message={message}/>
+      <AuthHeader header="Login" message={loginMessage}/>
       <form ref={formRef} onSubmit = {handleLogin}>
         <FormInputs fields={fields} />
         <div className='mt-2'>
