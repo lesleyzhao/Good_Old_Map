@@ -117,22 +117,6 @@ const AccountEdit = (props) => {
     }
   }
 
-  // route /forgetpassword
-  // TODO: user id
-  const sentForgetPwEmail = async (evt) => {
-    try {
-      const requestData = getFormData()
-      requestData["userID"] = "1234"
-      const response = await axiosProvider.post(
-        "/forgetpassword",
-        requestData,
-      )
-      closePopup()
-    } catch (error) {
-      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
-      setMessage(errorMessage);
-    }
-  }
 
   // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
@@ -206,13 +190,6 @@ const AccountEdit = (props) => {
                 {id:"password", name:"password", type:"password", placeholder:"password"}],
       buttons: [{value:"Discard", handleClick: closePopup},
                 {value:"Confirm", handleClick: confirmResetEmail}],
-    },
-    "forgotPassword": {
-      link: "Forget Password",
-      title: "Forget Password",
-      inputs: [{id:"email", name:"email", type:"text", placeholder:"email"}],
-      buttons: [{value:"Discard", handleClick: closePopup},
-                {value: "Send Email", handleClick: sentForgetPwEmail}],
     },
     "changePassword": {
       link: "Change Password",

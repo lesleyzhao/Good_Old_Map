@@ -1,19 +1,18 @@
 import nodemailer from 'nodemailer';
 
 const sendRecoveryEmail = async (email, token) => {
-  // Create a transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: 'smtp.example.com', 
+    host: 'smtp.gmail.com', // Gmail SMTP server
     port: 587, 
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'your-email@example.com', // Your email
-      pass: 'your-password', // Your email password or app-specific password
+      user: 'goodoldmap@gmail.com',
+      pass: 'ebro wnec snzf fcqt',
     },
   });
 
   let mailOptions = {
-    from: '"Your App Name" <your-email@example.com>', // Sender address
+    from: '"The GoodOldMap" <goodoldmap@gmail.com>', // Your verified sender email address
     to: email, // Receiver email
     subject: 'Password Recovery', // Subject line
     text: `Please use the following token to recover your password in 1h: ${token}`, // Plain text body
