@@ -1,3 +1,4 @@
+//to-do add recovery page, now we only send token to client's email
 import User from '../models/User.mjs';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
