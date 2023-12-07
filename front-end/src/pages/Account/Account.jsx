@@ -224,7 +224,8 @@ const AccountEdit = (props) => {
     setCurrentActionData(null)
   }
 
-  console.log("Component render, current username:", username);
+  // console.log("Component render, current username:", username);
+
   //Return the AccountEdit component
   return (
     <>

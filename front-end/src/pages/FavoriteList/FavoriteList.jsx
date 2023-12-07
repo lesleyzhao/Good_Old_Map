@@ -42,8 +42,7 @@ const FavoriteList = () => {
   return (
     <>
       <NavBar>
-        <div className="flex justify-start items-center gap-3">
-          <LeftBtn/>
+        <div className="w-full text-center">
           <h2>My Favorite Arts</h2>
         </div>
       </NavBar>

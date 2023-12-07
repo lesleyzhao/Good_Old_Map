@@ -4,48 +4,47 @@ import { useEffect, useState } from "react";
 import PopupSearch from "./popupSearch";
 import TimeRange from '../../components/timeline/TimeRange.jsx';
 import { format, setYear, endOfYear } from 'date-fns';
-import InfoCard from "../../components/map/InfoCard.jsx";
 
 //timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);
 const timelineInterval = [getSpecificYear(1000), endOfYear(getSpecificYear(2020))];
-
 
 const MapLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [searchPage, setSearchPage] = useState(false) // display search page or not
   const [searchData, setSearchData] = useState("") // content that user typed in bar
-  // subject to changes
-  // data necessary to search for art object (time & location)
-  // {location:[lng, lat] (or city), time: num}
-  const [foundData, setFoundData] = useState({location:[],timeRange:[1920, 1940]})
-  const [refreshPopup, setRefreshPopup] = useState(0) // change counter to refresh popup, 0 to close popup
-
-  //timeline
+  // States related to send request to backend
+  // Data required to search for art object (time & location)
+  // {location:[lng, lat], timeRange: [startYear, endYaer], artInfo: "str"}
+  const [foundData, setFoundData] = useState({location:[], timeRange:[1920, 1940], artInfo:""})
+  // Counter to refresh popup page: 0 - close, positive - search by click, positive - search by type
+  const [refreshPopup, setRefreshPopup] = useState(0)
+  // timeline
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
+
+  // timeline error handler
   const errorHandler = ({ error }) => setError(error);
-
-
+  
+  // change timeline upon user interaction
   const onChangeCallback = (newInterval) => {
     setSelectedInterval(newInterval);
     setFoundData(prevData => ({
       ...prevData,
       timeRange: [format(newInterval[0], "yyyy"),format(newInterval[1], "yyyy")]
     }));
+    setRefreshPopup(prev => prev > 0 ? prev+1 : (prev < 0 ? prev-1 : prev));
   };
-
-
+  
+  // display search page if user is in search page
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
   }, [])
 
-
-  // submit search result
+  // update user input data to searchData state. Display search page if necessary
   const handleSubmit = (evt) => {
     evt.stopPropagation()
-    // send data via react Context to SearchMap
     if (evt.target.value) {
       setSearchData(evt.target.value)
       if (location.pathname === "/") {
@@ -60,7 +59,7 @@ const MapLayout = () => {
     }
   }
   
-  // navigate back to home page
+  // navigate back to home page upon click back btn
   const handleClickBack = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
@@ -68,7 +67,7 @@ const MapLayout = () => {
     searchPage && setSearchPage(false)
     setRefreshPopup(0)
   }
-  // navigate to search page
+  // navigate to search page upon click search btn
   const handleClickSearch = (evt) => {
     evt.stopPropagation()
     evt.preventDefault()
