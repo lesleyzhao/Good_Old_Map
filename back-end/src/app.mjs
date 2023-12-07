@@ -4,6 +4,7 @@ import path from 'path';
 import multer from "multer";
 import cors from 'cors';
 import dotenv from 'dotenv';
+import "dotenv/config"
 import morgan from 'morgan';
 import session from 'express-session';
 import mongoose from 'mongoose';  
