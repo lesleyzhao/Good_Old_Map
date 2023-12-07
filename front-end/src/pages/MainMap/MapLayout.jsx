@@ -17,7 +17,7 @@ const MapLayout = () => {
   // States related to send request to backend
   // Data required to search for art object (time & location)
   // {location:[lng, lat], timeRange: [startYear, endYaer], artInfo: "str"}
-  const [foundData, setFoundData] = useState({location:[], timeRange:[1920, 1940], artInfo:"str"})
+  const [foundData, setFoundData] = useState({location:[], timeRange:[1920, 1940], artInfo:""})
   // Counter to refresh popup page: 0 - close, positive - search by click, positive - search by type
   const [refreshPopup, setRefreshPopup] = useState(0)
   // timeline
