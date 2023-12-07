@@ -41,13 +41,13 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 // cors
 const corsOptions = {
   credentials: true,
-  // origin: process.env.CLIENT_URL,
-  origin: 'http://10.16.183.83:5173',
+  origin: process.env.CLIENT_URL.replace(/\/$/, ""),
+  // origin: 'http://10.19.137.49:5173/',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
 
-
+console.log(process.env.CLIENT_URL);
 // Connect to MongoDB
 // mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 //   .then(() => {
