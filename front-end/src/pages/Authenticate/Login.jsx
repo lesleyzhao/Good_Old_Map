@@ -40,12 +40,7 @@ const Login = () => {
   
       // Stores the token and user data in localStorage upon successful login
       localStorage.setItem('token', response.data.accessToken);
-      const userData = {
-        uuid: response.data.user.uuid,
-        name: response.data.user.name,
-        email: response.data.user.email
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify(response.data.user));
   
       setLoginMessage("Login successful!"); // Sets a success message
       navigate("/"); // Navigates to the home page or dashboard

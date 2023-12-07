@@ -22,7 +22,6 @@ const AccountEdit = (props) => {
   const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
   const [username, setUsername] = useState(storedUserData.name || 'John Doe');
   const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
-  // console.log(storedUserData.email)
 
   // Set username and email on the screen
   useEffect(() => {
@@ -63,12 +62,7 @@ const AccountEdit = (props) => {
 
       if(response?.data?.user){
         setUsername(response.data.user.name);
-        const userData = {
-          uuid: response.data.user.uuid,
-          name: response.data.user.name,
-          email: response.data.user.email
-        };
-        localStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user', JSON.stringify(response.data.user))
         // localStorage.setItem('username', response.data.user.name);
         
       }else{
@@ -100,12 +94,7 @@ const AccountEdit = (props) => {
 
       if(response?.data?.user){
         setEmail(response.data.user.email);
-        const userData = {
-          uuid: response.data.user.uuid,
-          name: response.data.user.name,
-          email: response.data.user.email
-        };
-        localStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user', JSON.stringify(response.data.user))
       }else{
         console.log("Error!!!!!");
       }
