@@ -22,7 +22,6 @@ const AccountEdit = (props) => {
   const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
   const [username, setUsername] = useState(storedUserData.name || 'John Doe');
   const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
-  // console.log(storedUserData.email)
 
   // Set username and email on the screen
   useEffect(() => {
@@ -63,12 +62,7 @@ const AccountEdit = (props) => {
 
       if(response?.data?.user){
         setUsername(response.data.user.name);
-        const userData = {
-          uuid: response.data.user.uuid,
-          name: response.data.user.name,
-          email: response.data.user.email
-        };
-        localStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user', JSON.stringify(response.data.user))
         // localStorage.setItem('username', response.data.user.name);
         
       }else{
@@ -100,12 +94,7 @@ const AccountEdit = (props) => {
 
       if(response?.data?.user){
         setEmail(response.data.user.email);
-        const userData = {
-          uuid: response.data.user.uuid,
-          name: response.data.user.name,
-          email: response.data.user.email
-        };
-        localStorage.setItem('user', JSON.stringify(userData))
+        localStorage.setItem('user', JSON.stringify(response.data.user))
       }else{
         console.log("Error!!!!!");
       }
@@ -117,22 +106,6 @@ const AccountEdit = (props) => {
     }
   }
 
-  // route /forgetpassword
-  // TODO: user id
-  const sentForgetPwEmail = async (evt) => {
-    try {
-      const requestData = getFormData()
-      requestData["userID"] = "1234"
-      const response = await axiosProvider.post(
-        "/forgetpassword",
-        requestData,
-      )
-      closePopup()
-    } catch (error) {
-      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
-      setMessage(errorMessage);
-    }
-  }
 
   // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
@@ -207,13 +180,6 @@ const AccountEdit = (props) => {
       buttons: [{value:"Discard", handleClick: closePopup},
                 {value:"Confirm", handleClick: confirmResetEmail}],
     },
-    "forgotPassword": {
-      link: "Forget Password",
-      title: "Forget Password",
-      inputs: [{id:"email", name:"email", type:"text", placeholder:"email"}],
-      buttons: [{value:"Discard", handleClick: closePopup},
-                {value: "Send Email", handleClick: sentForgetPwEmail}],
-    },
     "changePassword": {
       link: "Change Password",
       title: "Change Password",
@@ -247,7 +213,8 @@ const AccountEdit = (props) => {
     setCurrentActionData(null)
   }
 
-  console.log("Component render, current username:", username);
+  // console.log("Component render, current username:", username);
+
   //Return the AccountEdit component
   return (
     <>

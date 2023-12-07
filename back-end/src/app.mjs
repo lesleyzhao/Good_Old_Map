@@ -1,18 +1,16 @@
 import express from 'express';
 import url from 'url';
 import path from 'path';
-// middlewares
 import multer from "multer";
-import bcrypt from 'bcryptjs';
 import cors from 'cors';
-import "dotenv/config";
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session';
 import mongoose from 'mongoose';  
 import { body, validationResult }  from 'express-validator';
 import jwt from 'jsonwebtoken';
-
+import passport from 'passport'
+import CustomJwtStrategy from './config/jwt-config.mjs';
 // routes
 import loginRouter from './routes/loginRouter.mjs';
 import registerRouter from './routes/registerRouter.mjs';
@@ -22,13 +20,11 @@ import delaccountRouter from './routes/delaccountRouter.mjs';
 import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
-import searchRouter from './routes/searchRouter.mjs';
-
+import searchArtsRouter from './routes/searchArtsRouter.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
-import { configDotenv } from 'dotenv';
-const app = express();
 
+const app = express();
 
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev"));
@@ -67,7 +63,11 @@ app.use(session({
 }))
 console.log('Session secret:', process.env.SESSION_SECRET);
 
-// other middlewares
+// jwt strategy
+passport.use(CustomJwtStrategy)
+
+// initialize passport
+app.use(passport.initialize())
 
 // routes that does not need authentication
 // app.post("/getpiece", getpieceRouter);
@@ -102,21 +102,19 @@ const passwordValidationRules = [
     // Optionally, include checks for special characters or uppercase letters
 ];
 
-
-
 // routes that needs authentication
 // Account routes
 app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //Finished
 app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
-app.post("/forgetpassword", forgetpasswordRouter);
+app.post("/forget", forgetpasswordRouter);
 app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
 app.delete("/delaccount", delaccountRouter); //Finished 
 
 // Favorites list routes 
 app.post('/addFavorite', addFavListRouter);//finished
 app.get('/getfavlist', favListRouter);
-app.post('/getArts', getArts);//finished
-app.get('/search', searchRouter);
+app.get('/getArts', getArts);//finished
+app.get('/searchArts', searchArtsRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 
 // export the express app we created to make it available to other modules

@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   __v: {
     type: Number // Number type for the version key
   }
-});
+})
 
 const User = model('User', userSchema,'users');
 export default User;

@@ -13,30 +13,45 @@ const PopupSearch = (props) => {
   const location = useLocation()
 
   useEffect(() => {
-    async function getData() {
-      const postData = {
+    // request to "searchArts" route
+    async function searchArtsData() {
+      const getData = {
+        artInfo: props.foundData.artInfo,
+        timeRange: props.foundData.timeRange
+      }
+      console.log(getData)
+      try {
+        const res = await axiosProvider.get(
+          "/searchArts", 
+          { params: getData }
+        )
+        setArts(res.data);
+      } catch (error) {
+        console.error(err);
+      }
+    }
+    
+    // request to "/getArts" route
+    async function getArtsData() {
+      const getData = {
         location: props.foundData.location,
         timeRange: props.foundData.timeRange
       };
-      const postOptions = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
       try {
-        const res = await axiosProvider.post(
+        const res = await axiosProvider.get(
           "/getArts",
-          JSON.stringify(postData),
-          postOptions
+          { params: getData }
         );
-        const retData = res.data;
-        setArts(retData);
+        setArts(res.data);
       } catch (err) {
         console.error(err);
       }
     }
-    if (props.refreshPopup) getData();
-  }, [props.refreshPopup, props.foundData]);
+
+    if (props.refreshPopup > 0) getArtsData()
+    else if (props.refreshPopup < 0) searchArtsData()
+  }, [props.refreshPopup]);
+
 
   const handleArtItemClick = (art) => {
     navigate('/info',{ state: { from: location.pathname, art }  }); // Passing art object in state
