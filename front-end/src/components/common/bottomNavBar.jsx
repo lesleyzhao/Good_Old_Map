@@ -16,9 +16,7 @@ const BottomNavBar = () => {
       navigate("/account", { state: { from: location.pathname } });
     }else{
       navigate("/accountLog", { state: { from: location.pathname } });
-    }
-    
-    
+    }    
   }
   return (
     <>

@@ -6,7 +6,7 @@ import FormBtn from '../../components/form/formBtn';
 const LocationMarker = ({ map }) => {
   const markerRef = useRef(null);
   const infoWindowRef = useRef(null);
-  const [, , setFoundData, setRefreshPopup] = useOutletContext();
+  const [setFoundData, setRefreshPopup] = useOutletContext();
 
   const handleLookupClick = () => {
     console.log('Look up clicked!');

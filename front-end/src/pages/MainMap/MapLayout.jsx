@@ -1,6 +1,5 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { useRef, useState } from "react";
 import PopupSearch from "./popupSearch";
 import TimeRange from '../../components/timeline/TimeRange.jsx';
 import { format, setYear, endOfYear } from 'date-fns';
@@ -10,17 +9,13 @@ const getSpecificYear = (year) => setYear(new Date(), year);
 const timelineInterval = [getSpecificYear(1000), endOfYear(getSpecificYear(2020))];
 
 const MapLayout = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [searchPage, setSearchPage] = useState(false) // display search page or not
-  const [searchData, setSearchData] = useState("") // content that user typed in bar
+  const searchRef = useRef(null)
   // States related to send request to backend
-  // Data required to search for art object (time & location)
-  // {location:[lng, lat], timeRange: [startYear, endYaer], artInfo: "str"}
+  // Data required to search for art object: {location:[lng, lat], timeRange: [startYear, endYaer], artInfo: "str"}
   const [foundData, setFoundData] = useState({location:[], timeRange:[1920, 1940], artInfo:""})
   // Counter to refresh popup page: 0 - close, positive - search by click, positive - search by type
   const [refreshPopup, setRefreshPopup] = useState(0)
-  // timeline
+  // Timeline
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
 
@@ -36,64 +31,33 @@ const MapLayout = () => {
     }));
     setRefreshPopup(prev => prev > 0 ? prev+1 : (prev < 0 ? prev-1 : prev));
   };
-  
-  // display search page if user is in search page
-  useEffect(() => {
-    if (location.pathname === "/search") !searchPage && setSearchPage(true)
-  }, [])
 
-  // update user input data to searchData state. Display search page if necessary
-  const handleSubmit = (evt) => {
-    evt.stopPropagation()
-    if (evt.target.value) {
-      setSearchData(evt.target.value)
-      if (location.pathname === "/") {
-        navigate("/search", { state: { from: location.pathname } });
-        !searchPage && setSearchPage(true)
-      }
-    }
-    else {
-      navigate("/", { state: { from: location.pathname } });
-      searchPage && setSearchPage(false)
-      setSearchData("")
-    }
+  // handle search by input bar
+  const updateSearch = () => {
+    setFoundData(prev => ({
+      ...prev,
+      artInfo: searchRef.current.value
+    }))
+    setRefreshPopup(prev => prev<=0 ? prev-1 : -1)
   }
-  
-  // navigate back to home page upon click back btn
-  const handleClickBack = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
-    navigate("/", { state: { from: location.pathname } });
-    searchPage && setSearchPage(false)
-    setRefreshPopup(0)
-  }
-  // navigate to search page upon click search btn
-  const handleClickSearch = (evt) => {
-    evt.stopPropagation()
-    evt.preventDefault()
-    navigate("/search", { state: { from: location.pathname } });
-    !searchPage && setSearchPage(true)
-  }
+  const handleClickSearch = (evt) => updateSearch()
+  const handleEnterKey = (evt) => evt.key == "Enter" ? updateSearch() : ""
 
-  
-  
   return (
     <>
     <div className="h-[calc(100vh-6rem)] flex flex-col relative">
       <div className="h-[12rem]">
         <nav className="fixed py-[2vh] px-[10%] w-full bg-beige2 flex flex-col justify-between">
+          
           <div className="relative w-full my-1">
-            <input className={`w-full py-2 pl-10 pr-4 text-left border-solid border-2 border-navyBlue rounded-full placeholder:text-left placeholder:text-gray-400 bg-white`}
-              onInput={handleSubmit}
-              type="text" id="searchLocation" placeholder="Title/Author"/>
-
-              <div className="absolute left-1 top-1">
-                {searchPage 
-                  ? <img className="w-9 hover:cursor-pointer" onClick={handleClickBack} src="/leftbtn.png" alt="leftbtn"/>
-                  : <img className="w-9 hover:cursor-pointer" onClick={handleClickSearch} src="/search.png" alt="search"/>}
+            <input className={`w-full py-2 pl-4 pr-10 text-left border-solid border-2 border-navyBlue rounded-full placeholder:text-left placeholder:text-gray-400 bg-white`}
+              type="text" id="searchLocation" placeholder="Title/Author" ref={searchRef} onKeyUp={handleEnterKey}/>
+              <div className="absolute right-1 top-1">
+                <img className="w-9 hover:cursor-pointer" onClick={handleClickSearch} src="/search.png" alt="search"/>
               </div>
           </div>
-          <div className='mt-3 ml-5'>
+          
+          <div className='mt-1 ml-5'>
             <div className="container w-full">
               <div className="info ml-10">
                 <span className="text-xs mr-1 mb-0">Selected Interval:</span>
@@ -119,8 +83,7 @@ const MapLayout = () => {
       </div>
 
       <div className="w-full h-full">
-        <Outlet context={[searchData, foundData, setFoundData, setRefreshPopup]}/>
-        
+        <Outlet context={[setFoundData, setRefreshPopup]}/>
       </div>
       
       <PopupSearch foundData={foundData} refreshPopup={refreshPopup} setRefreshPopup={setRefreshPopup}/>
