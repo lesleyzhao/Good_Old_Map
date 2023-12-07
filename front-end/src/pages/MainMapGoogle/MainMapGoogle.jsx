@@ -1,7 +1,4 @@
-import { useOutletContext } from "react-router-dom"
-import FormBtn from '../../components/form/formBtn';
 import InfoCard from '../../components/map/InfoCard';
-import countries from '../../util/data/countries.json'
 
 import React, { useState, useEffect, useRef } from 'react';
 import LocationMarker from '../MainMapGoogle/LocationMarker';

@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AccountEdit from './pages/Account/Account';
 import MainMap from './pages/MainMap/MainMap';
-import SearchMap from './pages/MainMap/SearchMap';
 import Login from './pages/Authenticate/Login';
 import Register from './pages/Authenticate/Register';
 import Error from './pages/Error/Error';
@@ -23,7 +22,6 @@ const App = () => {
             
             <Route element={<MapLayout />}>
               <Route path="/" element={<MainMap />} />
-              <Route path="/search" element={<SearchMap />} />
             </Route>
             
             <Route element={<AuthLayout />}>
