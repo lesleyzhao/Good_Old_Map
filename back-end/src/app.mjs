@@ -114,7 +114,7 @@ app.delete("/delaccount", delaccountRouter); //Finished
 // Favorites list routes 
 app.post('/addFavorite', addFavListRouter);//finished
 app.get('/getfavlist', favListRouter);
-app.post('/getArts', getArts);//finished
+app.get('/getArts', getArts);//finished
 app.get('/searchArts', searchArtsRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 

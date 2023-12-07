@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 
 export const getArts = async (req, res) => {
-  const { timeRange, location } = req.body;
+  const { timeRange, location } = req.query;
   console.log(location, timeRange)
 
   const startYear = parseInt(timeRange[0]);

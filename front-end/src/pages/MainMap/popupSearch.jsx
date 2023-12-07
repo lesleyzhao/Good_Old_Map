@@ -23,7 +23,7 @@ const PopupSearch = (props) => {
       try {
         const res = await axiosProvider.get(
           "/searchArts", 
-          { params: getData}
+          { params: getData }
         )
         setArts(res.data);
       } catch (error) {
@@ -33,20 +33,14 @@ const PopupSearch = (props) => {
     
     // request to "/getArts" route
     async function getArtsData() {
-      const postData = {
+      const getData = {
         location: props.foundData.location,
         timeRange: props.foundData.timeRange
       };
-      const postOptions = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
       try {
-        const res = await axiosProvider.post(
+        const res = await axiosProvider.get(
           "/getArts",
-          JSON.stringify(postData),
-          postOptions
+          { params: getData }
         );
         setArts(res.data);
       } catch (err) {
