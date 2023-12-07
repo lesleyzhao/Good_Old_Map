@@ -14,12 +14,13 @@ What we Accomplished:
  - ✅ Front-end and Back-end Connection
  - ✅ Designed the User Authentication and Login System
  - ✅ Designed and set up database
+ - ✅ Data scalping on Art Information
+ - ✅ Better Search Function
+ - ✅ Location Tracking Across Time
 
 Current Working ON and Challenges:
-- [ ] Data scalping on Art Information on Google Culture and Arts
 - [ ] Tried to use Google Map API -> But only have limited budget
 - [ ] Location Tracking Across Time
-- [ ] Better Search Function
 - [ ] Adding Historical Border on Map
 _________________________________________________________________________________________
 
