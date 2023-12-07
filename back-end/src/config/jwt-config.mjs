@@ -26,6 +26,8 @@ const jwtVerifyToken = async function (jwt_payload, done) {
   }
 }
 
-const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerifyToken)
+const CustomJwtStrategy = () => {
+  return new JwtStrategy(jwtOptions, jwtVerifyToken)
+}
 
-export default jwtStrategy
+export default CustomJwtStrategy
