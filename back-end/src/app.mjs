@@ -18,7 +18,6 @@ import registerRouter from './routes/registerRouter.mjs';
 import changeusernameRouter from './routes/changeusernameRouter.mjs';
 import forgetpasswordRouter from './routes/forgetpasswordRouter.mjs';
 import delaccountRouter from './routes/delaccountRouter.mjs';
-import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
 import searchArtsRouter from './routes/searchArtsRouter.mjs';
@@ -42,7 +41,8 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 // cors
 const corsOptions = {
   credentials: true,
-  origin: process.env.CLIENT_URL,
+  // origin: process.env.CLIENT_URL,
+  origin: 'http://10.16.183.83:5173',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));

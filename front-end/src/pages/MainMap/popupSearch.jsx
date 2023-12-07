@@ -1,8 +1,8 @@
 import ArtItem from "../../components/art/ArtItem";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BottomSheet } from 'react-spring-bottom-sheet'
-import axiosProvider from "../../util/api/axios"
+import { BottomSheet } from 'react-spring-bottom-sheet';
+import axiosProvider from "../../util/api/axios";
 
 
 const PopupSearch = (props) => {
@@ -11,6 +11,8 @@ const PopupSearch = (props) => {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+
+
 
   useEffect(() => {
     // request to "searchArts" route
@@ -37,6 +39,8 @@ const PopupSearch = (props) => {
         location: props.foundData.location,
         timeRange: props.foundData.timeRange
       };
+      
+      
       try {
         const res = await axiosProvider.get(
           "/getArts",
