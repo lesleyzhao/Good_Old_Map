@@ -1,11 +1,21 @@
 import axios from "axios"
 
-const serverURL = import.meta.env.VITE_SERVER_URL
-
+const serverURL = import.meta.env.VITE_SERVER_URL;
+// const serverURL = "http://localhost:3000";
+console.log('Server URL:', import.meta.env );
 const axiosProvider = axios.create({
   baseURL: serverURL,
   withCredentials: true
 });
+
+// const axiosProvider = axios.create({
+//   baseURL: 'https://us-east-1.aws.data.mongodb-api.com/app/data-fzvrf/endpoint/data/v1',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Access-Control-Request-Headers': '*',
+//     'api-key': 'import.meta.env.MONGODB_API_KEY'
+//   }
+// });
 
 const axiosPrivateProvider = axios.create({
   baseURL: serverURL,

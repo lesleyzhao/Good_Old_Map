@@ -1,4 +1,13 @@
 import Artwork from '../models/Artwork.mjs';
+import axios from 'axios';
+
+const axiosMongoDB = axios.create({
+  baseURL: process.env.MONGODB_DATA_API,
+  headers: {
+    'Content-Type': 'application/json',
+    'api-key': process.env.MONGODB_API_KEY
+  }
+});
 
 const searchArtsRouter = async (req, res) => {
   // artinfo, timeRange
@@ -13,17 +22,34 @@ const searchArtsRouter = async (req, res) => {
   console.log(endYear);
 
   try {
-    console.log('Searching for artworks...');
-    const artworks = await Artwork.find({
-      Year: { $gte: startYear, $lte: endYear },
-      $or: [
-        { title: { $regex: `${artInfo}`, $options: 'i' } },
-        { artist: { $regex: `${artInfo}`, $options: 'i' } }
-      ]
-    }).limit(15);
-    console.log('Artworks found');
-    console.log(artworks);
+    // console.log('Searching for artworks...');
+    // const artworks = await Artwork.find({
+    //   Year: { $gte: startYear, $lte: endYear },
+    //   $or: [
+    //     { title: { $regex: `${artInfo}`, $options: 'i' } },
+    //     { artist: { $regex: `${artInfo}`, $options: 'i' } }
+    //   ]
+    // }).limit(15);
+    // console.log('Artworks found');
+    // console.log(artworks);
+    // return res.json(artworks);
+    const response = await axiosMongoDB.post('/action/find', {
+      collection: 'arts', // Replace with your actual artwork collection name
+      database: 'bakerdb', // Replace with your actual database name
+      dataSource: 'bakerdb', // Replace with your actual cluster name
+      filter: {
+        Year: { $gte: startYear, $lte: endYear },
+        $or: [
+          { title: { $regex: artInfo, $options: 'i' } },
+          { artist: { $regex: artInfo, $options: 'i' } }
+        ]
+      },
+      limit: 15
+    });
+
+    const artworks = response.data.documents;
     return res.json(artworks);
+
   } catch (err) {
     console.error(err); // Log the error for debugging
     return res.status(500).send('Internal Server Error');

@@ -18,7 +18,6 @@ import registerRouter from './routes/registerRouter.mjs';
 import changeusernameRouter from './routes/changeusernameRouter.mjs';
 import forgetpasswordRouter from './routes/forgetpasswordRouter.mjs';
 import delaccountRouter from './routes/delaccountRouter.mjs';
-import getpieceRouter from './routes/getpieceRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
 import searchArtsRouter from './routes/searchArtsRouter.mjs';
@@ -42,18 +41,19 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 // cors
 const corsOptions = {
   credentials: true,
-  origin: process.env.CLIENT_URL,
+  origin: process.env.CLIENT_URL.replace(/\/$/, ""),
+  // origin: 'http://10.19.137.49:5173/',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }
 app.use(cors(corsOptions));
 
-
+console.log(process.env.CLIENT_URL);
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB...');
-  })
-  .catch(err => console.error('Could not connect to MongoDB...', err));
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => {
+//     console.log('Connected to MongoDB...');
+//   })
+//   .catch(err => console.error('Could not connect to MongoDB...', err));
 
 // session to auto-save user data (like id) when they login
 app.use(session({
