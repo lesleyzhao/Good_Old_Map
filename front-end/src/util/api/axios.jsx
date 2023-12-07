@@ -1,6 +1,6 @@
 import axios from "axios"
-// TODO: store url in .env
-const serverURL = "http://localhost:3000";
+
+const serverURL = import.meta.env.VITE_SERVER_URL
 
 const axiosProvider = axios.create({
   baseURL: serverURL,
