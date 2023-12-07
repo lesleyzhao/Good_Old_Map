@@ -6,22 +6,6 @@ const SearchMap = () => {
   const [searchData, ,setFoundData, setRefreshPopup] = useOutletContext();
   const [suggestions, setSuggestions] = useState([]);
 
-  /*
-  useEffect(() => {
-    const loadSuggestions = async () => {
-      try {
-        const response = await axiosProvider.get(`/searchArts`);
-        setSuggestions(response.data);
-      } catch (error) {
-        console.error('Error fetching search suggestions', error);
-      }
-    };
-
-    if (searchData) loadSuggestions();
-    else setSuggestions([]);
-    // setRefreshPopup(0)
-  }, [searchData]);
-  */
 
   // update suggestions on every user input
   useEffect(() => {

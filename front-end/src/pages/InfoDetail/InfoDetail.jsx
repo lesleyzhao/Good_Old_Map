@@ -9,30 +9,34 @@ const InfoDetail = () => {
   const art = location.state?.art; // Accessing the art object from state
   const [wikiSummary, setWikiSummary] = useState('Loading summary...');
 
+ 
   useEffect(() => {
     const fetchWikiSummary = async () => {
+
+
       if (art?.title) {
-       
+        const titleQuery = art.artist.replace(/ /g, '_');
         try {
-          const response = await axios.get(`https://en.wikipedia.org/w/api.php`, {
+          let response = await axios.get(`https://en.wikipedia.org/w/api.php`, 
+          {
             params: {
               action: "query",
               format: "json",
-              // titles: searchQuery,
-              titles: encodeURIComponent(art.title),
+              titles: art.title,
+              // titles: encodeURIComponent(art.title),
               prop: "extracts",
               exintro: true,
               explaintext: true,
               origin: "*"
             }
           });
-
-          const pages = response.data.query.pages;
-          const page = pages[Object.keys(pages)[0]];
+  
+          let pages = response.data.query.pages;
+          let page = pages[Object.keys(pages)[0]];
           if (page.extract) {
             setWikiSummary(page.extract);
           } else {
-            setWikiSummary('Summary not available.');
+            await fetchSummaryByArtist();
           }
         } catch (error) {
           console.error("Error fetching Wikipedia summary:", error);
@@ -40,10 +44,44 @@ const InfoDetail = () => {
         }
       }
     };
+  
+    const fetchSummaryByArtist = async () => {
+      if (art?.artist) {
+        const artistQuery = art.artist.replace(/ /g, '_');
+        try {
+          const response = await axios.get(`https://en.wikipedia.org/w/api.php`, 
+          {
+            params: {
+              action: "query",
+              format: "json",
+              titles:  artistQuery,
+              prop: "extracts",
+              exintro: true,
+              explaintext: true,
+              origin: "*"
+            }
+          });
+  
+          const pages = response.data.query.pages;
+          const page = pages[Object.keys(pages)[0]];
+          if (page.extract) {
+            setWikiSummary(page.extract);
+          } else {
+            setWikiSummary('Cannot Find Page in Wiki');
+          }
+        } catch (error) {
+          console.error("Error fetching Wikipedia summary by artist:", error);
+          setWikiSummary('Error fetching summary by artist');
+        }
+      } else {
+        setWikiSummary('Artist information not available.');
+      }
+    };
+  
     console.log(encodeURIComponent(art.title));
     fetchWikiSummary();
-  }, [art?.title]);
-
+  }, [art?.title, art?.artist]);
+  
 
   return (
     <>
@@ -59,11 +97,11 @@ const InfoDetail = () => {
             <h2>{art?.title}</h2>
           </div>
           <div className="mt-4">
-            <p>{art?.Year}</p>
-            <p>{art?.artist}</p>
+            <p>Year Created: {art?.Year}</p>
+            <p>Location: {art?.location}</p>
+            <p>Artist: {art?.artist}</p><br></br>
             <p>{wikiSummary}</p>
           </div>
-          {/* Optionally include other art details here */}
         </div>
       </div>
     </>
