@@ -6,8 +6,8 @@ import NavBar from "../../components/common/navBar";
 import LeftBtn from "../../components/common/leftBtn";
 
 const ResetPassword = ({ loginMessage, handleLogin, handleGuest }) => {
-  const formRef = useRef(null); // Assuming you have useRef imported from 'react'
-  const fields = ["newPassword", "confirmPassword"]; // Fields for the form
+  const formRef = useRef(null); 
+  const fields = ["newPassword", "confirmPassword"]; 
 
   return (
     <>
