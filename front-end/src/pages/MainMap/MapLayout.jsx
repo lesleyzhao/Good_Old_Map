@@ -37,10 +37,6 @@ const MapLayout = () => {
     setRefreshPopup(prev => prev > 0 ? prev+1 : (prev < 0 ? prev-1 : prev));
   };
   
-  useEffect(() => {
-    console.log(refreshPopup)
-  }, [refreshPopup])
-  
   // display search page if user is in search page
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
