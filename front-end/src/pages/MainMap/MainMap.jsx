@@ -52,7 +52,7 @@ function LocationMarker(props) {
       ...prev,
       location: position,
     }))
-    setRefreshPopup(prev => prev+1)
+    setRefreshPopup(prev => prev >= 0 ? prev+1 : 1)
   }
 
   

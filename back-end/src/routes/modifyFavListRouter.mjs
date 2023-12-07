@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 
 export const getArts = async (req, res) => {
   const { timeRange, location } = req.body;
-  console.log(location)
+  console.log(location, timeRange)
 
   const startYear = parseInt(timeRange[0]);
   const endYear = parseInt(timeRange[1]);

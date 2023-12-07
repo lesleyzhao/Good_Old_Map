@@ -16,14 +16,15 @@ const MapLayout = () => {
   const [searchData, setSearchData] = useState("") // content that user typed in bar
   // States related to send request to backend
   // Data required to search for art object (time & location)
-  // {location:[lng, lat], timeRange: num}
-  const [foundData, setFoundData] = useState({location:[],timeRange:[1920, 1940]})
-  // Counter to refresh popup page: 0 - close popup, positive increment - refresh popup
+  // {location:[lng, lat], timeRange: [startYear, endYaer], artInfo: "str"}
+  const [foundData, setFoundData] = useState({location:[], timeRange:[1920, 1940], artInfo:"str"})
+  // Counter to refresh popup page: 0 - close, positive - search by click, positive - search by type
   const [refreshPopup, setRefreshPopup] = useState(0)
   // timeline
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
 
+  console.log(refreshPopup)
   // timeline error handler
   const errorHandler = ({ error }) => setError(error);
 
@@ -34,7 +35,7 @@ const MapLayout = () => {
       ...prevData,
       timeRange: [format(newInterval[0], "yyyy"),format(newInterval[1], "yyyy")]
     }));
-    setRefreshPopup(prev => prev+1);
+    setRefreshPopup(prev => prev*2);
   };
 
   // display search page if user is in search page

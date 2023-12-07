@@ -17,7 +17,7 @@ const LocationMarker = ({ map }) => {
       ...prev,
       location: { lat: position.lat(), lng: position.lng() }
     }));
-    setRefreshPopup(prev => prev + 1);
+    setRefreshPopup(prev => prev<=0 ? prev-1 : -1)
   };
 
   useEffect(() => {
