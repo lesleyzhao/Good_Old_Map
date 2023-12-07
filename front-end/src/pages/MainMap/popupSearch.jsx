@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import axiosProvider from "../../util/api/axios"
-import User from "../../../../back-end/src/models/User.mjs";
+
 
 const PopupSearch = (props) => {
   // foundData, setRefreshPopup, refreshPopup
@@ -37,13 +37,12 @@ const PopupSearch = (props) => {
     }
     if (props.refreshPopup) getData();
   }, [props.refreshPopup, props.foundData]);
-  
+
   const handleArtItemClick = (art) => {
-    // Navigate to the art information page
-    navigate("/info");
+    navigate('/info',{ state: { from: location.pathname, art }  }); // Passing art object in state
   };
 
-  
+
   // handle close
   useEffect(() => {
     if (props.refreshPopup) setOpen(true)
@@ -63,9 +62,9 @@ const PopupSearch = (props) => {
         onDismiss={handleClosePopup}
         snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight * 0.25]}
         defaultSnap={({ snapPoints }) => snapPoints[0]}
-          header = {
+        header={
           <>
-            <div className="mt-2"/>
+            <div className="mt-2" />
             <img className="w-2 mt-2 top-2 right-4 absolute" src="/close.png" alt="x" onClick={handleClosePopup} />
             <p>{props?.foundData["timeRange"][0]} ~ {props?.foundData["timeRange"][1]}</p>
             <p>{localStorage.getItem('userToken')}</p>
@@ -75,7 +74,7 @@ const PopupSearch = (props) => {
 
         <div className="flex flex-row gap-8 overflow-scroll p-8">
           {arts.map((art) => (
-            <div key={art._id} onClick={(art) => handleArtItemClick(art)}>
+            <div key={art._id} onClick={() => handleArtItemClick(art)}>
               <div>
                 <ArtItem art={art} />
               </div>

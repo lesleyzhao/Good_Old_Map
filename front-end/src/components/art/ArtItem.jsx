@@ -6,56 +6,30 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axiosProvider from "../../util/api/axios"
 
-// function userIsLoggedIn() {
-//   const token = localStorage.getItem('token') || getCookie('token');
-//   console.log(token);
-//   return !!token;
-// }
 
-// Helper function to get a cookie by name
-// function getCookie(name) {
-//   const value = `; ${document.cookie}`;
-//   const parts = value.split(`; ${name}=`);
-//   if (parts.length === 2) return parts.pop().split(';').shift();
-// }
-
-const ArtItem = ({ art}) => {  
+const ArtItem = ({art}) => {  
   // Added updateFavorites prop to update parent component
   const navigate = useNavigate();
   const location = useLocation();
-  const [isFavorited, setIsFavorited] = useState(art.inFavList);
+  const [isFavorited, setIsFavorited] = useState(art.isFavorited);
 
-  const navigateToDetail = () => {
-    navigate("/info", { state: { from: location.pathname, art } });
-  };
-
-  // const toggleFavorite = async (event) => {
-  //   event.stopPropagation();
-  //   const newFavoritedState = !isFavorited;
-  //   setIsFavorited(newFavoritedState); 
-  //   const artData = {
-  //     id: art._id
-  //   };
-
-  //   try {
-  //     const response = await axiosProvider.post('/favlist/add', artData);
-  //   } catch (error) {
-  //     console.error('Error updating favorites', error);
-  //     setIsFavorited(!newFavoritedState);
+  // const navigateToDetail = (art) => {
+  //   if (art && art.id) {
+  //     navigate(`/info/${art.title}`);
+  //   } else {
+  //     console.error("Art data is missing");
   //   }
   // };
+  const navigateToDetail = (art) => {
+    navigate('/info', { state: { from: location.pathname, art }  }); // Passing art object in state
+  };
 
   const toggleFavorite = async (event) => {
     event.stopPropagation();
   
-    // if (!userIsLoggedIn()) {
-    //   console.log('Please login first to activate this function');
-    //   return;
-    // }
     const artData = {
       id: art._id
     };
-    console.log(artData);
   
     try {
       const response = await axiosProvider.post('/addFavorite', artData);
@@ -64,11 +38,13 @@ const ArtItem = ({ art}) => {
       console.error('Error updating favorites', error);
     }
   };
+
   
 
   return (
     <>
-      <Card onClick={navigateToDetail} >
+      <Card onClick={() => navigateToDetail(art)}>
+        {/* onClick={navigateToDetail} art={art} */}
 
         <img className="w-[70vw] max-w-[20rem] max-h-[20rem] overflow-hidden object-cover rounded-t-md" src={art.url} alt={art.name} />
         <p className='absolute bottom-[0.15rem] left-[0.18rem] rounded-xl px-1
@@ -92,8 +68,4 @@ const ArtItem = ({ art}) => {
 
 export default ArtItem;
 
-
-
-// TODO:
-// - if login -> get the favlist -> chack if in favlist -> if yes -> filled
-// - 
+ 

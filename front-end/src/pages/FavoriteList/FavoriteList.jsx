@@ -29,15 +29,15 @@ const FavoriteList = () => {
 
   const sortArts = (criteria) => {
     if (criteria === "title") {
-      setArts(prevArts => [...prevArts].sort((a, b) => a.name.localeCompare(b.name)));
+      setArts(prevArts => [...prevArts].sort((a, b) => a.title.localeCompare(b.title)));
     } else if (criteria === "Year") {
-      setArts(prevArts => [...prevArts].sort((a, b) => a.year - b.year));
+      setArts(prevArts => [...prevArts].sort((a, b) => a.Year - b.Year));
     }
   }
 
-  const handleArtItemClick = (artId) => {
+  const handleArtItemClick = (art) => {
     // Navigate to the art information page
-    navigate("/info", { state: { from: location.pathname } });
+    navigate('/info', { state: { from: location.pathname, art }  }); 
   };
   return (
     <>
@@ -51,24 +51,25 @@ const FavoriteList = () => {
         <div className="text-center space-x-8 my-3">
           <button
             className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
-            onClick={() => sortArts("name")}>
+            onClick={() => sortArts("title")}>
             Sort by Name
           </button>
           <button
             className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
-            onClick={() => sortArts("year")}>
+            onClick={() => sortArts("Year")}>
             Sort by Year
           </button>
         </div>
 
 
-        <div className='mt-5'>
+        <div className='mt-5 overflow-scroll p-8 flex-row'>
           {arts.map((art) => (
-            <div key={art._id} onClick={() => handleArtItemClick(art.id)}>
+            <div key={art._id} onClick={() => handleArtItemClick(art)}>
               <ArtItem art={art}/>
             </div>
           ))}
         </div>
+
       </div>
     </>
 

@@ -7,7 +7,6 @@ import mongoose from 'mongoose';
 
 export const getArts = async (req, res) => {
   const { timeRange, location } = req.body;
-  console.log(location)
 
   const startYear = parseInt(timeRange[0]);
   const endYear = parseInt(timeRange[1]);
@@ -16,9 +15,9 @@ export const getArts = async (req, res) => {
     const artworks = await Artwork.find({
       Year: { $gte: startYear, $lte: endYear },
       geoLocation: {
-        $near: { 
-          $geometry: { 
-            type: "Point", 
+        $near: {
+          $geometry: {
+            type: "Point",
             coordinates: [location[1], location[0]]
           }
         }
@@ -39,7 +38,7 @@ export const getArts = async (req, res) => {
 
 
 export const favListRouter = async (req, res) => {
-  
+
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Authorization token is missing" });
   }
@@ -47,23 +46,30 @@ export const favListRouter = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const userID = decoded.id;
-  
+
   try {
 
-    const user = await User.findOne({ uuid: userID }); 
+    const user = await User.findOne({ uuid: userID });
 
-      if (!user) {
-          return res.status(404).send({ message: 'User not found' });
-      }
-      console.log(user.favorites);
-      const favorites = await Artwork.find({
-          '_id': { $in: user.favorites }
-      });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    console.log(user.favorites);
+    const favorites = await Artwork.find({
+      '_id': { $in: user.favorites }
+    });
 
-      res.status(200).send(favorites);
+    const favoritesWithFlag = favorites.map(artwork => {
+      return {
+        ...artwork._doc, // Spread the existing artwork properties
+        isFavorited: true // Set isFavorited to true
+      };
+    });
+
+    res.status(200).send(favoritesWithFlag);
   } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: 'Internal server error' });
+    console.error(error);
+    res.status(500).send({ message: 'Internal server error' });
   }
 };
 
@@ -80,20 +86,20 @@ export const addFavListRouter = async (req, res) => {
   const userID = decoded.id;
   const artID = req.body;
   const objectId = mongoose.Types.ObjectId(artID);
-  console.log('uuid',userID);
+
+
   try {
 
-    const user = await User.findOne({ uuid: userID });  
+    const user = await User.findOne({ uuid: userID });
     if (!user) {
       return res.status(404).send('User not found');
     }
 
-    let isFavorited;
     const index = user.favorites.findIndex(fav => fav.toString() === objectId.toString());
+    let isFavorited;
+    // console.log(index);
 
-    console.log(index);
-
-    console.log(user.favorites);
+    // console.log(user.favorites);
     if (index > -1) {
       user.favorites.splice(index, 1);
       isFavorited = false;
@@ -101,11 +107,15 @@ export const addFavListRouter = async (req, res) => {
       user.favorites.push(objectId);
       isFavorited = true;
     }
+    const favorites = await Artwork.find({
+      '_id': { $in: user.favorites }
+    });
 
-
+    
     await user.save();
-    console.log(user.favorites);
+
     res.status(200).json({ message: 'Favorites updated', isFavorited });
+    // res.status(200).send(favoritesWithFlag);
   } catch (error) {
     console.error('Error updating favorites', error);
     res.status(500).send('Error updating favorites');
@@ -114,4 +124,4 @@ export const addFavListRouter = async (req, res) => {
 
 
 
-export default { addFavListRouter,favListRouter, getArts };
+export default { addFavListRouter, favListRouter, getArts };
