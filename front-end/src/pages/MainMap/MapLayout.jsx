@@ -24,10 +24,9 @@ const MapLayout = () => {
   const [selectedInterval, setSelectedInterval] = useState([getSpecificYear(1920), getSpecificYear(1940)]);
   const [error, setError] = useState(false);
 
-  console.log(refreshPopup)
   // timeline error handler
   const errorHandler = ({ error }) => setError(error);
-
+  
   // change timeline upon user interaction
   const onChangeCallback = (newInterval) => {
     setSelectedInterval(newInterval);
@@ -35,9 +34,13 @@ const MapLayout = () => {
       ...prevData,
       timeRange: [format(newInterval[0], "yyyy"),format(newInterval[1], "yyyy")]
     }));
-    setRefreshPopup(prev => prev*2);
+    setRefreshPopup(prev => prev > 0 ? prev+1 : (prev < 0 ? prev-1 : prev));
   };
-
+  
+  useEffect(() => {
+    console.log(refreshPopup)
+  }, [refreshPopup])
+  
   // display search page if user is in search page
   useEffect(() => {
     if (location.pathname === "/search") !searchPage && setSearchPage(true)
