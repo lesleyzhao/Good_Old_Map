@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import Logo from "./Logo"
+import Logo from "./logo"
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
@@ -16,9 +16,7 @@ const BottomNavBar = () => {
       navigate("/account", { state: { from: location.pathname } });
     }else{
       navigate("/accountLog", { state: { from: location.pathname } });
-    }
-    
-    
+    }    
   }
   return (
     <>
