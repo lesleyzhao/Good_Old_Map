@@ -26,7 +26,7 @@ const SearchMap = () => {
   // update suggestions on every user input
   useEffect(() => {
     // may add another route to get a list of suggestions
-    if (searchData) setSuggestions(["albert irvin"]) // random author
+    if (searchData) setSuggestions([searchData]) // random author
     else setSuggestions([])
   }, [searchData])
 
