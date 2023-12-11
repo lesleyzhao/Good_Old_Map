@@ -127,3 +127,7 @@ typings/
 ## Jekyll artifacts
 **/.jekyll-cache
 **/_site/
+
+*.swp
+**/.env
+back-end/.env
