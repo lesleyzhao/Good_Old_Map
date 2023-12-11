@@ -47,7 +47,7 @@ const Register = () => {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: blur(2px); /* Apply the blur effect */
+            filter: blur(0px); /* Apply the blur effect */
             z-index: -1; /* Ensure it's behind the content */
           }
         `}

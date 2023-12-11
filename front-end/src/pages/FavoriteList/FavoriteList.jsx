@@ -42,12 +42,12 @@ const FavoriteList = () => {
   return (
     <>
       <NavBar>
-        <div className="w-full text-center">
-          <h2>My Favorite Arts</h2>
+        <div className="mx-auto text-center">
+          <h2>My Favorite Arts 🎨</h2>
         </div>
       </NavBar>
-      <div className="max-w-[30rem] w-[80%] mx-auto flex flex-col">
-        <div className="text-center space-x-8 my-3">
+      <div className="max-w-[30rem] w-[80%] mx-auto flex flex-col ">
+        <div className="text-center space-x-8 my-4">
           <button
             className="bg-white hover:bg-beige3 hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded"
             onClick={() => sortArts("title")}>
@@ -60,15 +60,15 @@ const FavoriteList = () => {
           </button>
         </div>
 
-
-        <div className='mt-5 overflow-scroll p-8 flex-row'>
+      <div className="flex justify-center items-center min-h-screen">
+        <div className=' overflow-scroll p-5 flex-row grid grid-cols-1 gap-4'>
           {arts.map((art) => (
-            <div key={art._id} onClick={() => handleArtItemClick(art)}>
+            <div key={art._id} onClick={() => handleArtItemClick(art)} className="w-full md:w-1/2 lg:w-1/3">
               <ArtItem art={art}/>
             </div>
           ))}
         </div>
-
+      </div>
       </div>
     </>
 
