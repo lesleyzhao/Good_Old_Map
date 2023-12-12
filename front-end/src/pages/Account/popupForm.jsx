@@ -15,7 +15,7 @@ const PopupForm = forwardRef((props, ref) => {
       onClick={props.handleClick}>
       
       {/* Content Area: Does not propagate clicks to the overlay */}
-      <div className="bg-white rounded-lg shadow-xl w-[80%] max-w-[30rem]" onClick={handleContentClick}>
+      <div className="bg-white rounded-lg shadow-xl w-[80%] max-w-[20rem]" onClick={handleContentClick}>
         <div className="p-8 text-center">
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
           <p className="mb-2">{props?.message}</p>

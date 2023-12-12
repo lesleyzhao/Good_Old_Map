@@ -8,7 +8,6 @@ import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider from '../../util/api/axios';
 
-
 const AccountEdit = (props) => {
   const formRef = useRef(null);
   const navigate = useNavigate();
@@ -44,15 +43,10 @@ const AccountEdit = (props) => {
   }
 
   // Close popup
-  const closePopup = () => {
+  const closePopup = (evt) => {
+    evt?.preventDefault()
     setCurrentActionData(null)
     setMessage("")
-  }
-
-  // click to close popup
-  const handleClose = (evt) => {
-    evt.preventDefault()
-    closePopup()
   }
 
   // click to toggle avatar popup
@@ -64,8 +58,8 @@ const AccountEdit = (props) => {
   
   // Finished: route /changeusername
   const confirmChangeUsername = async (evt) => {
+    evt.preventDefault(); 
     try {
-      evt.preventDefault(); 
       const requestData = getFormData()
       const response = await axiosProvider.patch(
         "/changeusername",
@@ -86,11 +80,10 @@ const AccountEdit = (props) => {
     }
   }
 
-  
   // Finished: route /resetemail
   const confirmResetEmail = async (evt) => {
+    evt.preventDefault();
     try {
-      evt.preventDefault();
       const requestData = getFormData()
       const postOptions = {
         headers: {
@@ -118,8 +111,8 @@ const AccountEdit = (props) => {
 
   // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
+    evt.preventDefault()
     try {
-      evt.preventDefault()
       const requestData = getFormData()
       // throw failure on password double check
       if (requestData["oldPassword"] != requestData["confirmPassword"])
@@ -144,6 +137,7 @@ const AccountEdit = (props) => {
 
   // Finished: logout user
   const confirmLogOutAccount = async (evt) => {
+    evt.preventDefault()
     // Clear all local storage data
     localStorage.clear();
     navigate("/", { state: { from: location.pathname } });
@@ -151,11 +145,13 @@ const AccountEdit = (props) => {
 
   // Finished: delete account double check
   const deleteAccount = (evt) => {
+    evt.preventDefault()
     setCurrentActionData(confirmDelAccount)
   }
 
   // Finished: rout "/delaccount"
   const handleDelAccount = async (evt) => {
+    evt.preventDefault()
     const requestData = {};
     try {
       await axiosProvider.delete(
@@ -176,7 +172,7 @@ const AccountEdit = (props) => {
       link: "Change Username",
       title: "Change Username",
       inputs: [{id:"newUsername", name:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
+      buttons: [{value:"Discard", handleClick: closePopup, shade: "light"},
                 {value:"Confirm", handleClick: confirmChangeUsername}],
     },
     "changeEmail": {
@@ -184,7 +180,7 @@ const AccountEdit = (props) => {
       title: "Change Email",
       inputs: [{id:"newEmail", name:"newEmail", type:"text", placeholder:"new email"},
                 {id:"password", name:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
+      buttons: [{value:"Discard", handleClick: closePopup, shade: "light"},
                 {value:"Confirm", handleClick: confirmResetEmail}],
     },
     "changePassword": {
@@ -193,20 +189,20 @@ const AccountEdit = (props) => {
       inputs: [{id:"oldPassword", name:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"},
                 {id:"newPassword", name:"newPassword", type:"password", placeholder:"new password"}],
-      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
+      buttons: [{value:"Discard", handleClick: closePopup, shade: "light"},
                 {value:"Confirm", handleClick: confirmResetPassword}],
     },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
       buttons: [{value:"Confirm", handleClick: confirmLogOutAccount, shade: "light"},
-                {value:"Discard", handleClick: handleClose}],
+                {value:"Discard", handleClick: closePopup}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
       buttons: [{value:"Confirm", handleClick: deleteAccount, shade: "light"},
-                {value:"Discard", handleClick: handleClose}],
+                {value:"Discard", handleClick: closePopup}],
     }
   }
 
@@ -214,7 +210,7 @@ const AccountEdit = (props) => {
   const confirmDelAccount = {
     title: "This account will be gone...",
     buttons: [{value:"Confirm", handleClick: handleDelAccount, shade: "light"},
-              {value:"Discard", handleClick: handleClose}],
+              {value:"Discard", handleClick: closePopup}],
   }
 
   // console.log("Component render, current username:", username);
@@ -223,22 +219,19 @@ const AccountEdit = (props) => {
   return (
     <>
     <div className="flex flex-col">
-      <NavBar relative="1">
-        <LeftBtn />
-      </NavBar>
-
-      <div className="w-[80%] max-w-[30rem] mx-auto">
+      <div className="w-[80%] max-w-[30rem] mx-auto mt-10">
         <div className='w-full flex mb-4'>
           <div className="flex flex-col items-center p-4 m-auto">
             <div onClick={toggleUserProfile} className="w-24 h-24">
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
-            <div className="text-center">
+            <div className="text-center mt-3">
               <h2>{username}</h2>
               <span className="text-gray-400">{email}</span>
             </div>
           </div>
         </div>
+
         <h3 className='py-1'>Privacy</h3>
         {Object.keys(formData).map((key, i) => {
           return (
@@ -256,7 +249,7 @@ const AccountEdit = (props) => {
               title={currentActionData.title}
               inputs={currentActionData.inputs}
               buttons={currentActionData.buttons}
-              handleClick = {handleClose}
+              handleClick = {closePopup}
             />
           </form>
         }
