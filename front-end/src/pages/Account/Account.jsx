@@ -13,30 +13,28 @@ const AccountEdit = (props) => {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  // Form error message
   const [message, setMessage] = useState('')
-  // json content: popup data, null: close popup
-  const [currentActionData, setCurrentActionData] = useState(null);
+  // Form display
+  const [currentActionData, setCurrentActionData] = useState(null); // json content: popup data, null: close popup
+  // User profile pic display
   const [showUserProfile,  setShowUserProfile] = useState(null);
+  // User info display
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
   // Initialize username and email from localStorage
-  const storedUserData = JSON.parse(localStorage.getItem('user') || '{}');
-  const [username, setUsername] = useState(storedUserData.name || 'John Doe');
-  const [email, setEmail] = useState(storedUserData.email || 'Asdfasdfasdf@nyu.edu');
-
-  // Set username and email on the screen
   useEffect(() => {
-    const userDataString =  localStorage.getItem('user'); 
-    const userData = JSON.parse(userDataString || '{}'); // Parse JSON string
-
-    setUsername(userData.name || 'John Doe');
-    setEmail(userData.email || "Asdfasdfasdf@nyu.edu")
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    setUsername(userData.name);
+    setEmail(userData.email);
   }, []);
 
-
+  // Read input data to json
   const getFormData = () => {
     const requestData = {}
     const formData = new FormData(formRef.current)
-    console.log("Form data:", requestData);
+    // console.log("Form data:", requestData);
     formData.forEach((val, key) => {
       requestData[key] = val
       // throw failure on empty input slots
@@ -45,7 +43,7 @@ const AccountEdit = (props) => {
     return requestData
   }
 
-  // function to clost popup
+  // Close popup
   const closePopup = () => {
     setCurrentActionData(null)
     setMessage("")
@@ -74,18 +72,16 @@ const AccountEdit = (props) => {
         requestData
       )
 
-      if(response?.data?.user){
-        setUsername(response.data.user.name);
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        // localStorage.setItem('username', response.data.user.name);
-        
-      }else{
-        console.log("Error!!!!!");
-      }
+      if (!response?.data?.user) throw "Error"
+
+      setUsername(response.data.user.name);
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      // localStorage.setItem('username', response.data.user.name);
+
       closePopup()
 
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Change failed, please try again.';
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
     }
   }
@@ -107,14 +103,13 @@ const AccountEdit = (props) => {
         postOptions
       )
 
-      if(response?.data?.user){
-        setEmail(response.data.user.email);
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-      }else{
-        console.log("Error!!!!!");
-      }
+      if (!response?.data?.user) throw "Error"
+
+      setEmail(response.data.user.email);
+      localStorage.setItem('user', JSON.stringify(response.data.user))
 
       closePopup()
+
     } catch (error) {
       const errorMessage = error?.requestMessage || error.response?.data?.message || 'Change failed, please try again.';
       setMessage(errorMessage);
@@ -128,7 +123,7 @@ const AccountEdit = (props) => {
       const requestData = getFormData()
       // throw failure on password double check
       if (requestData["oldPassword"] != requestData["confirmPassword"])
-        throw {message: "Your old password does not match."}
+        throw {requestMessage: "Your old password does not match."}
       
       delete requestData["confirmPassword"]
       const response = await axiosProvider.patch(
@@ -136,11 +131,9 @@ const AccountEdit = (props) => {
         requestData
       )
 
-      if(response?.data?.user){
-        setMessage(response.data.message)
-      }else{
-        console.log("Error!!!!!");
-      }
+      if (!response?.data?.user) throw "Error"
+
+      setMessage(response.data.message)
 
       closePopup()
     } catch (error) {
@@ -149,19 +142,19 @@ const AccountEdit = (props) => {
     }
   }
 
-  // Finished
+  // Finished: logout user
   const confirmLogOutAccount = async (evt) => {
     // Clear all local storage data
     localStorage.clear();
     navigate("/", { state: { from: location.pathname } });
   }
 
-  // Finished
+  // Finished: delete account double check
   const deleteAccount = (evt) => {
     setCurrentActionData(confirmDelAccount)
   }
 
-  // Finished
+  // Finished: rout "/delaccount"
   const handleDelAccount = async (evt) => {
     const requestData = {};
     try {
@@ -177,7 +170,7 @@ const AccountEdit = (props) => {
     }
   }
 
-  //All PopupForm data
+  // All PopupForm data
   const formData = {
     "changeUsername": {
       link: "Change Username",
@@ -216,7 +209,8 @@ const AccountEdit = (props) => {
                 {value:"Discard", handleClick: handleClose}],
     }
   }
-  // double check for misconduct
+
+  // Form to double check for misclick when deleting accounut
   const confirmDelAccount = {
     title: "This account will be gone...",
     buttons: [{value:"Confirm", handleClick: handleDelAccount},
@@ -225,7 +219,7 @@ const AccountEdit = (props) => {
 
   // console.log("Component render, current username:", username);
 
-  //Return the AccountEdit component
+  // Return the AccountEdit component
   return (
     <>
     <div className="flex flex-col">
@@ -265,7 +259,8 @@ const AccountEdit = (props) => {
               handleClick = {handleClose}
             />
           </form>
-          }
+        }
+
         {showUserProfile && 
           <div onClick={toggleUserProfile}
             className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
