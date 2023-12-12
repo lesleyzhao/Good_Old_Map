@@ -45,11 +45,25 @@ const AccountEdit = (props) => {
     return requestData
   }
 
+  // function to clost popup
   const closePopup = () => {
     setCurrentActionData(null)
     setMessage("")
   }
 
+  // click to close popup
+  const handleClose = (evt) => {
+    evt.preventDefault()
+    closePopup()
+  }
+
+  // click to toggle avatar popup
+  const toggleUserProfile = (evt) => {
+    if (!showUserProfile) setShowUserProfile("userpic")
+    else setShowUserProfile(null)
+    setCurrentActionData(null)
+  }
+  
   // Finished: route /changeusername
   const confirmChangeUsername = async (evt) => {
     try {
@@ -76,6 +90,7 @@ const AccountEdit = (props) => {
     }
   }
 
+  
   // Finished: route /resetemail
   const confirmResetEmail = async (evt) => {
     try {
@@ -105,7 +120,6 @@ const AccountEdit = (props) => {
       setMessage(errorMessage);
     }
   }
-
 
   // Finished: route /resetpassword
   const confirmResetPassword = async (evt) => {
@@ -144,11 +158,11 @@ const AccountEdit = (props) => {
 
   // Finished
   const deleteAccount = (evt) => {
-    setCurrentActionData(confirmDeleteAccount)
+    setCurrentActionData(confirmDelAccount)
   }
 
   // Finished
-  const confirmDeleteAccount = async (evt) => {
+  const handleDelAccount = async (evt) => {
     const requestData = {};
     try {
       await axiosProvider.delete(
@@ -169,7 +183,7 @@ const AccountEdit = (props) => {
       link: "Change Username",
       title: "Change Username",
       inputs: [{id:"newUsername", name:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", handleClick: closePopup},
+      buttons: [{value:"Discard", handleClick: handleClose},
                 {value:"Confirm", handleClick: confirmChangeUsername}],
     },
     "changeEmail": {
@@ -177,7 +191,7 @@ const AccountEdit = (props) => {
       title: "Change Email",
       inputs: [{id:"newEmail", name:"newEmail", type:"text", placeholder:"new email"},
                 {id:"password", name:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", handleClick: closePopup},
+      buttons: [{value:"Discard", handleClick: handleClose},
                 {value:"Confirm", handleClick: confirmResetEmail}],
     },
     "changePassword": {
@@ -186,31 +200,27 @@ const AccountEdit = (props) => {
       inputs: [{id:"oldPassword", name:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"},
                 {id:"newPassword", name:"newPassword", type:"password", placeholder:"new password"}],
-      buttons: [{value:"Discard", handleClick: closePopup},
+      buttons: [{value:"Discard", handleClick: handleClose},
                 {value:"Confirm", handleClick: confirmResetPassword}],
     },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
       buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
-                {value:"Discard", handleClick: closePopup}],
+                {value:"Discard", handleClick: handleClose}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
       buttons: [{value:"Confirm", handleClick: deleteAccount},
-                {value:"Discard", handleClick: closePopup}],
+                {value:"Discard", handleClick: handleClose}],
     }
   }
-
-  const handleClose = (evt) => {
-    if(evt.target.classList.contains("popupBackground")) closePopup()
-  }
-  
-  const togglePopup = (evt) => {
-    if (!showUserProfile) setShowUserProfile("userpic")
-    else setShowUserProfile(null)
-    setCurrentActionData(null)
+  // double check for misconduct
+  const confirmDelAccount = {
+    title: "This account will be gone...",
+    buttons: [{value:"Confirm", handleClick: handleDelAccount},
+              {value:"Discard", handleClick: handleClose}],
   }
 
   // console.log("Component render, current username:", username);
@@ -226,7 +236,7 @@ const AccountEdit = (props) => {
       <div className="w-[80%] max-w-[30rem] mx-auto">
         <div className='w-full flex mb-4'>
           <div className="flex flex-col items-center p-4 m-auto">
-            <div onClick={togglePopup} className="w-24 h-24">
+            <div onClick={toggleUserProfile} className="w-24 h-24">
               <ProfilePic pic={props.pic ?? "https://picsum.photos/200"}/>
             </div>
             <div className="text-center">
@@ -257,7 +267,7 @@ const AccountEdit = (props) => {
           </form>
           }
         {showUserProfile && 
-          <div onClick={togglePopup}
+          <div onClick={toggleUserProfile}
             className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
             <PopupUserPic src={props?.pic ?? "https://picsum.photos/200"}/>
           </div>

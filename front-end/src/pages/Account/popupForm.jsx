@@ -11,7 +11,7 @@ const PopupForm = forwardRef((props, ref) => {
   return (
     // Overlay: Closes the popup when clicked
     <div 
-      className="popupBackground fixed top-0 left-0 z-[1700] w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
+      className="fixed top-0 left-0 z-[1700] w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
       onClick={props.handleClick}>
       
       {/* Content Area: Does not propagate clicks to the overlay */}
