@@ -10,31 +10,30 @@ import axiosProvider from '../../util/api/axios';
 const Login = () => {
   const [loginMessage, setLoginMessage] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  const fields = ["email", "password"];
   const formRef = useRef(null);
   const popupFormRef = useRef(null); 
   const [currentActionData, setCurrentActionData] = useState(null);
   const navigate = useNavigate();
+  const fields = ["email", "password"];
 
-  const closePopup = () => {
+  // Close popup
+  const handleClosePopup = (evt) => {
+    evt?.preventDefault()
     setCurrentActionData(null);
     setPopupMessage("");
-  };
+  }
 
   const handleLogin = async (evt) => {
     evt.preventDefault(); // Prevents the default form submission behavior
-  
+    
     const formData = new FormData(formRef.current);
     const email = formData.get('email'); // Extracts the email from the form data
     const password = formData.get('password'); // Extracts the password from the form data
-  
-    // Checks if both email and password fields are filled
-    if (!email || !password) {
-      setLoginMessage("Please fill in all input slots");
-      return;
-    }
-  
-    try {
+    
+    try {  
+      // Checks if both email and password fields are filled
+      if (!email || !password) throw {requestMessage: "Please fill in all input slots."}
+      
       // Sends a POST request to the login endpoint with email and password
       const response = await axiosProvider.post("/login", { email, password });
   
@@ -42,54 +41,84 @@ const Login = () => {
       localStorage.setItem('token', response.data.accessToken);
       localStorage.setItem('user', JSON.stringify(response.data.user));
   
-      setLoginMessage("Login successful!"); // Sets a success message
       navigate("/"); // Navigates to the home page or dashboard
+      handleClosePopup()
     } catch (error) {
       // Sets an error message if the login process fails
-      setLoginMessage(error.message || 'Login failed, please try again.');
+      setLoginMessage(error?.requestMessage || error.response?.data?.message || 'Login failed, please try again.');
     }
   };
   
-
-  const handleForgotPassword = async (evt) => {
-    const email = popupFormRef.current?.email?.value;
-    if (!email) {
-      evt.preventDefault()
-      setPopupMessage("Please enter your email.");
-      return;
-    }
-    try {
-      await axiosProvider.post("/forget", { email });
-      setPopupMessage("Reset password link sent to your email.");
-    } catch (error) {
-      setPopupMessage(error.message || 'Error sending reset password link.');
-    }
-  };
-
-  const forgotPasswordData = {
-    title: "Forgot Password",
-    inputs: [{id:"email", name:"email", type:"email", placeholder:"Enter your email"}],
-    buttons: [
-      {value: "Discard", handleClick: closePopup},
-      {value: "Submit", handleClick: handleForgotPassword}
-    ]
-  };
-
-  const handleGuest = (evt) => {
-    evt.preventDefault();
-    const continueGuest = window.confirm('Guest visit will not save your data, continue?');
-    if (continueGuest) {
-      navigate("/");
-    }
-  };
-
-
+  /* same function as click "Submit" btn, can be removed
   const handlePopupFormSubmit = (evt) => {
     evt.preventDefault();
     if (currentActionData && currentActionData.buttons[0]) {
       currentActionData.buttons[0].handleClick();
     }
   };
+  */
+
+  // Click "Forgot Password"
+  const handleForgotEmail = (evt) => {
+    evt.preventDefault()
+    setCurrentActionData(formData["forgotPasswordData"])
+    setPopupMessage("Send password reset link to the email linked to your account.")
+  }
+
+  // Click "Submit" to reset password
+  const handleResetEmail = async (evt) => {
+    evt.preventDefault()
+    try {
+      const email = popupFormRef.current?.email?.value;
+      // handle client error: user did not enter email
+      if (!email) throw {requestMessage: "Please enter your email."}
+      
+      await axiosProvider.post("/forget", { email });
+      // Remdin user to check email
+      setCurrentActionData(formData["emailSent"])
+      setPopupMessage("Reset link sent to your email. Please check your mailbox to continue.");
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Error sending reset password link.'
+      setPopupMessage(errorMessage)
+    }
+  };
+
+  // Click on "Guest Visit"
+  const handleGuest = (evt) => {
+    evt.preventDefault()
+    setCurrentActionData(formData["guestVisit"])
+    setPopupMessage("Guest visit will not save your data, continue?")
+  };
+
+  // Gest does not want to login
+  const handleGuestContiue = (evt) => {
+    evt.preventDefault()
+    navigate("/")
+    handleClosePopup()
+  }
+
+  // Popup form data
+  const formData = {
+    "forgotPasswordData": {
+      title: "Forgot Password",
+      inputs: [{id:"email", name:"email", type:"email", placeholder:"Enter your email"}],
+      buttons: [
+        {value: "Discard", handleClick: handleClosePopup},
+        {value: "Submit", handleClick: handleResetEmail}
+      ]  
+    },
+    "emailSent": {
+      title: "Email Sent",
+      buttons: [{value: "Confirm", handleClick: handleClosePopup}]
+    },
+    "guestVisit": {
+      title: "Continue as guest",
+      buttons: [
+        {value: "Confirm", handleClick: handleGuestContiue},
+        {value: "Login", handleClick: handleClosePopup}  
+      ]
+    }
+  }
 
   return(
     //<div className='bg-monet-login-pattern bg-cover w-screen h-screen bg-no-repeat'>
@@ -122,19 +151,21 @@ const Login = () => {
       </form>
       <div className='mt-2'>
         <PageLink to="/register" value="Register" />
-        <div className='w-full text-center py-2 underline'>
-          <span onClick={() => setCurrentActionData(forgotPasswordData)} style={{ cursor: 'pointer' }}>
+        <div className='w-full text-center py-2'
+          onClick={handleForgotEmail} style={{ cursor: 'pointer' }}>
+          <span className='underline'>
             Forgot Password
           </span>
         </div>
+
         {currentActionData &&
-          <form ref={popupFormRef} onSubmit={handlePopupFormSubmit} onClick={(e) => e.stopPropagation()}>
+          <form ref={popupFormRef}>
             <PopupForm 
               message={popupMessage}
               title={currentActionData.title}
               inputs={currentActionData.inputs}
               buttons={currentActionData.buttons}
-              handleClick={closePopup}
+              handleClick={handleClosePopup}
             />
           </form>
         }

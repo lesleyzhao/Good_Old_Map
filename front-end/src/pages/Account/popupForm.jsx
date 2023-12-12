@@ -18,7 +18,7 @@ const PopupForm = forwardRef((props, ref) => {
       <div className="bg-white rounded-lg shadow-xl w-[80%] max-w-[30rem]" onClick={handleContentClick}>
         <div className="p-8 text-center">
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
-          <p>{props?.message}</p>
+          <p className="mb-2">{props?.message}</p>
           <div className="space-y-4">
             <FormInputsPopup inputs={props?.inputs}/>
             <div className="flex flex-row gap-2 justify-end">
