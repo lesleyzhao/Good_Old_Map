@@ -2,7 +2,7 @@ import { FormInputsPopup } from "../../components/form/formInput";
 import { FormBtns } from "../../components/form/formBtn";
 import { forwardRef } from "react";
 
-const PopupContent = forwardRef((props, ref) => {
+const PopupForm = forwardRef((props, ref) => {
   // Function to stop propagation for clicks inside the popup content
   const handleContentClick = (e) => {
     e.stopPropagation(); // Prevents clicks within the content from closing the popup
@@ -31,4 +31,4 @@ const PopupContent = forwardRef((props, ref) => {
   );
 });
 
-export default PopupContent;
+export default PopupForm;

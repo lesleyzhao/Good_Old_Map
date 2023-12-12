@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
 import LeftBtn from "../../components/icon/leftBtn"
-import PopupContent from './popupContent';
+import PopupForm from './popupForm';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 
@@ -50,7 +50,7 @@ const AccountWithLogin = (props) => {
     setMessage("")
   }
 
-  //All PopupContent data
+  //All PopupForm data
   const formData = {
     "login":{
         link: "Login",
@@ -116,7 +116,7 @@ const AccountWithLogin = (props) => {
 
         {currentActionData &&
           <form ref = {formRef}>
-            <PopupContent 
+            <PopupForm 
               message={message}
               title={currentActionData.title}
               inputs={currentActionData.inputs}

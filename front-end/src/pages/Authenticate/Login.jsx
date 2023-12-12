@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import AuthHeader from './authHeader';
-import PopupContent from '../Account/popupContent';
+import PopupForm from '../Account/popupForm';
 import PageLink from '../../components/common/pageLink';
 import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
@@ -129,7 +129,7 @@ const Login = () => {
         </div>
         {currentActionData &&
           <form ref={popupFormRef} onSubmit={handlePopupFormSubmit} onClick={(e) => e.stopPropagation()}>
-            <PopupContent 
+            <PopupForm 
               message={popupMessage}
               title={currentActionData.title}
               inputs={currentActionData.inputs}
