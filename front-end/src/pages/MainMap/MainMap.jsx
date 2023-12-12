@@ -9,7 +9,7 @@ const MainMap = () => {
 
   return(
     <> 
-      <MapContainer className='mapContainer my-4'
+      <MapContainer className='mapContainer'
         center={[51.505, -0.09]}
         zoom={4} 
         scrollWheelZoom={false}

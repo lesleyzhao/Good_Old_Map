@@ -11,7 +11,7 @@ const LeftBtn = () => {
   }
   return (
     <>
-      <img className="w-9 h-9 hover:cursor-pointer" src="/leftbtn.png" alt="leftbtn" onClick={handleClick}/>
+      <img className="w-7 h-7 hover:cursor-pointer" src="/leftbtn.png" alt="leftbtn" onClick={handleClick}/>
     </>
   )
 }
