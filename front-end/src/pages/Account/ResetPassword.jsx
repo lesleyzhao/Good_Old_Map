@@ -3,7 +3,7 @@ import {FormInputs} from '../../components/form/formInput';
 import FormBtn  from '../../components/form/formBtn';
 import AuthHeader from '../Authenticate/authHeader';
 import NavBar from "../../components/common/navBar";
-import LeftBtn from "../../components/common/leftBtn";
+import LeftBtn from "../../components/icon/leftBtn";
 
 const ResetPassword = ({ loginMessage, handleLogin, handleGuest }) => {
   const formRef = useRef(null); 

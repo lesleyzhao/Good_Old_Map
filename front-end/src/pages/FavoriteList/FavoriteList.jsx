@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "../../components/common/navBar"
-import LeftBtn from "../../components/common/leftBtn"
+import LeftBtn from "../../components/icon/leftBtn"
 import ArtItem from "../../components/art/ArtItem.jsx"
 import axiosProvider from "../../util/api/axios"
 

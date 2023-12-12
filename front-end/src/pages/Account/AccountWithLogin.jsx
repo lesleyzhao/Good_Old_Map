@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from "../../components/common/navBar"
-import LeftBtn from "../../components/common/leftBtn"
+import LeftBtn from "../../components/icon/leftBtn"
 import PopupContent from './popupContent';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import Logo from "./Logo"
+import Logo from "../icon/logo"
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
