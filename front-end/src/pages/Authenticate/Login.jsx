@@ -103,7 +103,7 @@ const Login = () => {
       title: "Forgot Password",
       inputs: [{id:"email", name:"email", type:"email", placeholder:"Enter your email"}],
       buttons: [
-        {value: "Discard", handleClick: handleClosePopup},
+        {value: "Discard", handleClick: handleClosePopup, shade:"light"},
         {value: "Submit", handleClick: handleResetEmail}
       ]  
     },
@@ -114,8 +114,8 @@ const Login = () => {
     "guestVisit": {
       title: "Continue as guest",
       buttons: [
-        {value: "Confirm", handleClick: handleGuestContiue},
-        {value: "Login", handleClick: handleClosePopup}  
+        {value: "Confirm", handleClick: handleGuestContiue, shade:"light"},
+        {value: "Login", handleClick: handleClosePopup}
       ]
     }
   }
@@ -142,6 +142,7 @@ const Login = () => {
         `}
        </style>
       <AuthHeader header="Login" message={loginMessage}/>
+
       <form ref={formRef} onSubmit = {handleLogin}>
         <FormInputs fields={fields} />
         <div className='mt-2'>
@@ -149,13 +150,12 @@ const Login = () => {
           <FormBtn value="Guest Visit" handleClick={handleGuest} />
         </div>
       </form>
+
       <div className='mt-2'>
         <PageLink to="/register" value="Register" />
-        <div className='w-full text-center py-2'
+        <div className='w-full text-center py-2 underline'
           onClick={handleForgotEmail} style={{ cursor: 'pointer' }}>
-          <span className='underline'>
             Forgot Password
-          </span>
         </div>
 
         {currentActionData &&

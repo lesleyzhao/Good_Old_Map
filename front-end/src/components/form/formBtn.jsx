@@ -30,16 +30,17 @@ const FormBtns = (props) =>  {
   /* props: array of object (buttons)
     {"value": "str",
      "handleClick": function
+     "shade": light (optional)
     }
   */
   return (
     props?.buttons?.map((button, i) => {
-      if (button?.value === "Discard") return (
-        <LightFormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
-      )
-      else return(
-        <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
-      )
+      if (button?.shade === "light") {
+        return <LightFormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
+      }
+      else {
+        return <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
+      }
     })
   )
 }

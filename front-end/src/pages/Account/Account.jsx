@@ -176,7 +176,7 @@ const AccountEdit = (props) => {
       link: "Change Username",
       title: "Change Username",
       inputs: [{id:"newUsername", name:"newUsername", type:"text", placeholder:"new username"}],
-      buttons: [{value:"Discard", handleClick: handleClose},
+      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
                 {value:"Confirm", handleClick: confirmChangeUsername}],
     },
     "changeEmail": {
@@ -184,7 +184,7 @@ const AccountEdit = (props) => {
       title: "Change Email",
       inputs: [{id:"newEmail", name:"newEmail", type:"text", placeholder:"new email"},
                 {id:"password", name:"password", type:"password", placeholder:"password"}],
-      buttons: [{value:"Discard", handleClick: handleClose},
+      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
                 {value:"Confirm", handleClick: confirmResetEmail}],
     },
     "changePassword": {
@@ -193,19 +193,19 @@ const AccountEdit = (props) => {
       inputs: [{id:"oldPassword", name:"oldPassword", type:"password", placeholder:"old password"},
                 {id:"confirmPassword", name:"confirmPassword", type:"password", placeholder:"confirm password"},
                 {id:"newPassword", name:"newPassword", type:"password", placeholder:"new password"}],
-      buttons: [{value:"Discard", handleClick: handleClose},
+      buttons: [{value:"Discard", handleClick: handleClose, shade: "light"},
                 {value:"Confirm", handleClick: confirmResetPassword}],
     },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
-      buttons: [{value:"Confirm", handleClick: confirmLogOutAccount},
+      buttons: [{value:"Confirm", handleClick: confirmLogOutAccount, shade: "light"},
                 {value:"Discard", handleClick: handleClose}],
     },
     "deleteAccount": {
       link: "Delete Account",
       title: "You will not be able to recover this account",
-      buttons: [{value:"Confirm", handleClick: deleteAccount},
+      buttons: [{value:"Confirm", handleClick: deleteAccount, shade: "light"},
                 {value:"Discard", handleClick: handleClose}],
     }
   }
@@ -213,7 +213,7 @@ const AccountEdit = (props) => {
   // Form to double check for misclick when deleting accounut
   const confirmDelAccount = {
     title: "This account will be gone...",
-    buttons: [{value:"Confirm", handleClick: handleDelAccount},
+    buttons: [{value:"Confirm", handleClick: handleDelAccount, shade: "light"},
               {value:"Discard", handleClick: handleClose}],
   }
 
