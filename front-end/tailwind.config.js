@@ -21,7 +21,7 @@ export default {
       backgroundImage: {
         'monet-login-pattern': "url('/field.jpg')",
         'monet-register-pattern': "url('/sunset.jpg')"
-      },
+      }
     },
   },
   plugins: [],

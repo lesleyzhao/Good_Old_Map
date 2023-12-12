@@ -7,16 +7,10 @@ const BottomNavBar = () => {
   
   
   const handleClickHeart = (evt) => {
-    evt.stopPropagation()
     navigate("/favoritelist", { state: { from: location.pathname } })
   }
   const handleClickUser = (evt) => {
-    evt.stopPropagation()
-    if(localStorage.getItem('token') != null){
-      navigate("/account", { state: { from: location.pathname } });
-    }else{
-      navigate("/accountLog", { state: { from: location.pathname } });
-    }    
+    navigate("/account", { state: { from: location.pathname } });
   }
   // fixed bottom navbar - height : 4vh+1.75rem
   return (

@@ -10,7 +10,7 @@ import AppLayout from './AppLayout';
 import AuthLayout from './pages/Authenticate/AuthLayout';
 import AccountWithLogin from './pages/Account/AccountWithLogin';
 import ResetPassword from './pages/Account/ResetPassword';
-import Unauthorized from './pages/Error/Unauthorized';
+import PrivateRoute from './pages/Private/PrivateRoute';
 
 import MapLayout from './pages/MainMap/MapLayout';
 const App = () => {
@@ -32,14 +32,15 @@ const App = () => {
             
             {/* TODO: add params: /info/:pieceInfo */}
             <Route path="/info" element={<InfoDetail/>}/>
-
-            <Route path="/favoritelist" element={<FavoriteList />}/>
-            <Route path="/account" element={<AccountEdit />} />
             
             <Route path="/accountLog" element={<AccountWithLogin />} />
             <Route path="/*" element={<Error />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
             
+            <Route element={<PrivateRoute />}>
+              <Route path="/favoritelist" element={<FavoriteList />}/>
+              <Route path="/account" element={<AccountEdit />} />
+            </Route>
           </Route>
           
         </Routes>
