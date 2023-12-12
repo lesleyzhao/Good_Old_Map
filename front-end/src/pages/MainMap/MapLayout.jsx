@@ -45,7 +45,7 @@ const MapLayout = () => {
 
   return (
     <>
-    {/* height: screen size - bottom navbar height */}
+    {/* height: screen size - bottom nav bar height */}
     <div className="h-[calc(100vh-4vh-1.75rem)] flex flex-col relative">
       <div className="h-[14rem]">
         <nav className="fixed py-[5vh] px-[10%] w-full bg-beige1 flex flex-col justify-between ">

@@ -18,6 +18,7 @@ const BottomNavBar = () => {
       navigate("/accountLog", { state: { from: location.pathname } });
     }    
   }
+  // fixed bottom navbar - height : 4vh+1.75rem
   return (
     <>
       <nav className="z-[1500] flex fixed bottom-0 py-[2vh] px-[10%] w-full bg-beige1">
