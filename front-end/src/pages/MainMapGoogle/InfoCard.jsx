@@ -5,7 +5,6 @@ import { useState } from "react";
 const InfoCard = (props) => {
   const [isHidden, setHidden] = useState(false);
   
-
   const handleCancelClick = () => {
     setHidden(true);
   };

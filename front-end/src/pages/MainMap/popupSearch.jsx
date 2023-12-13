@@ -13,8 +13,6 @@ const PopupSearch = (props) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-
-
   useEffect(() => {
     // request to "searchArts" route
     async function searchArtsData() {
