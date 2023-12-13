@@ -1,4 +1,4 @@
-import { FormInputsPopup } from "../../components/form/formInput";
+import { FormInputsDetail } from "../../components/form/formInput";
 import { FormBtns } from "../../components/form/formBtn";
 import { forwardRef } from "react";
 
@@ -20,7 +20,7 @@ const PopupForm = forwardRef((props, ref) => {
           <h3 className="text-lg font-bold mb-4 text-center">{props?.title}</h3>
           <p className="mb-2">{props?.message}</p>
           <div className="space-y-4">
-            <FormInputsPopup inputs={props?.inputs}/>
+            <FormInputsDetail inputs={props?.inputs}/>
             <div className="flex flex-row gap-2 justify-end">
               <FormBtns buttons={props?.buttons}/>
             </div>

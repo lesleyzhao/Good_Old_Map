@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
-import NavBar from "../../components/common/navBar"
-import LeftBtn from "../../components/icon/leftBtn"
 import PopupForm from './popupForm';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
 import axiosProvider, { axiosPrivateProvider } from '../../util/api/axios';
+import getFormData from '../../util/helper/getFormData';
 
 const AccountEdit = (props) => {
   const formRef = useRef(null);
@@ -35,21 +34,6 @@ const AccountEdit = (props) => {
     else setShowUserProfile(null)
     setCurrentActionData(null)
   }
-    
-  /** *************************** Helper Functions *************************** */
-
-  // Read input data to json
-  const getFormData = () => {
-    const requestData = {}
-    const formData = new FormData(formRef.current)
-    // console.log("Form data:", requestData);
-    formData.forEach((val, key) => {
-      requestData[key] = val
-      // throw failure on empty input slots
-      if (!val) throw {requestMessage:"Please fill in all input slots"}
-    })
-    return requestData
-  }
 
   // Close popup
   const closePopup = (evt) => {
@@ -63,7 +47,7 @@ const AccountEdit = (props) => {
   const confirmChangeUsername = async (evt) => {
     evt.preventDefault(); 
     try {
-      const requestData = getFormData()
+      const requestData = getFormData(formRef)
       const response = await axiosPrivateProvider.patch(
         "/changeusername",
         requestData
@@ -73,7 +57,6 @@ const AccountEdit = (props) => {
 
       setUsername(response.data.user.name);
       localStorage.setItem('user', JSON.stringify(response.data.user))
-      // localStorage.setItem('username', response.data.user.name);
 
       closePopup()
 
@@ -87,7 +70,7 @@ const AccountEdit = (props) => {
   const confirmResetEmail = async (evt) => {
     evt.preventDefault();
     try {
-      const requestData = getFormData()
+      const requestData = getFormData(formRef)
       const postOptions = {
         headers: {
           'Content-Type': 'application/json'
@@ -116,7 +99,7 @@ const AccountEdit = (props) => {
   const confirmResetPassword = async (evt) => {
     evt.preventDefault()
     try {
-      const requestData = getFormData()
+      const requestData = getFormData(formRef)
       // throw failure on password double check
       if (requestData["oldPassword"] != requestData["confirmPassword"])
         throw {requestMessage: "Your old password does not match."}
@@ -147,7 +130,7 @@ const AccountEdit = (props) => {
   const handleResetEmail = async (evt) => {
     evt.preventDefault()
     try {
-      const requestData = getFormData()
+      const requestData = getFormData(formRef)
             
       await axiosProvider.post(
         "/forget", 

@@ -8,8 +8,7 @@ import InfoDetail from './pages/InfoDetail/InfoDetail';
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import AppLayout from './AppLayout';
 import AuthLayout from './pages/Authenticate/AuthLayout';
-import AccountWithLogin from './pages/Account/AccountWithLogin';
-import ResetPassword from './pages/Account/ResetPassword';
+import ResetPassword from './pages/Authenticate/ResetPassword';
 import PrivateRoute from './pages/Private/PrivateRoute';
 
 import MapLayout from './pages/MainMap/MapLayout';
@@ -29,13 +28,11 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>
+            <Route path="/resetpassword" element={<ResetPassword />} />
             
             {/* TODO: add params: /info/:pieceInfo */}
             <Route path="/info" element={<InfoDetail/>}/>
-            
-            <Route path="/accountLog" element={<AccountWithLogin />} />
             <Route path="/*" element={<Error />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
             
             <Route element={<PrivateRoute />}>
               <Route path="/favoritelist" element={<FavoriteList />}/>
