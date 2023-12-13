@@ -5,7 +5,7 @@ import LeftBtn from "../../components/icon/leftBtn";
 import AuthHeader from './authHeader';
 import { FormInputsDetail } from '../../components/form/formInput';
 // helper
-import getFormData from "../../util/hooks/getFormData"
+import getFormData from "../../util/helper/getFormData"
 
 const ResetPassword = () => {
   const formRef = useRef(null)

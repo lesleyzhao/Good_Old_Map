@@ -7,7 +7,7 @@ import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
 // helper
 import axiosProvider from '../../util/api/axios';
-import getFormData from '../../util/hooks/getFormData';
+import getFormData from '../../util/helper/getFormData';
 
 const Login = () => {
   const [loginMessage, setLoginMessage] = useState("");

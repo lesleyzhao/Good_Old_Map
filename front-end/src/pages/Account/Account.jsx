@@ -6,7 +6,7 @@ import ProfilePic from "./profilePic"
 import PopupUserPic from "./popupUserPic";
 // helper
 import axiosProvider, { axiosPrivateProvider } from '../../util/api/axios';
-import getFormData from '../../util/hooks/getFormData';
+import getFormData from '../../util/helper/getFormData';
 
 const AccountEdit = (props) => {
   const formRef = useRef(null);
