@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthHeader from './authHeader';
 import PopupForm from '../Account/popupForm';
 import PageLink from '../../components/common/pageLink';
 import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
-import { useNavigate } from 'react-router-dom';
+// helper
 import axiosProvider from '../../util/api/axios';
+import getFormData from '../../util/hooks/getFormData';
 
 const Login = () => {
   const [loginMessage, setLoginMessage] = useState("");
@@ -27,16 +29,14 @@ const Login = () => {
   const handleLogin = async (evt) => {
     evt.preventDefault(); // Prevents the default form submission behavior
     
-    const formData = new FormData(formRef.current);
-    const email = formData.get('email'); // Extracts the email from the form data
-    const password = formData.get('password'); // Extracts the password from the form data
-    
     try {  
-      // Checks if both email and password fields are filled
-      if (!email || !password) throw {requestMessage: "Please fill in all input slots."}
-      
+      const postData = getFormData(formRef)
+
       // Sends a POST request to the login endpoint with email and password
-      const response = await axiosProvider.post("/login", { email, password });
+      const response = await axiosProvider.post(
+        "/login",
+        postData
+      )
   
       // Stores the token and user data in localStorage upon successful login
       localStorage.setItem('token', response.data.accessToken);
@@ -60,13 +60,15 @@ const Login = () => {
   // Request route /forgetpassword
   const handleResetEmail = async (evt) => {
     evt.preventDefault()
+
     try {
-      const email = popupFormRef.current?.email?.value;
-      // handle client error: user did not enter email
-      if (!email) throw {requestMessage: "Please enter your email."}
+      const postData = getFormData(popupFormRef)
       
-      await axiosProvider.post("/forgetpassword", { email });
-      // Remdin user to check email
+      await axiosProvider.post(
+        "/forgetpassword",
+        postData);
+      
+      // Remind user to check email
       setCurrentActionData(formData["emailSent"])
       setPopupMessage("Reset link sent to your email. Please check your mailbox to continue.");
     } catch (error) {

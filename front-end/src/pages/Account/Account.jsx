@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import PopupForm from './popupForm';
-import ProfilePic from "../../components/user/profilePic"
+import ProfilePic from "./profilePic"
 import PopupUserPic from "./popupUserPic";
+// helper
 import axiosProvider, { axiosPrivateProvider } from '../../util/api/axios';
-import getFormData from '../../util/helper/getFormData';
+import getFormData from '../../util/hooks/getFormData';
 
 const AccountEdit = (props) => {
   const formRef = useRef(null);

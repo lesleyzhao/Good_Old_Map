@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useRef, useState } from "react";
+import { format, setYear, endOfYear } from 'date-fns';
 import PopupSearch from "./popupSearch";
 import TimeRange from '../../components/timeline/TimeRange.jsx';
-import { format, setYear, endOfYear } from 'date-fns';
 
 //timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);

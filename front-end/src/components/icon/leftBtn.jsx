@@ -7,7 +7,7 @@ const LeftBtn = () => {
   const handleClick = (evt) => {
     evt.stopPropagation();
     evt.preventDefault();
-    navigate(location?.state?.from, { state: { from: location.pathname } });
+    navigate(location?.state?.from);
   }
   return (
     <>

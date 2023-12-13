@@ -1,6 +1,6 @@
+import { forwardRef } from "react";
 import { FormInputsDetail } from "../../components/form/formInput";
 import { FormBtns } from "../../components/form/formBtn";
-import { forwardRef } from "react";
 
 const PopupForm = forwardRef((props, ref) => {
   // Function to stop propagation for clicks inside the popup content

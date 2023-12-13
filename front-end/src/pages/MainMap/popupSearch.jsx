@@ -2,6 +2,7 @@ import ArtItem from "../../components/art/ArtItem";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BottomSheet } from 'react-spring-bottom-sheet';
+// helper
 import axiosProvider from "../../util/api/axios";
 
 

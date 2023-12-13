@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosProvider from "../../util/api/axios"
 import PageLink from '../../components/common/pageLink';
 import AuthHeader from './authHeader';
 import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
+// helper
+import axiosProvider from "../../util/api/axios"
+import getFormData from '../../util/hooks/getFormData';
 
 const Register = () => {
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
+  const formRef = useRef(null);
 
   const fields = ['username', 'email', 'password']
   
@@ -16,16 +19,13 @@ const Register = () => {
     evt.preventDefault();
     
     try {
-      const formData = {};
+      const postData = getFormData(formRef)
 
-      fields.forEach((field) => {
-        const inputData = document.getElementById(field).value
-        // Handle incomplete data
-        if (!inputData) throw {requestMessage: "Please fill in all input slots"}
-        formData[field] = inputData
-      });
+      await axiosProvider.post(
+        "/register",
+        postData
+      )
 
-      await axiosProvider.post("/register", formData);
       setMessage("")
       navigate("/login")
       
@@ -57,7 +57,7 @@ const Register = () => {
        </style>
       <AuthHeader header="Register" message={message} />
       
-      <form>
+      <form ref={formRef}>
         <FormInputs fields={fields} />
         <div className='mt-2'>
           <FormBtn handleClick={handleClick} />

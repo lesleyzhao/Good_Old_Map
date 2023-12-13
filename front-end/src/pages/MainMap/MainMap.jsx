@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'r
 import { Icon } from 'leaflet';
 import { useOutletContext } from "react-router-dom"
 import LookupBtn from '../../components/map/lookupBtn';
-import InfoCard from '../../components/map/InfoCard';
 const MainMap = () => {
   const mapRef = useRef(null)
 
