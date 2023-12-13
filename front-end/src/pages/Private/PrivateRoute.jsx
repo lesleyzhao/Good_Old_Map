@@ -1,5 +1,4 @@
 import { Outlet, useLocation, Link } from "react-router-dom"
-import PageLink from "../../components/common/pageLink";
 
 const PrivateRoute = () => {
   // TODO: update to real authorization

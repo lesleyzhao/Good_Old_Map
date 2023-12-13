@@ -122,13 +122,9 @@ export function getExpress() {
   // Account routes
   app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //Finished
   app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
-  app.post("/forget", forgetpasswordRouter);
+  app.post("/forgetpassword", forgetpasswordRouter);
   app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
   app.delete("/delaccount", delaccountRouter); //Finished
-
-  app.get("/test",async (req,res) => {
-      res.json({"status" : "Hello there!"});
-  })
 
   // Favorites list routes
   app.post("/addFavorite", addFavListRouter); //finished

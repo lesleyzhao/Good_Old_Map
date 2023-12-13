@@ -6,7 +6,7 @@ import LeftBtn from "../../components/icon/leftBtn"
 import PopupForm from './popupForm';
 import ProfilePic from "../../components/user/profilePic"
 import PopupUserPic from "./popupUserPic";
-import axiosProvider from '../../util/api/axios';
+import axiosProvider, { axiosPrivateProvider } from '../../util/api/axios';
 
 const AccountEdit = (props) => {
   const formRef = useRef(null);
@@ -29,6 +29,15 @@ const AccountEdit = (props) => {
     setEmail(userData.email);
   }, []);
 
+  // Toggle avatar popup
+  const toggleUserProfile = (evt) => {
+    if (!showUserProfile) setShowUserProfile("userpic")
+    else setShowUserProfile(null)
+    setCurrentActionData(null)
+  }
+    
+  /** *************************** Helper Functions *************************** */
+
   // Read input data to json
   const getFormData = () => {
     const requestData = {}
@@ -49,19 +58,13 @@ const AccountEdit = (props) => {
     setMessage("")
   }
 
-  // click to toggle avatar popup
-  const toggleUserProfile = (evt) => {
-    if (!showUserProfile) setShowUserProfile("userpic")
-    else setShowUserProfile(null)
-    setCurrentActionData(null)
-  }
-  
-  // Finished: route /changeusername
+  /** *************************** Form Functions *************************** */
+  // Request route /changeusername
   const confirmChangeUsername = async (evt) => {
     evt.preventDefault(); 
     try {
       const requestData = getFormData()
-      const response = await axiosProvider.patch(
+      const response = await axiosPrivateProvider.patch(
         "/changeusername",
         requestData
       )
@@ -80,7 +83,7 @@ const AccountEdit = (props) => {
     }
   }
 
-  // Finished: route /resetemail
+  // Request route /resetemail
   const confirmResetEmail = async (evt) => {
     evt.preventDefault();
     try {
@@ -90,7 +93,7 @@ const AccountEdit = (props) => {
           'Content-Type': 'application/json'
         }
       }
-      const response = await axiosProvider.patch(
+      const response = await axiosPrivateProvider.patch(
         "/resetemail",
         requestData,
         postOptions
@@ -109,7 +112,7 @@ const AccountEdit = (props) => {
     }
   }
 
-  // Finished: route /resetpassword
+  // Request route /resetpassword
   const confirmResetPassword = async (evt) => {
     evt.preventDefault()
     try {
@@ -119,7 +122,7 @@ const AccountEdit = (props) => {
         throw {requestMessage: "Your old password does not match."}
       
       delete requestData["confirmPassword"]
-      const response = await axiosProvider.patch(
+      const response = await axiosPrivateProvider.patch(
         "/resetpassword",
         requestData
       )
@@ -135,7 +138,32 @@ const AccountEdit = (props) => {
     }
   }
 
-  // Finished: logout user
+  // Side effect of clicking "Forgot Password" - show message
+  const handleClickForgotPassword = () => {
+    setMessage("Send password reset link to the email linked to your account.")
+  }
+
+  // Request route /forgetpassword
+  const handleResetEmail = async (evt) => {
+    evt.preventDefault()
+    try {
+      const requestData = getFormData()
+            
+      await axiosProvider.post(
+        "/forget", 
+        requestData
+      )
+
+      // Remdin user to check email
+      setCurrentActionData(followupForm["emailSent"])
+      setMessage("Reset link sent to your email. Please check your mailbox to continue.");
+    } catch (error) {
+      const errorMessage = error?.requestMessage || error.response?.data?.message || 'Error sending reset password link.'
+      setMessage(errorMessage)
+    }
+  };
+  
+  // Logout user
   const confirmLogOutAccount = async (evt) => {
     evt.preventDefault()
     // Clear all local storage data
@@ -143,18 +171,18 @@ const AccountEdit = (props) => {
     navigate("/", { state: { from: location.pathname } });
   }
 
-  // Finished: delete account double check
+  // Double check account deletion
   const deleteAccount = (evt) => {
     evt.preventDefault()
-    setCurrentActionData(confirmDelAccount)
+    setCurrentActionData(followupForm["confirmDelAccount"])
   }
 
-  // Finished: rout "/delaccount"
+  // Request route "/delaccount"
   const handleDelAccount = async (evt) => {
     evt.preventDefault()
     const requestData = {};
     try {
-      await axiosProvider.delete(
+      await axiosPrivateProvider.delete(
         "/delaccount",
         requestData
         )
@@ -165,6 +193,15 @@ const AccountEdit = (props) => {
       setMessage(errorMessage);
     }
   }
+
+  // Click link to show popup window and invoke related functions
+  const handleClickLink = (evt, key) => {
+    evt.preventDefault()
+    setCurrentActionData(formData[key])
+    if (formData[key]?.handleClick) formData[key]?.handleClick()
+  }
+
+  /** *************************** Form Data *************************** */
 
   // All PopupForm data
   const formData = {
@@ -192,6 +229,15 @@ const AccountEdit = (props) => {
       buttons: [{value:"Discard", handleClick: closePopup, shade: "light"},
                 {value:"Confirm", handleClick: confirmResetPassword}],
     },
+    "forgotPasswordData": {
+      link: "Forgot Password",
+      title: "Forgot Password",
+      inputs: [{id:"email", name:"email", type:"email", placeholder:"Enter your email"}],
+      buttons: [
+        {value: "Discard", handleClick: closePopup, shade:"light"},
+        {value: "Submit", handleClick: handleResetEmail}],
+      handleClick: handleClickForgotPassword
+    },
     "logout": {
       link: "Log Out",
       title: "Log out of this account",
@@ -206,19 +252,24 @@ const AccountEdit = (props) => {
     }
   }
 
-  // Form to double check for misclick when deleting accounut
-  const confirmDelAccount = {
-    title: "This account will be gone...",
-    buttons: [{value:"Confirm", handleClick: handleDelAccount, shade: "light"},
-              {value:"Discard", handleClick: closePopup}],
+  // Follow-up forms to confrim information
+  const followupForm = {
+    "confirmDelAccount": { // form to double check for misclick when deleting accounut
+      title: "This account will be gone...",
+      buttons: [{value:"Confirm", handleClick: handleDelAccount, shade: "light"},
+                {value:"Discard", handleClick: closePopup}],
+    },
+    "emailSent": {
+      title: "Email Sent",
+      buttons: [{value: "Confirm", handleClick: closePopup}]
+    },
   }
-
-  // console.log("Component render, current username:", username);
 
   // Return the AccountEdit component
   return (
     <>
     <div className="flex flex-col">
+      {/* User Information */}
       <div className="w-[80%] max-w-[30rem] mx-auto mt-10">
         <div className='w-full flex mb-4'>
           <div className="flex flex-col items-center p-4 m-auto">
@@ -232,16 +283,18 @@ const AccountEdit = (props) => {
           </div>
         </div>
 
+        {/* Links and Forms */}
         <h3 className='py-1'>Privacy</h3>
         {Object.keys(formData).map((key, i) => {
           return (
             <div className='w-full p-2 border-b border-navyBlue hover:rounded-md hover:border-none hover:bg-white hover:cursor-pointer' key={i}>
-              <p onClick={() => setCurrentActionData(formData[key])}>{formData[key]["link"]}</p>
+              <p onClick={(evt) => handleClickLink(evt, key)}>{formData[key]["link"]}</p>
             </div>
           )
           }
         )}
 
+        {/* Form Popup */}
         {currentActionData &&
           <form ref = {formRef}>
             <PopupForm 
@@ -249,11 +302,12 @@ const AccountEdit = (props) => {
               title={currentActionData.title}
               inputs={currentActionData.inputs}
               buttons={currentActionData.buttons}
-              handleClick = {closePopup}
+              closePopup = {closePopup}
             />
           </form>
         }
 
+        {/* Avatar Popup */}
         {showUserProfile && 
           <div onClick={toggleUserProfile}
             className='popupBackground fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>

@@ -23,6 +23,7 @@ const Login = () => {
     setPopupMessage("");
   }
 
+  // Request route /login
   const handleLogin = async (evt) => {
     evt.preventDefault(); // Prevents the default form submission behavior
     
@@ -48,24 +49,15 @@ const Login = () => {
       setLoginMessage(error?.requestMessage || error.response?.data?.message || 'Login failed, please try again.');
     }
   };
-  
-  /* same function as click "Submit" btn, can be removed
-  const handlePopupFormSubmit = (evt) => {
-    evt.preventDefault();
-    if (currentActionData && currentActionData.buttons[0]) {
-      currentActionData.buttons[0].handleClick();
-    }
-  };
-  */
 
-  // Click "Forgot Password"
+  // Display popup when click Forgot Password
   const handleForgotEmail = (evt) => {
     evt.preventDefault()
     setCurrentActionData(formData["forgotPasswordData"])
     setPopupMessage("Send password reset link to the email linked to your account.")
   }
 
-  // Click "Submit" to reset password
+  // Request route /forgetpassword
   const handleResetEmail = async (evt) => {
     evt.preventDefault()
     try {
@@ -73,7 +65,7 @@ const Login = () => {
       // handle client error: user did not enter email
       if (!email) throw {requestMessage: "Please enter your email."}
       
-      await axiosProvider.post("/forget", { email });
+      await axiosProvider.post("/forgetpassword", { email });
       // Remdin user to check email
       setCurrentActionData(formData["emailSent"])
       setPopupMessage("Reset link sent to your email. Please check your mailbox to continue.");
@@ -83,7 +75,7 @@ const Login = () => {
     }
   };
 
-  // Click on "Guest Visit"
+  // Display popup when click Guest Visit
   const handleGuest = (evt) => {
     evt.preventDefault()
     setCurrentActionData(formData["guestVisit"])

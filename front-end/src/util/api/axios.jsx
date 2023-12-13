@@ -1,22 +1,14 @@
 import axios from "axios"
 
 const serverURL = import.meta.env.VITE_SERVER_URL;
-// const serverURL = "http://localhost:3000";
-console.log('Server URL:', import.meta.env );
+
+// Axios for public routes (general art information)
 const axiosProvider = axios.create({
   baseURL: serverURL,
   withCredentials: true
 });
 
-// const axiosProvider = axios.create({
-//   baseURL: 'https://us-east-1.aws.data.mongodb-api.com/app/data-fzvrf/endpoint/data/v1',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Access-Control-Request-Headers': '*',
-//     'api-key': 'import.meta.env.MONGODB_API_KEY'
-//   }
-// });
-
+// Axios for private routes (sensitive user information)
 const axiosPrivateProvider = axios.create({
   baseURL: serverURL,
   withCredentials: true
@@ -31,8 +23,7 @@ const authInterceptor = config => {
   return config;
 };
 
-// Adding the interceptor to axios instances
-axiosProvider.interceptors.request.use(authInterceptor);
+// Add the interceptor to axios instances
 axiosPrivateProvider.interceptors.request.use(authInterceptor);
 
 export default axiosProvider;
