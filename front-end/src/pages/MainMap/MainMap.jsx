@@ -2,14 +2,13 @@ import { useState, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { Icon } from 'leaflet';
 import { useOutletContext } from "react-router-dom"
-import LookupBtn from '../../components/map/lookupBtn';
-import InfoCard from '../../components/map/InfoCard';
+import LookupBtn from './lookupBtn';
 const MainMap = () => {
   const mapRef = useRef(null)
 
   return(
     <> 
-      <MapContainer className='mapContainer my-4'
+      <MapContainer className='mapContainer'
         center={[51.505, -0.09]}
         zoom={4} 
         scrollWheelZoom={false}

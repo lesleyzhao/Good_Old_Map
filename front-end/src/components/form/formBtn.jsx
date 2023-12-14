@@ -3,12 +3,25 @@ const FormBtn = (props) => {
   return (
     <div className="w-full py-2">
       <button className="rounded-lg py-2 w-full
-      border-solid border-2 border-navyBlue bg-navyBlue text-beige1
+        border-solid border-2 border-navyBlue bg-navyBlue text-beige1
         hover:cursor-pointer
         active:cursor-pointer active:bg-white active:text-navyBlue"
-      onClick={props?.handleClick}>
+        onClick={props?.handleClick}>
           {props?.value ?? "Submit"}
         </button>
+    </div>
+  )
+}
+
+const LightFormBtn = (props) => {
+  return (
+    <div className="w-full py-2">
+      <button className="rounded-lg py-2 w-full
+       border-solid border-2 border-navyBlue bg-white text-navyBlue
+        hover:cursor-pointer active:cursor-pointer"
+      onClick={props?.handleClick}>
+          {props?.value ?? "Submit"}
+      </button>
     </div>
   )
 }
@@ -17,28 +30,20 @@ const FormBtns = (props) =>  {
   /* props: array of object (buttons)
     {"value": "str",
      "handleClick": function
+     "shade": light (optional)
     }
   */
   return (
     props?.buttons?.map((button, i) => {
-      if (button?.value === "Discard") {
-        return (
-          <div className="w-full py-2" key={i}>
-            <button className="rounded-lg py-2 w-full
-             border-solid border-2 border-navyBlue bg-white text-navyBlue
-              hover:cursor-pointer active:cursor-pointer"
-            onClick={props?.handleClick}>
-                {button?.value ?? "Submit"}
-            </button>
-          </div>
-        )
+      if (button?.shade === "light") {
+        return <LightFormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
       }
-      else return(
-        <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
-      )
+      else {
+        return <FormBtn handleClick={button?.handleClick} value = {button?.value} key = {i}/>
+      }
     })
   )
 }
 
 export default FormBtn
-export {FormBtns}
+export {LightFormBtn, FormBtns}

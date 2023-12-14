@@ -1,4 +1,4 @@
-import InfoCard from '../../components/map/InfoCard';
+import InfoCard from './InfoCard';
 
 import React, { useState, useEffect, useRef } from 'react';
 import LocationMarker from '../MainMapGoogle/LocationMarker';

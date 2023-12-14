@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useRef, useState } from "react";
+import { format, setYear, endOfYear } from 'date-fns';
 import PopupSearch from "./popupSearch";
 import TimeRange from '../../components/timeline/TimeRange.jsx';
-import { format, setYear, endOfYear } from 'date-fns';
 
 //timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);
@@ -45,7 +45,8 @@ const MapLayout = () => {
 
   return (
     <>
-    <div className="h-[calc(100vh-6rem)] flex flex-col relative">
+    {/* height: screen size - bottom nav bar height */}
+    <div className="h-[calc(100vh-4vh-1.75rem)] flex flex-col relative">
       <div className="h-[14rem]">
         <nav className="fixed py-[5vh] px-[10%] w-full bg-beige1 flex flex-col justify-between ">
           
@@ -85,7 +86,7 @@ const MapLayout = () => {
       <div className="w-full h-full">
         <Outlet context={[setFoundData, setRefreshPopup]}/>
       </div>
-      
+
       <PopupSearch foundData={foundData} refreshPopup={refreshPopup} setRefreshPopup={setRefreshPopup}/>
       
     </div>
