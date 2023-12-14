@@ -2,11 +2,11 @@ import passportJWT from "passport-jwt";
 import User from "../models/User.mjs";
 
 const ExtractJwt = passportJWT.ExtractJwt
-const JwtStrategy = passportJWT.ExtractJwt
+const Strategy = passportJWT.Strategy
 
 // how the token is extracted and verified from the request
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"), //fromAuthHeaderAsBearerToken()
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), //fromAuthHeaderWithScheme("jwt")
   secretOrKey: process.env.JWT_SECRET,
 }
 
@@ -18,16 +18,13 @@ const jwtVerifyToken = async function (jwt_payload, done) {
   // match user in database
   try {
     const user = await User.findOne({ uuid: jwt_payload.uuid })
-    if (!user) throw done(null, false)
+    if (!user) return done(null, false)
     return done(null, user)
-
   } catch (error) {
     return done(err, false, {message: error.message})
   }
 }
 
-const CustomJwtStrategy = () => {
-  return new JwtStrategy(jwtOptions, jwtVerifyToken)
-}
+const JwtStrategy = new Strategy(jwtOptions, jwtVerifyToken)
 
-export default CustomJwtStrategy
+export default JwtStrategy

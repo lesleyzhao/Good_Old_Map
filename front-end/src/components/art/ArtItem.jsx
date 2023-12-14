@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Card from '../common/card';
 // helper
-import axiosProvider from "../../util/api/axios"
+import { axiosPrivateProvider } from "../../util/api/axios"
 
 
 const ArtItem = ({art}) => {  
@@ -33,7 +33,7 @@ const ArtItem = ({art}) => {
     };
   
     try {
-      const response = await axiosProvider.post('/addFavorite', artData);
+      const response = await axiosPrivateProvider.post('/addFavorite', artData);
       setIsFavorited(response.data.isFavorited);
     } catch (error) {
       console.error('Error updating favorites', error);

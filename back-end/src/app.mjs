@@ -9,8 +9,9 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import { body } from "express-validator";
 import passport from "passport";
+// middlewares
+import JwtStrategy from "./middlewares/JwtStrategy.mjs";
 // routes
-import CustomJwtStrategy from "./middlewares/jwt-config.mjs";
 import loginRouter from "./routes/loginRouter.mjs";
 import registerRouter from "./routes/registerRouter.mjs";
 import changeusernameRouter from "./routes/changeusernameRouter.mjs";
@@ -19,7 +20,6 @@ import delaccountRouter from "./routes/delaccountRouter.mjs";
 import resetpasswordRouter from "./routes/resetpasswordRouter.mjs";
 import resetemailRouter from "./routes/resetemailRouter.mjs";
 import searchArtsRouter from "./routes/searchArtsRouter.mjs";
-
 import {
   addFavListRouter,
   favListRouter,
@@ -96,11 +96,12 @@ export function getExpress() {
   ];
 
   // jwt strategy
-  passport.use(CustomJwtStrategy);
+  passport.use(JwtStrategy)
+  app.use(passport.initialize())
 
-  // initialize passport
-  app.use(passport.initialize());
-  
+  // Authenticate private routes
+  // app.use("/auth", passport.authenticate('jwt', { session: false }))
+
   // Favorites list routes
   app.get("/getArts", getArts); //finished
   app.get("/searchArts", searchArtsRouter);
