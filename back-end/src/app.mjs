@@ -6,13 +6,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import "dotenv/config";
 import morgan from "morgan";
-import session from "express-session";
 import mongoose from "mongoose";
-import { body, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
+import { body } from "express-validator";
 import passport from "passport";
-import CustomJwtStrategy from "./config/jwt-config.mjs";
 // routes
+import CustomJwtStrategy from "./middlewares/jwt-config.mjs";
 import loginRouter from "./routes/loginRouter.mjs";
 import registerRouter from "./routes/registerRouter.mjs";
 import changeusernameRouter from "./routes/changeusernameRouter.mjs";
@@ -30,6 +28,9 @@ import {
 
 export function getExpress() {
   const app = express();
+  
+  // config environmental variables
+  dotenv.config({ silent: true });
 
   // use the morgan middleware to log all incoming http requests
   app.use(morgan("dev"));
@@ -41,7 +42,6 @@ export function getExpress() {
   // serve static files
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
   app.use("/static", express.static(path.join(__dirname, "public")));
-  dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
   // cors
   const corsOptions = {
@@ -52,8 +52,7 @@ export function getExpress() {
   };
   app.use(cors(corsOptions));
 
-  console.log(process.env.CLIENT_URL);
-  console.log("MongoDB URI: ", process.env.MONGODB_URI);
+  // console.log("MongoDB URI: ", process.env.MONGODB_URI);
 
   // Connect to MongoDB
   mongoose
@@ -65,29 +64,7 @@ export function getExpress() {
       console.log("Connected to MongoDB...");
     })
     .catch((err) => console.error("Could not connect to MongoDB...", err));
-
-  // session to auto-save user data (like id) when they login
-  app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: true,
-      cookie: { httpOnly: true, secure: process.env.NODE_ENV === "production" },
-    })
-  );
-  console.log("Session secret:", process.env.SESSION_SECRET);
-
-  // jwt strategy
-  passport.use(CustomJwtStrategy);
-
-  // initialize passport
-  app.use(passport.initialize());
-
-  // routes that does not need authentication
-  // app.post("/getpiece", getpieceRouter);
-  app.post("/register", registerRouter);
-  app.post("/login", loginRouter);
-
+  
   // Validation rules for routers
   const usernameValidationRules = [
     body("newUsername")
@@ -118,19 +95,27 @@ export function getExpress() {
     // Optionally, include checks for special characters or uppercase letters
   ];
 
-  // routes that needs authentication
-  // Account routes
-  app.patch("/changeusername", usernameValidationRules, changeusernameRouter); //Finished
-  app.patch("/resetemail", emailValidationRules, resetemailRouter); //Finished
-  app.post("/forgetpassword", forgetpasswordRouter);
-  app.patch("/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
-  app.delete("/delaccount", delaccountRouter); //Finished
+  // jwt strategy
+  passport.use(CustomJwtStrategy);
 
+  // initialize passport
+  app.use(passport.initialize());
+  
   // Favorites list routes
-  app.post("/addFavorite", addFavListRouter); //finished
-  app.get("/getfavlist", favListRouter);
   app.get("/getArts", getArts); //finished
   app.get("/searchArts", searchArtsRouter);
+  app.post("/auth/addFavorite", addFavListRouter); //finished
+  app.get("/auth/getfavlist", favListRouter);
+
+  // Account routes
+  app.post("/register", registerRouter);
+  app.post("/login", loginRouter);
+  app.patch("/auth/changeusername", usernameValidationRules, changeusernameRouter); //Finished
+  app.patch("/auth/resetemail", emailValidationRules, resetemailRouter); //Finished
+  app.post("/auth/forgetpassword", forgetpasswordRouter);
+  app.patch("/auth/resetpassword", passwordValidationRules, resetpasswordRouter); //Finished
+  app.delete("/auth/delaccount", delaccountRouter); //Finished
+
   return app;
 }
 

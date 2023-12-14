@@ -10,7 +10,7 @@ const axiosProvider = axios.create({
 
 // Axios for private routes (sensitive user information)
 const axiosPrivateProvider = axios.create({
-  baseURL: serverURL,
+  baseURL: `${serverURL}/auth`,
   withCredentials: true
 })
 
