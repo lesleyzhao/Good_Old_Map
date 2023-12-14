@@ -9,8 +9,8 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import { body } from "express-validator";
 import passport from "passport";
-// middlewares
-import JwtStrategy from "./middlewares/JwtStrategy.mjs";
+// config
+import JwtStrategy from "./config/JwtStrategy.mjs";
 // routes
 import loginRouter from "./routes/loginRouter.mjs";
 import registerRouter from "./routes/registerRouter.mjs";
