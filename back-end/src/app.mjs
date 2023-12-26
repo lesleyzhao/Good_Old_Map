@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 
 // serve static files
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-app.use("/static", express.static(path.join(__dirname, 'public')));
+app.use("/static", express.static(path.join(__dirname, 'dist')));
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // cors
@@ -47,13 +47,17 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+
+
 console.log(process.env.CLIENT_URL);
 // Connect to MongoDB
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//     console.log('Connected to MongoDB...');
-//   })
-//   .catch(err => console.error('Could not connect to MongoDB...', err));
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB...');
+  })
+  .catch(err => console.error('Could not connect to MongoDB...', err));
+
+
 
 // session to auto-save user data (like id) when they login
 app.use(session({
