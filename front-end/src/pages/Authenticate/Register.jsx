@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosProvider from "../../util/api/axios"
 import PageLink from '../../components/common/pageLink';
 import AuthHeader from './authHeader';
 import { FormInputs } from '../../components/form/formInput';
 import FormBtn from '../../components/form/formBtn';
+// helper
+import axiosProvider from "../../util/api/axios"
+import getFormData from '../../util/helper/getFormData';
 
 const Register = () => {
   const [message, setMessage] = useState('')
-  const fields = ['username', 'email', 'password']
   const navigate = useNavigate()
+  const formRef = useRef(null);
+
+  const fields = ['username', 'email', 'password']
+  
   const handleClick = async (evt) => {
     evt.preventDefault();
-
     
     try {
-      const formData = {};
-      fields.forEach((field) => {
-        const inputData = document.getElementById(field).value
-        // Handle incomplete data
-        if (!inputData) throw {requestMessage: "Please fill in all input slots"}
-        formData[field] = inputData
-      });
+      const postData = getFormData(formRef)
 
-      const response = await axiosProvider.post("/register", formData);
-      setMessage(response.data.message)
+      await axiosProvider.post(
+        "/register",
+        postData
+      )
+
+      setMessage("")
       navigate("/login")
+      
     } catch (error) {
       const errorMessage = error.requestMessage || error.response?.data?.message || 'Login failed, please try again.';
       setMessage(errorMessage)
@@ -47,18 +50,20 @@ const Register = () => {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: blur(2px); /* Apply the blur effect */
+            filter: blur(0px); /* Apply the blur effect */
             z-index: -1; /* Ensure it's behind the content */
           }
         `}
        </style>
       <AuthHeader header="Register" message={message} />
-      <form>
+      
+      <form ref={formRef}>
         <FormInputs fields={fields} />
         <div className='mt-2'>
           <FormBtn handleClick={handleClick} />
         </div>
       </form>
+
       <div className='mt-2'>
         <PageLink to="/login" value="Login" />
       </div>

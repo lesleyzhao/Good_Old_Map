@@ -20,7 +20,7 @@ const FormInputs = (props) => {
   )
 }
 
-const FormInputsPopup = (props) =>{
+const FormInputsDetail = (props) =>{
   // array of input objects (fields): type, id, placeholder
   return (
     props?.inputs?.map((input, i) => 
@@ -29,4 +29,4 @@ const FormInputsPopup = (props) =>{
 }
 
 export default FormInput
-export {FormInputs, FormInputsPopup}
+export {FormInputs, FormInputsDetail}

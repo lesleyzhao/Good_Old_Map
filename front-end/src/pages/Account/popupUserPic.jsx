@@ -1,4 +1,4 @@
-import ProfilePic from "../../components/user/profilePic"
+import ProfilePic from "./profilePic"
 const PopupUserPic = (props) => {
   // src
   return(

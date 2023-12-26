@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Card from '../common/card';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import axiosProvider from "../../util/api/axios"
+import Card from '../common/card';
+// helper
+import { axiosPrivateProvider } from "../../util/api/axios"
 
 
 const ArtItem = ({art}) => {  
@@ -32,7 +33,7 @@ const ArtItem = ({art}) => {
     };
   
     try {
-      const response = await axiosProvider.post('/addFavorite', artData);
+      const response = await axiosPrivateProvider.post('/addFavorite', artData);
       setIsFavorited(response.data.isFavorited);
     } catch (error) {
       console.error('Error updating favorites', error);
