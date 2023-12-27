@@ -43,6 +43,12 @@ export function getExpress() {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
   app.use("/static", express.static(path.join(__dirname, "public")));
 
+
+// serve static files
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+app.use("/static", express.static(path.join(__dirname, 'dist')));
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
   // cors
   const corsOptions = {
     credentials: true,
@@ -52,19 +58,21 @@ export function getExpress() {
   };
   app.use(cors(corsOptions));
 
+
   // console.log("MongoDB URI: ", process.env.MONGODB_URI);
 
-  // Connect to MongoDB
-  mongoose
-    .connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then(() => {
-      console.log("Connected to MongoDB...");
-    })
-    .catch((err) => console.error("Could not connect to MongoDB...", err));
-  
+
+
+
+console.log(process.env.CLIENT_URL);
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB...');
+  })
+  .catch(err => console.error('Could not connect to MongoDB...', err));
+
+
   // Validation rules for routers
   const usernameValidationRules = [
     body("newUsername")
@@ -94,6 +102,7 @@ export function getExpress() {
       .withMessage("Password must contain at least one letter"),
     // Optionally, include checks for special characters or uppercase letters
   ];
+
 
   // jwt strategy
   passport.use(JwtStrategy)
