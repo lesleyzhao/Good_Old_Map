@@ -34,9 +34,9 @@ const searchArtsRouter = async (req, res) => {
     // console.log(artworks);
     // return res.json(artworks);
     const response = await axiosMongoDB.post('/action/find', {
-      collection: 'arts', // Replace with your actual artwork collection name
-      database: 'bakerdb', // Replace with your actual database name
-      dataSource: 'bakerdb', // Replace with your actual cluster name
+      collection: 'arts', 
+      database: 'bakerdb', 
+      dataSource: 'bakerdb', 
       filter: {
         Year: { $gte: startYear, $lte: endYear },
         $or: [

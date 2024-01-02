@@ -46,8 +46,6 @@ const sendRecoveryEmail = async (email, token) => {
     },
   });
 
-  // The URL to your password reset page in your frontend app
-  // Replace 'your-frontend-domain.com' with your actual domain and adjust the path as needed
   const resetUrl = `http://localhost:3000/resetpassword?token=${token}`;
 
   let mailOptions = {

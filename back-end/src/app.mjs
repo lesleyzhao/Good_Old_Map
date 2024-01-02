@@ -21,6 +21,7 @@ import delaccountRouter from './routes/delaccountRouter.mjs';
 import resetpasswordRouter from './routes/resetpasswordRouter.mjs';
 import resetemailRouter from './routes/resetemailRouter.mjs';
 import searchArtsRouter from './routes/searchArtsRouter.mjs';
+import getBorderRouter from './routes/borderDataRouter.mjs';
 
 import {addFavListRouter,favListRouter, getArts} from './routes/modifyFavListRouter.mjs'
 
@@ -122,5 +123,7 @@ app.get('/getArts', getArts);//finished
 app.get('/searchArts', searchArtsRouter);
 // app.post('/favlist/remove',removeFavListRouter);
 
+
+app.get('/getBorder', getBorderRouter);
 // export the express app we created to make it available to other modules
 export default app;
