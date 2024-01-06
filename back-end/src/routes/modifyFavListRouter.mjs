@@ -50,7 +50,7 @@ export const getArts = async (req, res) => {
   const { timeRange, location } = req.query;
   const startYear = parseInt(timeRange[0]);
   const endYear = parseInt(timeRange[1]);
-  console.log(req.query);
+  // console.log(req.query);
   const filter = {
     Year: { $gte: startYear, $lte: endYear },
     geoLocation: {
@@ -65,9 +65,9 @@ export const getArts = async (req, res) => {
 
   try {
     const response = await axiosMongoDB.post('/action/find', {
-      collection: 'arts', // Replace with your collection name
-      database: 'bakerdb', // Replace with your database name
-      dataSource: 'bakerdb', // Replace with your cluster name
+      collection: 'arts', 
+      database: 'bakerdb', 
+      dataSource: 'bakerdb', 
       filter: filter,
       limit: 15
     });
@@ -113,7 +113,7 @@ export const favListRouter = async (req, res) => {
 
     // Fetch artworks from MongoDB Data API
     const artworksResponse = await axiosMongoDB.post('/action/find', {
-      collection: 'arts', // Replace with your actual artwork collection name
+      collection: 'arts', 
       database: 'bakerdb',
       dataSource: 'bakerdb',
       filter: { '_id': { $in: objectIds } }
@@ -133,31 +133,6 @@ export const favListRouter = async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 };
-
-//     const user = await User.findOne({ uuid: userID });
-
-//     if (!user) {
-//       return res.status(404).send({ message: 'User not found' });
-//     }
-//     console.log(user.favorites);
-//     const favorites = await Artwork.find({
-//       '_id': { $in: user.favorites }
-//     });
-
-//     const favoritesWithFlag = favorites.map(artwork => {
-//       return {
-//         ...artwork._doc, // Spread the existing artwork properties
-//         isFavorited: true // Set isFavorited to true
-//       };
-//     });
-
-//     res.status(200).send(favoritesWithFlag);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: 'Internal server error' });
-//   }
-// };
-
 
 
 export const addFavListRouter = async (req, res) => {

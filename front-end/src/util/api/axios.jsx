@@ -2,7 +2,9 @@ import axios from "axios"
 
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
-// Axios for public routes (general art information)
+
+console.log('Server URL:', import.meta.env );
+
 const axiosProvider = axios.create({
   baseURL: serverURL,
   withCredentials: true

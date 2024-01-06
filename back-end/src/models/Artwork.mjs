@@ -1,6 +1,3 @@
-// Import statements
-// import bcrypt from 'bcryptjs';
-
 import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;

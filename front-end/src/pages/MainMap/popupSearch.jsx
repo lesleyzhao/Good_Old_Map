@@ -39,7 +39,6 @@ const PopupSearch = (props) => {
         timeRange: props.foundData.timeRange
       };
       
-      
       try {
         const res = await axiosProvider.get(
           "/getArts",
