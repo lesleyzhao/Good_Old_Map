@@ -40,7 +40,7 @@ Thumbs.db
 #############################
 
 # Lock file so we don't bloat the git log stats
-package-lock.json
+# package-lock.json
 
 # Logs
 logs
@@ -127,3 +127,8 @@ typings/
 ## Jekyll artifacts
 **/.jekyll-cache
 **/_site/
+
+*.swp
+**/.env
+back-end/.env
+front-end/dist/*

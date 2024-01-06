@@ -13,14 +13,11 @@ import L, { Icon } from "leaflet";
 import axiosProvider from "../../util/api/axios";
 import { useOutletContext } from "react-router-dom";
 import LookupBtn from "../../components/map/lookupBtn";
-import { setYear } from "date-fns";
-
-
+import polylabel  from "polylabel";
 
 const MainMap = () => {
   const mapRef = useRef(null);
   const timeInterval = useContext(TimelineContext);
-  // const [refreshPopup, setRefreshPopup] = useState(0);
 
   const [geojsonData, setGeojsonData] = useState(null);
 
@@ -39,15 +36,11 @@ const MainMap = () => {
       try {
         // Extract the start year from the timeInterval
         const year = new Date(timeInterval[0]).getFullYear();
-        // const year = getSpecificYear(timeInterval[0]);
-        // const year = timeInterval[0].getFullYear();
         const datasetName = getDatasetName(year);
 
         const response = await axiosProvider.get("/getBorder", {
           params: { name: datasetName },
         });
-
-        console.log(response.data);
         setGeojsonData(response.data);
       } catch (error) {
         console.error("Error fetching border data:", error);
@@ -75,10 +68,8 @@ const MainMap = () => {
 
   const createLabelIcon = (labelText) => {
     return L.divIcon({
-      className: "my-custom-pin", // Custom class for styling
-      html: `<div>${labelText}</div>`,
-      iconSize: L.point(20, 20), // Size of the icon
-      iconAnchor: [0, 0], // Position of the icon
+      className: "text-sm",
+      html: `<div className="text-sm">${labelText}</div>`,
     });
   };
 
@@ -95,17 +86,19 @@ const MainMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
-        {/* {<GeoJSON data={geojsonData} />} */}
-        {geojsonData && geojsonData.features && geojsonData.features.filter((feature) => feature.properties.NAME).map((feature, index) => (
-            <React.Fragment key={index}>
-              <GeoJSON data={feature} />
-              <Marker
-                position={getCentroid(feature.geometry.coordinates)}
-                icon={createLabelIcon(feature.properties.NAME)}
-              />
-            </React.Fragment>
-          ))}
+        {geojsonData &&
+          geojsonData.features &&
+          geojsonData.features
+            .filter((feature) => feature.properties.NAME)
+            .map((feature, index) => (
+              <React.Fragment key={index}>
+                <GeoJSON data={feature} />
+                <Marker
+                  position={getCentroid(feature.geometry.coordinates)}
+                  icon={createLabelIcon(feature.properties.NAME)}
+                />
+              </React.Fragment>
+            ))}
         <LocationMarker />
       </MapContainer>
     </>
@@ -133,7 +126,6 @@ function LocationMarker(props) {
 
   // update search data upon user click "look up" btn
   const handleClick = (evt) => {
-    // TODO: center at upper side
     setFoundData((prev) => ({
       ...prev,
       location: position,

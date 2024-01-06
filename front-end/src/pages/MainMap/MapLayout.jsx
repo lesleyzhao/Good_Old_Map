@@ -4,6 +4,7 @@ import PopupSearch from "./popupSearch";
 import TimeRange from "../../components/timeline/TimeRange.jsx";
 import { format, setYear, endOfYear } from "date-fns";
 
+
 //timeline-related
 const getSpecificYear = (year) => setYear(new Date(), year);
 
@@ -69,66 +70,67 @@ const MapLayout = () => {
 
   return (
     <TimelineContext.Provider value={foundData.timeRange}>
-    <>
-      <div className="h-[calc(100vh-6rem)] flex flex-col relative">
-        <div className="h-[12rem]">
-          <nav className="fixed py-[2vh] px-[10%] w-full bg-beige2 flex flex-col justify-between">
-            <div className="relative w-full my-1">
-              <input
-                className={`w-full py-2 pl-4 pr-10 text-left border-solid border-2 border-navyBlue rounded-full placeholder:text-left placeholder:text-gray-400 bg-white`}
-                type="text"
-                id="searchLocation"
-                placeholder="Title/Author"
-                ref={searchRef}
-                onKeyUp={handleEnterKey}
-              />
-              <div className="absolute right-1 top-1">
-                <img
-                  className="w-9 hover:cursor-pointer"
-                  onClick={handleClickSearch}
-                  src="/search.png"
-                  alt="search"
+      <>
+        <div className="h-[calc(100vh-6rem)] flex flex-col relative">
+          <div className="h-[12rem]">
+            <nav className="fixed py-[2vh] px-[10%] w-full bg-beige2 flex flex-col justify-between">
+              <div className="relative w-full my-1">
+                <input
+                  className={`w-full py-2 pl-4 pr-10 text-left border-solid border-2 border-navyBlue rounded-full placeholder:text-left placeholder:text-gray-400 bg-white`}
+                  type="text"
+                  id="searchLocation"
+                  placeholder="Title/Author"
+                  ref={searchRef}
+                  onKeyUp={handleEnterKey}
                 />
-              </div>
-            </div>
-
-            <div className="mt-1 ml-5">
-              <div className="container w-full">
-                <div className="info ml-10">
-                  <span className="text-xs mr-1 mb-0">Selected Interval:</span>
-                  {selectedInterval.length === 2 && (
-                    <span className="text-xs">
-                      {format(selectedInterval[0], "yyyy")} -{" "}
-                      {format(selectedInterval[1], "yyyy")}
-                    </span>
-                  )}
+                <div className="absolute right-1 top-1">
+                  <img
+                    className="w-9 hover:cursor-pointer"
+                    onClick={handleClickSearch}
+                    src="/search.png"
+                    alt="search"
+                  />
                 </div>
-
-                <TimeRange
-                  error={error}
-                  ticksNumber={6}
-                  selectedInterval={selectedInterval}
-                  timelineInterval={timelineInterval}
-                  onUpdateCallback={errorHandler}
-                  onChangeCallback={onChangeCallback}
-                  formatTick={(ms) => format(new Date(ms), "yyyy")}
-                />
               </div>
-            </div>
-          </nav>
-        </div>
 
-        <div className="w-full h-full">
-          <Outlet context={[setFoundData, setRefreshPopup]} />
-        </div>
-        <PopupSearch
-          foundData={foundData}
-          refreshPopup={refreshPopup}
-          setRefreshPopup={setRefreshPopup}
-        />
-      </div>
+              <div className="mt-1 ml-5">
+                <div className="container w-full">
+                  <div className="info ml-10">
+                    <span className="text-xs mr-1 mb-0">
+                      Selected Interval:
+                    </span>
+                    {selectedInterval.length === 2 && (
+                      <span className="text-xs">
+                        {format(selectedInterval[0], "yyyy")} -{" "}
+                        {format(selectedInterval[1], "yyyy")}
+                      </span>
+                    )}
+                  </div>
 
-    </>
+                  <TimeRange
+                    error={error}
+                    ticksNumber={6}
+                    selectedInterval={selectedInterval}
+                    timelineInterval={timelineInterval}
+                    onUpdateCallback={errorHandler}
+                    onChangeCallback={onChangeCallback}
+                    formatTick={(ms) => format(new Date(ms), "yyyy")}
+                  />
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <div className="w-full h-full">
+            <Outlet context={[setFoundData, setRefreshPopup]} />
+          </div>
+          <PopupSearch
+            foundData={foundData}
+            refreshPopup={refreshPopup}
+            setRefreshPopup={setRefreshPopup}
+          />
+        </div>
+      </>
     </TimelineContext.Provider>
   );
 };

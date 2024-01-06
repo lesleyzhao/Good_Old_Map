@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../../components/common/navBar";
-import LeftBtn from "../../components/common/leftBtn";
+import LeftBtn from "../../components/icon/leftBtn";
 
 const InfoDetail = () => {
   const location = useLocation();

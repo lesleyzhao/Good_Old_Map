@@ -4,11 +4,13 @@ const PageLink = (props) => {
   // attributes: to, value
   const location = useLocation();
   return(
-    <div className='w-full text-center py-2 underline'>
+    <div className='w-full text-center py-2'>
       <Link 
         to={props.to}
         state={{from: location.pathname}}>
-        {props.value}
+          <span className='underline'>
+            {props.value}
+          </span>
       </Link>
     </div>
   )
